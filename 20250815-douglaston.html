@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Golf Day</title>
+<title>Douglaston Golf Outing - August 15, 2025</title>
 <link rel="stylesheet" href="styles.css" />
 <script>
 async function loadWeather() {
@@ -38,36 +38,54 @@ async function loadWeather() {
 }
 window.onload = loadWeather;
 </script>
-<style>
-.weather-block {
-  display: flex;
-  align-items: center;
-  background: #eaf4fc;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  max-width: 400px;
-}
-.weather-temp {
-  font-size: 2.5em;
-  font-weight: bold;
-  color: #2a5d84;
-  margin-right: 15px;
-}
-.weather-desc {
-  font-size: 1.1em;
-  color: #555;
-}
-</style>
 </head>
 <body>
+<header class="header-section">
   <h1>Douglaston Golf Outing</h1>
-  <section>
-    <h2>Weather Forecast</h2>
-    <div class="weather-block">
-      <div id="weather-temp" class="weather-temp">--°F</div>
-      <div id="weather-desc" class="weather-desc">Loading...</div>
-    </div>
-  </section>
+  <h2>Friday, August 15, 2025</h2>
+</header>
+<main>
+<section class="details-section">
+  <h2>Event Details</h2>
+  <p><strong>Location:</strong> Douglaston Golf Course - Douglaston, NY (<a href="https://maps.google.com/?q=Douglaston+Golf+Course" target="_blank">View on Google Maps</a>)</p>
+  <p><strong>Tee Time:</strong> 1:42 PM</p>
+  <p><strong>Arrival:</strong> 1:15 PM</p>
+  <p><strong>Greens Fee:</strong> $52/pp walking</p>
+  <p><strong>Driving Range:</strong> None</p>
+</section>
+<section class="weather-section">
+  <h2>Weather Forecast</h2>
+  <div class="weather-block">
+    <div id="weather-temp" class="weather-temp">--°F</div>
+    <div id="weather-desc" class="weather-desc">Loading...</div>
+  </div>
+</section>
+<section class="attendees-section">
+  <h2>Attendees</h2>
+  <table class="attendees-table">
+    <thead>
+      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Pickup Time</th><th>Driver / Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>John Paccione</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>Driving</td></tr>
+      <tr><td>Vacant Spot</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>-</td></tr>
+      <tr><td>Vacant Spot</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>-</td></tr>
+      <tr><td>Vacant Spot</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>-</td></tr>
+    </tbody>
+  </table>
+</section>
+<section class="notes-section">
+  <h2>Important Notes</h2>
+  <ul>
+    <li><strong>Theme:</strong> Casual Summer Golf</li>
+    <li><strong>GPS:</strong> Douglaston Golf Course, 6320 Marathon Pkwy, Douglaston, NY</li>
+    <li><strong>Arrival:</strong> Be at the club by 1:15 PM for check-in and warm-up.</li>
+    <li><strong>Green Fee:</strong> $52/pp walking.</li>
+    <li><strong>Driving Range:</strong> None at this course.</li>
+    <li><strong>Amenities:</strong> Pro Shop, small cafe at clubhouse, no lockers, beverage cart availability uncertain.</li>
+    <li><strong>Course Layout:</strong> Returns to clubhouse after 9 holes, allowing restroom break and cafe stop.</li>
+  </ul>
+</section>
+</main>
 </body>
 </html>
