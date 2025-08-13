@@ -18,19 +18,97 @@
   <p><strong>Tee Time:</strong> 1:42 PM</p>
 </section>
 
-<section>
+<section id="weather-forecast"
+         data-lat="40.7525"
+         data-lon="-73.7325"
+         data-date="2025-08-15"
+         data-tee="13:42"
+         data-tz="America/New_York">
   <h2>Weather Forecast</h2>
+
   <div class="weather-container">
     <div class="weather-summary">
-      <h3>78°F</h3>
-      <p>Sunny</p>
+      <h3 id="wx-temp">--°F</h3>
+      <p id="wx-desc">Loading…</p>
     </div>
-    <div id="weather-widget">
-      <iframe src="https://forecast7.com/en/40d76n73d74/douglaston/?unit=us" frameborder="0" width="100%" height="200" title="Douglaston NY Weather Forecast"></iframe>
+
+    <div>
+      <p><strong>Tee time:</strong> 1:42 PM</p>
+      <p><strong>Wind:</strong> <span id="wx-wind">--</span></p>
+      <p><strong>Precip chance:</strong> <span id="wx-pop">--</span></p>
+      <a class="forecast-link" id="wx-link" target="_blank" rel="noopener">
+        View full forecast
+      </a>
     </div>
   </div>
-  <p><a href="https://forecast7.com/en/40d76n73d74/douglaston/" target="_blank">View full forecast</a></p>
 </section>
+
+<script>
+(function () {
+  const el = document.getElementById('weather-forecast');
+  const lat = parseFloat(el.dataset.lat);
+  const lon = parseFloat(el.dataset.lon);
+  const date = el.dataset.date;       // YYYY-MM-DD
+  const tee = el.dataset.tee;         // HH:MM (24h)
+  const tz  = el.dataset.tz || 'America/New_York';
+
+  // nearest hour to tee time
+  const [hh, mm] = tee.split(':').map(Number);
+  const teeHour = (mm >= 30) ? (hh + 1) : hh; // round to nearest hour
+
+  const url = `https://api.open-meteo.com/v1/forecast` +
+    `?latitude=${lat}&longitude=${lon}` +
+    `&hourly=temperature_2m,precipitation_probability,weathercode,wind_speed_10m` +
+    `&temperature_unit=fahrenheit&wind_speed_unit=mph` +
+    `&timezone=${encodeURIComponent(tz)}` +
+    `&start_date=${date}&end_date=${date}`;
+
+  const descFromCode = (code) => {
+    const map = {
+      0: 'Clear',
+      1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+      45: 'Fog', 48: 'Depositing rime fog',
+      51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
+      56: 'Freezing drizzle', 57: 'Freezing drizzle',
+      61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+      66: 'Freezing rain', 67: 'Freezing rain',
+      71: 'Light snow', 73: 'Snow', 75: 'Heavy snow',
+      77: 'Snow grains',
+      80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
+      85: 'Snow showers', 86: 'Heavy snow showers',
+      95: 'Thunderstorm', 96: 'Thunderstorm w/ hail', 97: 'Thunderstorm w/ hail'
+    };
+    return map[code] || '—';
+  };
+
+  fetch(url)
+    .then(r => r.json())
+    .then(d => {
+      const { time, temperature_2m, precipitation_probability, weathercode, wind_speed_10m } = d.hourly || {};
+      if (!time) throw new Error('No hourly data');
+
+      // Find index of the rounded tee hour (local time)
+      const idx = time.findIndex(t => {
+        const h = new Date(t).getHours();
+        return h === (teeHour % 24);
+      });
+
+      const ti = Math.max(0, idx);
+      document.getElementById('wx-temp').textContent = Math.round(temperature_2m[ti]) + '°F';
+      document.getElementById('wx-desc').textContent = descFromCode(weathercode[ti]);
+      document.getElementById('wx-wind').textContent = Math.round(wind_speed_10m[ti]) + ' mph';
+      document.getElementById('wx-pop').textContent = (precipitation_probability[ti] ?? '—') + '%';
+
+      // Handy link for more details (NWS point forecast)
+      document.getElementById('wx-link').href =
+        `https://forecast.weather.gov/MapClick.php?lat=${lat}&lon=${lon}`;
+    })
+    .catch(() => {
+      document.getElementById('wx-desc').textContent = 'Forecast unavailable';
+    });
+})();
+</script>
+
 
 <section>
   <h2>Attendees</h2>
