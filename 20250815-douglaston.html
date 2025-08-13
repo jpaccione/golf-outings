@@ -11,8 +11,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
+            background-color: #f3f4f6; /* Light gray fallback background */
             color: #374151; /* Dark gray text */
+            background-image: url('https://images.unsplash.com/photo-1543877028-d3e925b4121d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Example royalty-free golf course image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Makes the background fixed while scrolling */
         }
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
@@ -60,10 +64,15 @@
         .table-auto tbody tr:hover {
             background-color: #f3f4f6; /* Hover effect */
         }
+        /* Main content container to make content readable over background image */
+        .main-content-wrapper {
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Soft shadow */
+        }
     </style>
 </head>
 <body class="p-4 sm:p-6 lg:p-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
+    <div class="max-w-4xl mx-auto rounded-xl p-6 sm:p-8 lg:p-10 main-content-wrapper">
 
         <!-- Header Section -->
         <header class="text-center mb-8 pb-4 border-b-2 border-gray-200">
@@ -71,7 +80,7 @@
         </header>
 
         <!-- Event Details Section -->
-        <div class="bg-f0fdf4 p-6 mb-8 rounded-xl" style="background-color: #f0fdf4;">
+        <div class="bg-f0fdf4 p-6 mb-8 rounded-xl">
             <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -97,7 +106,7 @@
         </div>
 
         <!-- Weather Forecast Section -->
-        <div class="bg-eff6ff p-6 mb-8 rounded-xl" style="background-color: #eff6ff;">
+        <div class="bg-eff6ff p-6 mb-8 rounded-xl">
             <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
@@ -110,7 +119,7 @@
         </div>
 
         <!-- Attendees Section -->
-        <div class="bg-f5f3ff p-6 mb-8 rounded-xl" style="background-color: #f5f3ff;">
+        <div class="bg-f5f3ff p-6 mb-8 rounded-xl">
             <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -158,7 +167,7 @@
         </div>
 
         <!-- Notes and Important Information Section -->
-        <div class="bg-fffbeb p-6 rounded-xl" style="background-color: #fffbeb;">
+        <div class="bg-fffbeb p-6 rounded-xl">
             <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -166,13 +175,13 @@
                 Important Notes
             </h2>
             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to **Douglaston Golf Course** (6320 Marathon Pkwy, Little Neck, NY 11362).</li>
-                <li><strong class="font-semibold">Arrival Time:</strong> Plan to arrive at Douglaston Golf Course by <strong>1:15 PM</strong> to allow time for check-in and warm-up.</li>
-                <li><strong class="font-semibold">Tee Time:</strong> Our tee time is <strong>1:42 PM</strong>. Please be ready at the tee box at least 10 minutes prior.</li>
-                <li><strong class="font-semibold">Green Fee:</strong> The green fee is <strong>$52 for walking</strong>, with an additional <strong>$21 per person for a golf cart</strong>.</li>
-                <li><strong class="font-semibold">Practice Facilities:</strong> Douglaston Golf Course does not have a driving range, but it does feature a **practice putting green**.</li>
-                <li><strong class="font-semibold">Course Layout:</strong> Douglaston is known for its challenging hilly terrain and scenic views.</li>
-                <li><strong class="font-semibold">Amenities:</b> The course has a pro shop and a snack bar/restaurant.</li>
+                <li><span class="font-semibold">Driving Directions:</span> Please set your GPS to <span class="font-bold">Douglaston Golf Course</span> (6320 Marathon Pkwy, Little Neck, NY 11362).</li>
+                <li><span class="font-semibold">Arrival Time:</span> Plan to arrive at Douglaston Golf Course by <span class="font-bold">1:15 PM</span> to allow time for check-in and warm-up.</li>
+                <li><span class="font-semibold">Tee Time:</span> Our tee time is <span class="font-bold">1:42 PM</span>. Please be ready at the tee box at least 10 minutes prior.</li>
+                <li><span class="font-semibold">Green Fee:</span> The green fee is <span class="font-bold">$52 for walking</span>, with an additional <span class="font-bold">$21 per person for a golf cart</span>.</li>
+                <li><span class="font-semibold">Practice Facilities:</span> Douglaston Golf Course does not have a driving range, but it does feature a <span class="font-bold">practice putting green</span>.</li>
+                <li><span class="font-semibold">Course Layout:</span> Douglaston is known for its challenging hilly terrain and scenic views.</li>
+                <li><span class="font-semibold">Amenities:</span> The course has a pro shop and a snack bar/restaurant.</li>
             </ul>
         </div>
 
@@ -194,14 +203,14 @@
             const time = outingTeeTime;
 
             let fetchUrl;
-            // Check if running in a blob: URL (like the Canvas preview)
+            // Determine the base URL for Netlify Functions.
+            // In the Canvas preview (blob: protocol), we need the absolute deployed URL.
+            // On the live Netlify site, a relative path works.
             if (window.location.protocol === 'blob:') {
-                // Construct the absolute URL for the Netlify Function in the preview
-                // This assumes your Netlify site URL is consistent
-                const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; // Replace with your actual Netlify base URL if different
+                // IMPORTANT: Replace 'https://parfect-strangers-golf-outings.netlify.app' with your actual Netlify site URL
+                const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
                 fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
             } else {
-                // For live deployed site, use relative path
                 fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
             }
 
@@ -224,11 +233,10 @@
         }
 
         function renderWeather(data, teeTime) {
-            // Function to convert basic Markdown bold (**text**) to HTML strong (<strong>text</strong>)
-            // Added 'font-bold' Tailwind class directly to the strong tag
+            // Function to convert basic Markdown bold (**text**) to HTML span with font-bold
             function markdownToHtmlBold(text) {
                 if (!text) return ''; // Handle null/undefined text
-                return text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
+                return text.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold">$1</span>');
             }
 
             // Apply markdown conversion to relevant data fields
