@@ -1,9 +1,4 @@
 [build]
   publish = "." # This tells Netlify where your built website files are (your HTML file)
   functions = "netlify/functions" # This tells Netlify where your serverless functions are located
-  command = "npm install" # NEW: Tells Netlify to install Node.js dependencies  
-
-[[redirects]]
-  from = "/.netlify/functions/get-weather"
-  to = "/.netlify/functions/get-weather"
-  status = 200
+  command = "npm install" # Tells Netlify to install Node.js dependencies
