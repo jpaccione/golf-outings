@@ -7,54 +7,36 @@
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<header class="header-section">
+<header id="page-header">
   <h1>Ballyowen Golf Outing</h1>
   <h2>August 6, 2025</h2>
 </header>
 <main>
-<section class="details-section">
+<section id="event-details">
   <h2>Event Details</h2>
   <p><strong>Location:</strong> Ballyowen Golf Club - Hamburg, NJ (<a href="https://maps.google.com/?q=Ballyowen+Golf+Club" target="_blank">View on Google Maps</a>)</p>
   <p><strong>Tee Times:</strong> 12:40 PM & 12:50 PM</p>
 </section>
 
-<section class="weather-section">
+<section id="weather-forecast">
   <h2>Weather Forecast</h2>
-  <div id="weather-widget">
-    <iframe src="https://forecast7.com/en/41d15n74d58/hamburg/?unit=us" frameborder="0" width="100%" height="200" title="Hamburg NJ Weather Forecast"></iframe>
-  </div>
+  <a class="weatherwidget-io" href="https://forecast7.com/en/41d15n74d58/hamburg/" data-label_1="HAMBURG" data-label_2="WEATHER" data-theme="original">HAMBURG WEATHER</a>
+  <script>
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];
+  if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';
+  fjs.parentNode.insertBefore(js,fjs);}}
+  (document,'script','weatherwidget-io-js');
+  </script>
 </section>
 
-<section class="attendees-section">
+<section id="attendees">
   <h2>Attendees</h2>
-  <table class="attendees-table">
-    <thead>
-      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Pickup Time</th><th>Driver / Notes</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Justin Gonzalez</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Collin</td></tr>
-      <tr><td>Collin Cothran</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Justin</td></tr>
-      <tr><td>Jane Pineda</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Noelani</td></tr>
-      <tr><td>Noelani Pao</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Jane</td></tr>
-      <tr><td>John Paccione</td><td>12:40 PM</td><td>11:30 AM</td><td>N/A</td><td>Driving</td></tr>
-      <tr><td>Suze Lee</td><td>12:40 PM</td><td>11:30 AM</td><td>9:40 AM</td><td>Pickup by John</td></tr>
-      <tr><td>Kazu Okano</td><td>12:40 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Noriko</td></tr>
-      <tr><td>Noriko Okano</td><td>12:40 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Kazu</td></tr>
-    </tbody>
-  </table>
+  <!-- attendees table here -->
 </section>
 
-<section class="notes-section">
+<section id="important-notes">
   <h2>Important Notes</h2>
-  <ul>
-    <li>Theme: Homage to Scotland (or Celtic Celebration) - bagpipes NOT required.</li>
-    <li>GPS: Ballyowen Golf Club, 105-137 Wheatsworth Road, Hamburg, NJ.</li>
-    <li>Arrival: Be at the club by 11:30 AM for check-in and warm-up.</li>
-    <li>Green Fee: $109/pp including cart.</li>
-    <li>Driving Range & Practice Facilities available.</li>
-    <li>Course Layout: Returns to clubhouse after 9 holes.</li>
-    <li>Amenities: Pro Shop, Lockers, Showers, Owen's Pub, beverage carts.</li>
-  </ul>
+  <!-- notes list here -->
 </section>
 </main>
 </body>
