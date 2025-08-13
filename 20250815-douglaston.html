@@ -1,140 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>20250815_Douglaston_Golf_Day</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<header>
-  <h1>Douglaston Golf Outing</h1>
-  <h2>August 15, 2025</h2>
-</header>
-<main>
-<section>
-  <h2>Event Details</h2>
-  <p><strong>Location:</strong> Douglaston Golf Course - Douglaston, NY (<a href="https://maps.google.com/?q=Douglaston+Golf+Course" target="_blank">View on Google Maps</a>)</p>
-  <p><strong>Tee Time:</strong> 1:42 PM</p>
-</section>
-
-<section id="weather-forecast"
-         data-lat="40.7525"
-         data-lon="-73.7325"
-         data-date="2025-08-15"
-         data-tee="13:42"
-         data-tz="America/New_York">
-  <h2>Weather Forecast</h2>
-
-  <div class="weather-container">
-    <div class="weather-summary">
-      <h3 id="wx-temp">--°F</h3>
-      <p id="wx-desc">Loading…</p>
-    </div>
-
-    <div>
-      <p><strong>Tee time:</strong> 1:42 PM</p>
-      <p><strong>Wind:</strong> <span id="wx-wind">--</span></p>
-      <p><strong>Precip chance:</strong> <span id="wx-pop">--</span></p>
-      <a class="forecast-link" id="wx-link" target="_blank" rel="noopener">
-        View full forecast
-      </a>
-    </div>
-  </div>
-</section>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Golf Day</title>
+<link rel="stylesheet" href="styles.css" />
 <script>
-(function () {
-  const el = document.getElementById('weather-forecast');
-  const lat = parseFloat(el.dataset.lat);
-  const lon = parseFloat(el.dataset.lon);
-  const date = el.dataset.date;       // YYYY-MM-DD
-  const tee = el.dataset.tee;         // HH:MM (24h)
-  const tz  = el.dataset.tz || 'America/New_York';
+async function loadWeather() {
+  const lat = 40.7628; // Douglaston latitude
+  const lon = -73.7557; // Douglaston longitude
+  const teeTime = '13:42';
 
-  // nearest hour to tee time
-  const [hh, mm] = tee.split(':').map(Number);
-  const teeHour = (mm >= 30) ? (hh + 1) : hh; // round to nearest hour
+  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,weathercode&timezone=auto`);
+  const data = await res.json();
 
-  const url = `https://api.open-meteo.com/v1/forecast` +
-    `?latitude=${lat}&longitude=${lon}` +
-    `&hourly=temperature_2m,precipitation_probability,weathercode,wind_speed_10m` +
-    `&temperature_unit=fahrenheit&wind_speed_unit=mph` +
-    `&timezone=${encodeURIComponent(tz)}` +
-    `&start_date=${date}&end_date=${date}`;
+  const teeHour = parseInt(teeTime.split(':')[0]);
+  const hourIndex = data.hourly.time.findIndex(t => new Date(t).getHours() === teeHour);
 
-  const descFromCode = (code) => {
-    const map = {
-      0: 'Clear',
-      1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
-      45: 'Fog', 48: 'Depositing rime fog',
-      51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
-      56: 'Freezing drizzle', 57: 'Freezing drizzle',
-      61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
-      66: 'Freezing rain', 67: 'Freezing rain',
-      71: 'Light snow', 73: 'Snow', 75: 'Heavy snow',
-      77: 'Snow grains',
-      80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
-      85: 'Snow showers', 86: 'Heavy snow showers',
-      95: 'Thunderstorm', 96: 'Thunderstorm w/ hail', 97: 'Thunderstorm w/ hail'
-    };
-    return map[code] || '—';
+  const temp = Math.round(data.hourly.temperature_2m[hourIndex]);
+  const code = data.hourly.weathercode[hourIndex];
+
+  const weatherDescriptions = {
+    0: 'Clear skies',
+    1: 'Mostly clear',
+    2: 'Partly cloudy',
+    3: 'Overcast',
+    45: 'Foggy',
+    48: 'Fog with frost',
+    51: 'Light drizzle',
+    61: 'Light rain',
+    71: 'Light snow',
+    80: 'Showers'
   };
 
-  fetch(url)
-    .then(r => r.json())
-    .then(d => {
-      const { time, temperature_2m, precipitation_probability, weathercode, wind_speed_10m } = d.hourly || {};
-      if (!time) throw new Error('No hourly data');
-
-      // Find index of the rounded tee hour (local time)
-      const idx = time.findIndex(t => {
-        const h = new Date(t).getHours();
-        return h === (teeHour % 24);
-      });
-
-      const ti = Math.max(0, idx);
-      document.getElementById('wx-temp').textContent = Math.round(temperature_2m[ti]) + '°F';
-      document.getElementById('wx-desc').textContent = descFromCode(weathercode[ti]);
-      document.getElementById('wx-wind').textContent = Math.round(wind_speed_10m[ti]) + ' mph';
-      document.getElementById('wx-pop').textContent = (precipitation_probability[ti] ?? '—') + '%';
-
-      // Handy link for more details (NWS point forecast)
-      document.getElementById('wx-link').href =
-        `https://forecast.weather.gov/MapClick.php?lat=${lat}&lon=${lon}`;
-    })
-    .catch(() => {
-      document.getElementById('wx-desc').textContent = 'Forecast unavailable';
-    });
-})();
+  document.getElementById('weather-temp').textContent = `${temp}°F`;
+  document.getElementById('weather-desc').textContent = weatherDescriptions[code] || 'Great golf weather';
+}
+window.onload = loadWeather;
 </script>
-
-
-<section>
-  <h2>Attendees</h2>
-  <table>
-    <thead>
-      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Pickup Time</th><th>Driver / Notes</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>John Paccione</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>Driving</td></tr>
-      <tr><td>VACANT 1</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td></td></tr>
-      <tr><td>VACANT 2</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td></td></tr>
-      <tr><td>VACANT 3</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td></td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section>
-  <h2>Important Notes</h2>
-  <ul>
-    <li><strong>Theme:</strong> TBD</li>
-    <li><strong>GPS:</strong> Douglaston Golf Course, 6320 Marathon Pkwy, Douglaston, NY</li>
-    <li><strong>Arrival:</strong> Please arrive by 1:15 PM for check-in.</li>
-    <li><strong>Green Fee:</strong> $52/pp to walk</li>
-    <li><strong>Amenities:</strong> Pro Shop, Putting Green, Food & Beverages (No Driving Range)</li>
-  </ul>
-</section>
-</main>
+<style>
+.weather-block {
+  display: flex;
+  align-items: center;
+  background: #eaf4fc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+.weather-temp {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #2a5d84;
+  margin-right: 15px;
+}
+.weather-desc {
+  font-size: 1.1em;
+  color: #555;
+}
+</style>
+</head>
+<body>
+  <h1>Douglaston Golf Outing</h1>
+  <section>
+    <h2>Weather Forecast</h2>
+    <div class="weather-block">
+      <div id="weather-temp" class="weather-temp">--°F</div>
+      <div id="weather-desc" class="weather-desc">Loading...</div>
+    </div>
+  </section>
 </body>
 </html>
