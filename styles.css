@@ -5,24 +5,26 @@ body {
   color: #333;
 }
 
-.header-section {
+header {
   text-align: center;
   margin-bottom: 30px;
+  background-color: #2a5d84;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.header-section h1 {
+header h1 {
   font-size: 2em;
   margin-bottom: 0.2em;
 }
 
-.header-section h2 {
-  color: #555;
+header h2 {
+  font-weight: normal;
+  color: #d1e4f2;
 }
 
-.details-section,
-.weather-section,
-.attendees-section,
-.notes-section {
+section {
   background: #fff;
   padding: 15px;
   margin-bottom: 20px;
@@ -54,9 +56,18 @@ body {
 
 a {
   color: #2a5d84;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 ul {
   list-style-type: disc;
   padding-left: 20px;
+}
+
+ul li strong {
+  color: #2a5d84;
 }
