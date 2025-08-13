@@ -193,8 +193,20 @@
             const location = "Douglaston, Queens, NY";
             const time = outingTeeTime;
 
+            let fetchUrl;
+            // Check if running in a blob: URL (like the Canvas preview)
+            if (window.location.protocol === 'blob:') {
+                // Construct the absolute URL for the Netlify Function in the preview
+                // This assumes your Netlify site URL is consistent
+                const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; // Replace with your actual Netlify base URL if different
+                fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+            } else {
+                // For live deployed site, use relative path
+                fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+            }
+
             try {
-                const response = await fetch(`/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`);
+                const response = await fetch(fetchUrl);
 
                 if (!response.ok) {
                     const errorBody = await response.text();
@@ -213,18 +225,34 @@
 
         function renderWeather(data, teeTime) {
             // Function to convert basic Markdown bold (**text**) to HTML strong (<strong>text</strong>)
+            // Added 'font-bold' Tailwind class directly to the strong tag
             function markdownToHtmlBold(text) {
-                return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                if (!text) return ''; // Handle null/undefined text
+                return text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>');
             }
 
             // Apply markdown conversion to relevant data fields
             const formattedHighTempDay = markdownToHtmlBold(data.high_temp_day);
             const formattedConditionsTeeTime = markdownToHtmlBold(data.conditions_tee_time);
-            const formattedFeelsLikeTemp = markdownToHtmlBold(data.feels_like_temp);
+            
+            // Handle 'feels_like_temp' specifically if it returns a generic or empty value
+            let feelsLikeValue = data.feels_like_temp;
+            if (!feelsLikeValue || feelsLikeValue.toLowerCase().includes('not specified') || feelsLikeValue.toLowerCase().includes('value')) {
+                feelsLikeValue = 'Not available';
+            }
+            const formattedFeelsLikeTemp = markdownToHtmlBold(feelsLikeValue);
+
             const formattedPrecipitationChance = markdownToHtmlBold(data.precipitation_chance);
             const formattedWindSpeedDirection = markdownToHtmlBold(data.wind_speed_direction);
             const formattedUvIndex = markdownToHtmlBold(data.uv_index);
-            const formattedForecastUpdated = markdownToHtmlBold(data.forecast_updated);
+            
+            // Ensure forecast_updated is formatted and doesn't show 'VALUE'
+            let forecastUpdatedText = data.forecast_updated;
+            if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
+                 forecastUpdatedText = 'Date not specified'; // Or a default like 'Current'
+            }
+            const formattedForecastUpdated = markdownToHtmlBold(forecastUpdatedText);
+
 
             weatherContent.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
