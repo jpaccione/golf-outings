@@ -11,12 +11,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray fallback background */
+            background-color: #f3f4f6; /* Light gray background */
             color: #374151; /* Dark gray text */
-            background-image: url('https://images.unsplash.com/photo-1543877028-d3e925b4121d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Example royalty-free golf course image */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Makes the background fixed while scrolling */
         }
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
@@ -64,15 +60,10 @@
         .table-auto tbody tr:hover {
             background-color: #f3f4f6; /* Hover effect */
         }
-        /* Main content container to make content readable over background image */
-        .main-content-wrapper {
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Soft shadow */
-        }
     </style>
 </head>
 <body class="p-4 sm:p-6 lg:p-8">
-    <div class="max-w-4xl mx-auto rounded-xl p-6 sm:p-8 lg:p-10 main-content-wrapper">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
 
         <!-- Header Section -->
         <header class="text-center mb-8 pb-4 border-b-2 border-gray-200">
@@ -80,7 +71,7 @@
         </header>
 
         <!-- Event Details Section -->
-        <div class="bg-f0fdf4 p-6 mb-8 rounded-xl">
+        <div class="bg-f0fdf4 p-6 mb-8 rounded-xl" style="background-color: #f0fdf4;">
             <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -106,7 +97,7 @@
         </div>
 
         <!-- Weather Forecast Section -->
-        <div class="bg-eff6ff p-6 mb-8 rounded-xl">
+        <div class="bg-eff6ff p-6 mb-8 rounded-xl" style="background-color: #eff6ff;">
             <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
@@ -119,7 +110,7 @@
         </div>
 
         <!-- Attendees Section -->
-        <div class="bg-f5f3ff p-6 mb-8 rounded-xl">
+        <div class="bg-f5f3ff p-6 mb-8 rounded-xl" style="background-color: #f5f3ff;">
             <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -144,19 +135,19 @@
                             <td class="py-3 px-4">Solo outing (for now!)</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">VACANT 1</td>
+                            <td class="py-3 px-4">VACANT 1</td>
                             <td class="py-3 px-4">1:42 PM</td>
                             <td class="py-3 px-4">1:15 PM</td>
                             <td class="py-3 px-4">TBD</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">VACANT 2</td>
+                            <td class="py-3 px-4">VACANT 2</td>
                             <td class="py-3 px-4">1:42 PM</td>
                             <td class="py-3 px-4">1:15 PM</td>
                             <td class="py-3 px-4">TBD</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">VACANT 3</td>
+                            <td class="py-3 px-4">VACANT 3</td>
                             <td class="py-3 px-4">1:42 PM</td>
                             <td class="py-3 px-4">1:15 PM</td>
                             <td class="py-3 px-4">TBD</td>
@@ -167,7 +158,7 @@
         </div>
 
         <!-- Notes and Important Information Section -->
-        <div class="bg-fffbeb p-6 rounded-xl">
+        <div class="bg-fffbeb p-6 rounded-xl" style="background-color: #fffbeb;">
             <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -236,6 +227,7 @@
             // Function to convert basic Markdown bold (**text**) to HTML span with font-bold
             function markdownToHtmlBold(text) {
                 if (!text) return ''; // Handle null/undefined text
+                // Use a span with Tailwind's font-bold class for reliable bolding
                 return text.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold">$1</span>');
             }
 
