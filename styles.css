@@ -8,6 +8,10 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
+  background: linear-gradient(135deg, #4da3ff, #2a5d84);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 header h1 {
@@ -16,7 +20,7 @@ header h1 {
 }
 
 header h2 {
-  color: #666;
+  color: #e0e0e0;
 }
 
 section {
@@ -49,8 +53,13 @@ table th {
   background-color: #f0f0f0;
 }
 
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
 .weather-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 15px;
   align-items: center;
 }
@@ -61,7 +70,7 @@ table th {
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  min-width: 100px;
+  min-width: 120px;
 }
 
 .weather-summary h3 {
@@ -71,6 +80,19 @@ table th {
 
 .weather-summary p {
   margin: 5px 0 0;
+}
+
+.forecast-link {
+  display: inline-block;
+  background-color: #2a5d84;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.forecast-link:hover {
+  background-color: #244a6b;
 }
 
 a {
@@ -84,4 +106,15 @@ ul {
 
 ul li strong {
   color: #000;
+}
+
+@media (max-width: 600px) {
+  .weather-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header {
+    padding: 15px;
+  }
 }
