@@ -1,27 +1,22 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f9f9f9;
+  background-color: #f5f7fa;
   color: #333;
 }
 
 header {
   text-align: center;
   margin-bottom: 30px;
-  background-color: #2a5d84;
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
 }
 
 header h1 {
-  font-size: 2em;
+  font-size: 2.2em;
   margin-bottom: 0.2em;
 }
 
 header h2 {
-  font-weight: normal;
-  color: #d1e4f2;
+  color: #666;
 }
 
 section {
@@ -32,35 +27,54 @@ section {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.attendees-table {
+h2 {
+  border-bottom: 2px solid #e2e6ea;
+  padding-bottom: 5px;
+}
+
+table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
-.attendees-table th,
-.attendees-table td {
+table th,
+table td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
 }
 
-.attendees-table th {
+table th {
   background-color: #f0f0f0;
 }
 
-#weather-widget iframe {
-  border: none;
-  border-radius: 4px;
+.weather-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.weather-summary {
+  background-color: #4da3ff;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.weather-summary h3 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.weather-summary p {
+  margin: 5px 0 0;
 }
 
 a {
   color: #2a5d84;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
 
 ul {
@@ -69,5 +83,5 @@ ul {
 }
 
 ul li strong {
-  color: #2a5d84;
+  color: #000;
 }
