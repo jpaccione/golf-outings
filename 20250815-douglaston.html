@@ -5,10 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Douglaston Golf Outing - August 15, 2025</title>
 <link rel="stylesheet" href="styles.css" />
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f9fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  header.header-section {
+    background: linear-gradient(90deg, #4cafef, #2196f3);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  h2 {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.25rem;
+    margin-top: 2rem;
+  }
+  .weather-block {
+    display: flex;
+    align-items: center;
+    background: #e3f2fd;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+  .weather-temp {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-right: 1rem;
+    color: #1976d2;
+  }
+  .attendees-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  .attendees-table th, .attendees-table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  ul li strong {
+    color: #1976d2;
+  }
+</style>
 <script>
 async function loadWeather() {
-  const lat = 40.7628; // Douglaston latitude
-  const lon = -73.7557; // Douglaston longitude
+  const lat = 40.7628;
+  const lon = -73.7557;
   const teeTime = '13:42';
 
   const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,weathercode&timezone=auto`);
@@ -45,7 +100,7 @@ window.onload = loadWeather;
   <h2>Friday, August 15, 2025</h2>
 </header>
 <main>
-<section class="details-section">
+<section>
   <h2>Event Details</h2>
   <p><strong>Location:</strong> Douglaston Golf Course - Douglaston, NY (<a href="https://maps.google.com/?q=Douglaston+Golf+Course" target="_blank">View on Google Maps</a>)</p>
   <p><strong>Tee Time:</strong> 1:42 PM</p>
@@ -53,14 +108,14 @@ window.onload = loadWeather;
   <p><strong>Greens Fee:</strong> $52/pp walking</p>
   <p><strong>Driving Range:</strong> None</p>
 </section>
-<section class="weather-section">
+<section>
   <h2>Weather Forecast</h2>
   <div class="weather-block">
     <div id="weather-temp" class="weather-temp">--°F</div>
     <div id="weather-desc" class="weather-desc">Loading...</div>
   </div>
 </section>
-<section class="attendees-section">
+<section>
   <h2>Attendees</h2>
   <table class="attendees-table">
     <thead>
@@ -74,10 +129,9 @@ window.onload = loadWeather;
     </tbody>
   </table>
 </section>
-<section class="notes-section">
+<section>
   <h2>Important Notes</h2>
   <ul>
-    <li><strong>Theme:</strong> Casual Summer Golf</li>
     <li><strong>GPS:</strong> Douglaston Golf Course, 6320 Marathon Pkwy, Douglaston, NY</li>
     <li><strong>Arrival:</strong> Be at the club by 1:15 PM for check-in and warm-up.</li>
     <li><strong>Green Fee:</strong> $52/pp walking.</li>
