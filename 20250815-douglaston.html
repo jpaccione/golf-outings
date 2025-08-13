@@ -1,145 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Douglaston Golf Outing - August 15, 2025</title>
-<link rel="stylesheet" href="styles.css" />
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f7f9fc;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  header.header-section {
-    background: linear-gradient(90deg, #4cafef, #2196f3);
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-  }
-  main {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-  h2 {
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 0.25rem;
-    margin-top: 2rem;
-  }
-  .weather-block {
-    display: flex;
-    align-items: center;
-    background: #e3f2fd;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 0.5rem;
-  }
-  .weather-temp {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-right: 1rem;
-    color: #1976d2;
-  }
-  .attendees-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-  .attendees-table th, .attendees-table td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
-  }
-  ul li strong {
-    color: #1976d2;
-  }
-</style>
-<script>
-async function loadWeather() {
-  const lat = 40.7628;
-  const lon = -73.7557;
-  const teeTime = '13:42';
-
-  const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,weathercode&timezone=auto`);
-  const data = await res.json();
-
-  const teeHour = parseInt(teeTime.split(':')[0]);
-  const hourIndex = data.hourly.time.findIndex(t => new Date(t).getHours() === teeHour);
-
-  const temp = Math.round(data.hourly.temperature_2m[hourIndex]);
-  const code = data.hourly.weathercode[hourIndex];
-
-  const weatherDescriptions = {
-    0: 'Clear skies',
-    1: 'Mostly clear',
-    2: 'Partly cloudy',
-    3: 'Overcast',
-    45: 'Foggy',
-    48: 'Fog with frost',
-    51: 'Light drizzle',
-    61: 'Light rain',
-    71: 'Light snow',
-    80: 'Showers'
-  };
-
-  document.getElementById('weather-temp').textContent = `${temp}°F`;
-  document.getElementById('weather-desc').textContent = weatherDescriptions[code] || 'Great golf weather';
-}
-window.onload = loadWeather;
-</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20250815_Douglaston_Golf_Day</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header class="header-section">
   <h1>Douglaston Golf Outing</h1>
-  <h2>Friday, August 15, 2025</h2>
+  <h2>August 15, 2025</h2>
 </header>
+
 <main>
-<section>
+<section id="event-details" class="details-section">
   <h2>Event Details</h2>
   <p><strong>Location:</strong> Douglaston Golf Course - Douglaston, NY (<a href="https://maps.google.com/?q=Douglaston+Golf+Course" target="_blank">View on Google Maps</a>)</p>
   <p><strong>Tee Time:</strong> 1:42 PM</p>
-  <p><strong>Arrival:</strong> 1:15 PM</p>
-  <p><strong>Greens Fee:</strong> $52/pp walking</p>
-  <p><strong>Driving Range:</strong> None</p>
+  <p><strong>Arrival Time:</strong> 1:15 PM</p>
+  <p><strong>Green Fee:</strong> $52 walking (<a href="https://www.golfnyc.com/douglaston-rates/" target="_blank">View current rates</a>)</p>
+  <p><strong>Cart Fee:</strong> $21 per person shared cart (<a href="https://www.golfnyc.com/douglaston-rates/" target="_blank">View current rates</a>)</p>
 </section>
-<section>
+
+<section id="course-info" class="details-section">
+  <h2>Course Information</h2>
+  <ul>
+    <li>No driving range on site.</li>
+    <li>Course layout returns to pro shop after 9 holes — restrooms and café available for quick stop.</li>
+    <li>No lockers available.</li>
+    <li>Beverage cart availability may vary — check with pro shop on arrival.</li>
+  </ul>
+  <p><a href="https://www.golfnyc.com/douglaston-golf-course/" target="_blank">More about Douglaston Golf Course</a></p>
+</section>
+
+<section id="weather-forecast" class="weather-section">
   <h2>Weather Forecast</h2>
-  <div class="weather-block">
-    <div id="weather-temp" class="weather-temp">--°F</div>
-    <div id="weather-desc" class="weather-desc">Loading...</div>
+  <div id="weather-widget" class="weather-card">
+    <!-- Open-Meteo weather data will load here -->
+    <div class="temp">Loading...</div>
+    <div class="conditions">Loading...</div>
   </div>
 </section>
-<section>
+
+<section id="attendees" class="attendees-section">
   <h2>Attendees</h2>
   <table class="attendees-table">
     <thead>
-      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Pickup Time</th><th>Driver / Notes</th></tr>
+      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Driver / Notes</th></tr>
     </thead>
     <tbody>
-      <tr><td>John Paccione</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>Driving</td></tr>
-      <tr><td>Vacant Spot</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>-</td></tr>
-      <tr><td>Vacant Spot</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>-</td></tr>
-      <tr><td>Vacant Spot</td><td>1:42 PM</td><td>1:15 PM</td><td>N/A</td><td>-</td></tr>
+      <tr><td>John Paccione</td><td>1:42 PM</td><td>1:15 PM</td><td>Driving</td></tr>
+      <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
+      <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
+      <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
     </tbody>
   </table>
 </section>
-<section>
-  <h2>Important Notes</h2>
-  <ul>
-    <li><strong>GPS:</strong> Douglaston Golf Course, 6320 Marathon Pkwy, Douglaston, NY</li>
-    <li><strong>Arrival:</strong> Be at the club by 1:15 PM for check-in and warm-up.</li>
-    <li><strong>Green Fee:</strong> $52/pp walking.</li>
-    <li><strong>Driving Range:</strong> None at this course.</li>
-    <li><strong>Amenities:</strong> Pro Shop, small cafe at clubhouse, no lockers, beverage cart availability uncertain.</li>
-    <li><strong>Course Layout:</strong> Returns to clubhouse after 9 holes, allowing restroom break and cafe stop.</li>
-  </ul>
-</section>
+
 </main>
 </body>
 </html>
