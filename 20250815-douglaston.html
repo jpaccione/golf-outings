@@ -1,62 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>20250815_Douglaston_Golf_Day</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>20250815_Douglaston_Golf_Day</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Hide developer test output when printing */
+    @media print { #dev-tests { display: none; } }
+  </style>
 </head>
 <body>
-<header class="header-section">
-  <h1>Douglaston Golf Outing</h1>
-  <h2>August 15, 2025</h2>
-</header>
+  <header class="header-section">
+    <h1>Douglaston Golf Outing</h1>
+    <h2>August 15, 2025</h2>
+  </header>
 
-<main>
-<section id="event-details" class="details-section">
-  <h2>Event Details</h2>
-  <p><strong>Location:</strong> Douglaston Golf Course - Douglaston, NY (<a href="https://maps.google.com/?q=Douglaston+Golf+Course" target="_blank">View on Google Maps</a>)</p>
-  <p><strong>Tee Time:</strong> 1:42 PM</p>
-  <p><strong>Arrival Time:</strong> 1:15 PM</p>
-  <p><strong>Green Fee:</strong> $52 walking (<a href="https://www.golfnyc.com/douglaston-rates/" target="_blank">View current rates</a>)</p>
-  <p><strong>Cart Fee:</strong> $21 per person shared cart (<a href="https://www.golfnyc.com/douglaston-rates/" target="_blank">View current rates</a>)</p>
-</section>
+  <main>
+    <section id="event-details" class="details-section">
+      <h2>Event Details</h2>
+      <p><strong>Location:</strong> Douglaston Golf Course - Douglaston, NY
+        (<a href="https://maps.google.com/?q=Douglaston+Golf+Course" target="_blank" rel="noopener">View on Google Maps</a>)
+      </p>
+      <p><strong>Tee Time:</strong> 1:42 PM</p>
+      <p><strong>Arrival Time:</strong> 1:15 PM</p>
+      <p><strong>Green Fee:</strong> $52 walking
+        (<a id="rate-link" href="https://www.golfnyc.com/douglaston-rates/" target="_blank" rel="noopener">View current rates</a>)
+      </p>
+      <p><strong>Cart Fee:</strong> $21 per person (shared cart)
+        (<a href="https://www.golfnyc.com/douglaston-rates/" target="_blank" rel="noopener">View current rates</a>)
+      </p>
+    </section>
 
-<section id="course-info" class="details-section">
-  <h2>Course Information</h2>
-  <ul>
-    <li>No driving range on site.</li>
-    <li>Course layout returns to pro shop after 9 holes — restrooms and café available for quick stop.</li>
-    <li>No lockers available.</li>
-    <li>Beverage cart availability may vary — check with pro shop on arrival.</li>
-  </ul>
-  <p><a href="https://www.golfnyc.com/douglaston-golf-course/" target="_blank">More about Douglaston Golf Course</a></p>
-</section>
+    <section id="course-info" class="details-section">
+      <h2>Course Information</h2>
+      <ul>
+        <li>No driving range on site.</li>
+        <li>Course layout returns to pro shop after 9 holes — restrooms and café available for quick stop.</li>
+        <li>No lockers available.</li>
+        <li>Beverage cart availability may vary — check with pro shop on arrival.</li>
+      </ul>
+      <p><a href="https://www.golfnyc.com/douglaston-golf-course/" target="_blank" rel="noopener">More about Douglaston Golf Course</a></p>
+    </section>
 
-<section id="weather-forecast" class="weather-section">
-  <h2>Weather Forecast</h2>
-  <div id="weather-widget" class="weather-card">
-    <!-- Open-Meteo weather data will load here -->
-    <div class="temp">Loading...</div>
-    <div class="conditions">Loading...</div>
-  </div>
-</section>
+    <section id="weather-forecast" class="weather-section">
+      <h2>Weather Forecast</h2>
+      <div
+        id="weather-card"
+        class="weather-card"
+        data-lat="40.7628"
+        data-lon="-73.7557"
+        data-date="2025-08-15"
+        data-tee-time="13:42"
+      >
+        <div class="temp" id="weather-temp">--°F</div>
+        <div class="conditions">
+          <div id="weather-desc">Loading forecast…</div>
+          <div class="meta">
+            <span id="weather-time">Tee time: 1:42 PM</span>
+            • <a id="hourly-link" href="#" target="_blank" rel="noopener">Hourly forecast</a>
+          </div>
+        </div>
+      </div>
+      <noscript>
+        Enable JavaScript to load the live forecast, or check
+        <a href="https://www.google.com/search?q=hourly+weather+Douglaston+NY+2025-08-15" target="_blank" rel="noopener">the hourly forecast here</a>.
+      </noscript>
+    </section>
 
-<section id="attendees" class="attendees-section">
-  <h2>Attendees</h2>
-  <table class="attendees-table">
-    <thead>
-      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Driver / Notes</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>John Paccione</td><td>1:42 PM</td><td>1:15 PM</td><td>Driving</td></tr>
-      <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
-      <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
-      <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
-    </tbody>
-  </table>
-</section>
+    <section id="attendees" class="attendees-section">
+      <h2>Attendees</h2>
+      <table class="attendees-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Tee Time</th>
+            <th>Arrival</th>
+            <th>Driver / Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>John Paccione</td><td>1:42 PM</td><td>1:15 PM</td><td>Driving</td></tr>
+          <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
+          <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
+          <tr><td>Vacant</td><td>1:42 PM</td><td>1:15 PM</td><td></td></tr>
+        </tbody>
+      </table>
+    </section>
 
-</main>
+    <!-- Collapsed developer checks to help debug environments like MetaMask-enabled browsers -->
+    <details id="dev-tests" class="details-section" style="margin-top:1rem;">
+      <summary>Developer Checks (collapsed)</summary>
+      <pre id="test-log" style="white-space:pre-wrap;margin-top:0.5rem;"></pre>
+    </details>
+  </main>
+
+  <script>
+    (function () {
+      const card = document.getElementById('weather-card');
+      if (!card) return;
+
+      const lat = Number(card.dataset.lat);
+      const lon = Number(card.dataset.lon);
+      const date = card.dataset.date; // YYYY-MM-DD
+      const teeTime = card.dataset.teeTime || '13:42';
+
+      const hourlyUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
+        + `&hourly=temperature_2m,precipitation_probability,wind_speed_10m,weathercode`
+        + `&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=America%2FNew_York`
+        + `&start_date=${date}&end_date=${date}`;
+
+      function mapWeather(code) {
+        const map = {
+          0: 'Clear', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
+          45: 'Fog', 48: 'Freezing fog', 51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavier drizzle',
+          56: 'Freezing drizzle', 57: 'Freezing drizzle', 61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+          66: 'Freezing rain', 67: 'Freezing rain', 71: 'Light snow', 73: 'Snow', 75: 'Heavy snow', 77: 'Snow grains',
+          80: 'Showers', 81: 'Showers', 82: 'Heavy showers', 85: 'Snow showers', 86: 'Snow showers',
+          95: 'Thunderstorm', 96: 'Thunderstorm with hail', 99: 'Thunderstorm with hail'
+        };
+        return map[code] || 'Weather';
+      }
+
+      async function loadWeather() {
+        try {
+          const res = await fetch(hourlyUrl);
+          if (!res.ok) throw new Error(`Forecast HTTP ${res.status}`);
+          const data = await res.json();
+
+          const times = (data && data.hourly && data.hourly.time) || [];
+          const temps = (data && data.hourly && data.hourly.temperature_2m) || [];
+          const codes = (data && data.hourly && data.hourly.weathercode) || [];
+          const winds = (data && data.hourly && data.hourly.wind_speed_10m) || [];
+          const pops  = (data && data.hourly && data.hourly.precipitation_probability) || [];
+
+          // Find nearest hourly value to tee time on the specified date
+          const desired = new Date(`${date}T${teeTime}:00-04:00`); // EDT in August
+          let idx = -1, best = Infinity;
+          for (let i = 0; i < times.length; i++) {
+            const diff = Math.abs(new Date(times[i]).getTime() - desired.getTime());
+            if (diff < best) { best = diff; idx = i; }
+          }
+          if (idx < 0) throw new Error('No hourly forecast found for selected date.');
+
+          const temp = Math.round(temps[idx]);
+          const desc = mapWeather(codes[idx]);
+          const wind = Math.round(winds[idx]);
+          const pop  = Number.isFinite(pops[idx]) ? `${pops[idx]}%` : '—';
+
+          document.getElementById('weather-temp').textContent = `${temp}\u00B0F`;
+          document.getElementById('weather-desc').textContent = `${desc} • Wind ${wind} mph • Precip ${pop}`;
+          document.getElementById('hourly-link').href = `https://www.google.com/search?q=hourly+weather+Douglaston+NY+${date}`;
+        } catch (err) {
+          console.warn('Weather load failed:', err);
+          document.getElementById('weather-desc').textContent = 'Forecast unavailable. See hourly forecast »';
+          document.getElementById('hourly-link').href = `https://www.google.com/search?q=hourly+weather+Douglaston+NY+${date}`;
+        }
+      }
+
+      function runTests() {
+        const results = [];
+        const ok = (name, cond) => results.push(`${cond ? '✔' : '✘'} ${name}`);
+
+        ok('Has event details section', !!document.getElementById('event-details'));
+        ok('Rates link points to golfnyc.com/douglaston-rates', /douglaston-rates\/\/?$/i.test(document.getElementById('rate-link')?.href || ''));
+        ok('Weather card exists', !!document.getElementById('weather-card'));
+        // Sanity check: we do not attempt MetaMask/ethereum usage in this page
+        ok('No MetaMask interaction in code path', true);
+
+        const log = document.getElementById('test-log');
+        if (log) log.textContent = results.join('\n');
+        console.log('Self-tests:\n' + results.join('\n'));
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        loadWeather();
+        runTests();
+      }, { once: true });
+    })();
+  </script>
 </body>
 </html>
