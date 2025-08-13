@@ -184,101 +184,33 @@
 
     <script>
         const weatherContent = document.getElementById('weather-content');
-        const teeTimeContent = document.getElementById('tee-time-content');
+        const teeTimeContent = document.getElementById('tee-time-content'); // Keeping this if you decide to make it dynamic again
 
         const outingTeeTime = "1:42 PM"; // Define the tee time once
-
-        // Function to make a fetch call to the Gemini API with exponential backoff
-        async function fetchWithExponentialBackoff(payload, retries = 3, delay = 1000) {
-            try {
-                const apiKey = ""; // API key will be provided by the environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API call failed with status: ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    let text = result.candidates[0].content.parts[0].text;
-                    // Attempt to remove markdown code block wrapper if present
-                    if (text.startsWith('```json') && text.endsWith('```')) {
-                        text = text.substring(7, text.length - 3).trim();
-                    } else if (text.startsWith('```') && text.endsWith('```')) {
-                        // General markdown block, might not be explicitly 'json'
-                        text = text.substring(3, text.length - 3).trim();
-                    }
-                    return JSON.parse(text);
-                } else {
-                    throw new Error("Invalid response structure from the API or missing content.");
-                }
-
-            } catch (error) {
-                console.error("API call error:", error);
-                if (retries > 0) {
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    return fetchWithExponentialBackoff(payload, retries - 1, delay * 2);
-                } else {
-                    throw error;
-                }
-            }
-        }
 
         async function fetchWeather() {
             weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
 
             const date = "August 15, 2025";
             const location = "Douglaston, Queens, NY";
-
-            const prompt = `Provide a detailed weather forecast for ${location} on ${date} at approximately ${outingTeeTime}. Include the high temperature for the day, the condition around the tee time (e.g., sunny, cloudy, partly cloudy, chance of rain), the "feels like" temperature, percentage chance of precipitation, wind speed and direction, and UV index. Present this information as a JSON object with the following structure:
-            {
-                "high_temp_day": "VALUE",
-                "conditions_tee_time": "VALUE",
-                "feels_like_temp": "VALUE",
-                "precipitation_chance": "VALUE",
-                "wind_speed_direction": "VALUE",
-                "uv_index": "VALUE",
-                "forecast_updated": "VALUE (e.g., August 14, 2025)"
-            }`;
-
-            const chatHistory = [{
-                role: "user",
-                parts: [{ text: prompt }]
-            }];
-
-            const payload = {
-                contents: chatHistory,
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "OBJECT",
-                        properties: {
-                            "high_temp_day": { "type": "STRING" },
-                            "conditions_tee_time": { "type": "STRING" },
-                            "feels_like_temp": { "type": "STRING" },
-                            "precipitation_chance": { "type": "STRING" },
-                            "wind_speed_direction": { "type": "STRING" },
-                            "uv_index": { "type": "STRING" },
-                            "forecast_updated": { "type": "STRING" }
-                        }
-                    }
-                }
-            };
+            const time = outingTeeTime; // Use the defined outingTeeTime
 
             try {
-                const weatherData = await fetchWithExponentialBackoff(payload);
-                renderWeather(weatherData, outingTeeTime);
+                // Call your Netlify Function
+                const response = await fetch(`/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`);
+
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("Netlify Function error response:", errorBody);
+                    throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
+                }
+
+                const weatherData = await response.json();
+                renderWeather(weatherData, time);
+
             } catch (error) {
-                weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load weather data. Please try again later.</p>';
-                console.error("Error fetching weather:", error);
+                weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
+                console.error("Error fetching live weather via Netlify Function:", error);
             }
         }
 
@@ -314,13 +246,9 @@
             `;
         }
 
-        // Removed renderTeeTime as its content is now static within the HTML for the prominent block
-        // The tee time content is now directly in the HTML for the prominent block, so no need for JS to render it
-
-        // Fetch data on page load
+        // Initialize weather fetching on page load
         window.onload = function() {
-            // No need to call renderTeeTime here as the content is static in the HTML
-            fetchWeather(); // Then fetch weather
+            fetchWeather();
         };
     </script>
 </body>
