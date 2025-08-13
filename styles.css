@@ -1,120 +1,316 @@
+/* General Body and Container Styles */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f5f7fa;
-  color: #333;
+    font-family: 'Inter', sans-serif; /* Using Inter as per your preference */
+    margin: 0;
+    padding: 20px;
+    background-color: #f3f4f6; /* Light gray from previous design */
+    color: #374151; /* Dark gray text from previous design */
+    line-height: 1.6;
+    display: flex; /* For centering the main container */
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh; /* Ensure body takes full viewport height */
 }
 
+.container {
+    max-width: 900px; /* Comparable to max-w-4xl from Tailwind */
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2.5rem; /* ~p-10 from Tailwind */
+    border-radius: 1rem; /* ~rounded-xl from Tailwind */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* ~shadow-lg from Tailwind */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Header Styles */
 header {
-  text-align: center;
-  margin-bottom: 30px;
-  background: linear-gradient(135deg, #4da3ff, #2a5d84);
-  color: white;
-  padding: 20px;
-  border-radius: 8px;
+    text-align: center;
+    margin-bottom: 2rem; /* ~mb-8 from Tailwind */
+    padding-bottom: 1rem; /* ~pb-4 from Tailwind */
+    border-bottom: 2px solid #e5e7eb; /* ~border-gray-200 from Tailwind */
 }
 
 header h1 {
-  font-size: 2.2em;
-  margin-bottom: 0.2em;
+    font-size: 2.5rem; /* ~text-4xl/5xl */
+    font-weight: 800; /* ~font-extrabold */
+    color: #10B981; /* A shade of green (Green-700 from Tailwind) */
+    margin-bottom: 0.5rem; /* ~mb-2 */
 }
 
-header h2 {
-  color: #e0e0e0;
-}
-
+/* Section Styles */
 section {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: #fff; /* Default to white for main sections */
+    padding: 1.5rem; /* ~p-6 from Tailwind */
+    margin-bottom: 2rem; /* ~mb-8 from Tailwind */
+    border-radius: 0.75rem; /* ~rounded-xl from Tailwind */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Lighter shadow */
 }
 
-h2 {
-  border-bottom: 2px solid #e2e6ea;
-  padding-bottom: 5px;
+section h2 {
+    font-size: 1.5rem; /* ~text-2xl */
+    font-weight: 700; /* ~font-bold */
+    margin-bottom: 1rem; /* ~mb-4 */
+    border-bottom: 2px solid #e2e6ea; /* From your styles.css */
+    padding-bottom: 0.3125rem; /* ~pb-5px from your styles.css */
+    display: flex;
+    align-items: center;
+}
+
+/* Specific Section Background Colors */
+.event-details {
+    background-color: #f0fdf4; /* Light green from previous design */
+}
+
+.weather-forecast {
+    background-color: #eff6ff; /* Light blue from previous design */
+}
+
+.attendees {
+    background-color: #f5f3ff; /* Light purple from previous design */
+}
+
+.important-notes {
+    background-color: #fffbeb; /* Light yellow from previous design */
+}
+
+/* Icons within headings */
+.icon {
+    height: 1.75rem; /* ~h-7 */
+    width: 1.75rem; /* ~w-7 */
+    margin-right: 0.5rem; /* ~mr-2 */
+}
+
+.event-details h2 .icon { color: #16A34A; /* Green-600 */ }
+.weather-forecast h2 .icon { color: #2563EB; /* Blue-600 */ }
+.attendees h2 .icon { color: #7C3AED; /* Purple-600 */ }
+.important-notes h2 .icon { color: #F59E0B; /* Yellow-600 */ }
+
+/* Event Details Specifics */
+.details-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.125rem; /* ~text-lg */
+}
+
+.details-content > div {
+    margin-bottom: 0.5rem;
+}
+
+.details-content .label {
+    font-weight: 600; /* ~font-semibold */
+    color: #4B5563; /* ~gray-700 */
+}
+
+.details-content .value {
+    font-weight: 700; /* ~font-bold */
+    color: #065F46; /* A shade of green (Green-900) */
+}
+
+.external-link {
+    color: #2563EB; /* Blue-600 */
+    font-size: 0.875rem; /* ~text-sm */
+    display: inline-block;
+    text-decoration: none;
+}
+.external-link:hover {
+    color: #1D4ED8; /* Blue-800 */
+    text-decoration: underline;
+}
+
+.icon-small {
+    height: 1rem; /* ~h-4 */
+    width: 1rem; /* ~w-4 */
+    display: inline-block;
+    margin-left: 0.25rem; /* ~ml-1 */
+    vertical-align: middle;
+}
+
+/* Weather Forecast Specifics */
+.weather-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* ~gap-4 */
+    align-items: center;
+    text-align: center;
+}
+
+.loading-message, .error-message {
+    text-align: center;
+    color: #6B7280; /* ~gray-500 */
+    width: 100%; /* Take full width */
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+.error-message {
+    color: #EF4444; /* Red-500 */
+}
+
+.weather-summary-block {
+    background-color: #DBEAFE; /* Light blue-100 */
+    padding: 1rem; /* ~p-4 */
+    border-radius: 0.5rem; /* ~rounded-lg */
+    flex: 1; /* Allow blocks to grow and shrink */
+    min-width: 150px; /* Minimum width before wrapping */
+    box-sizing: border-box;
+}
+
+.weather-summary-block h3 {
+    font-size: 2rem; /* ~text-3xl */
+    font-weight: 700; /* ~font-bold */
+    color: #1E40AF; /* Blue-900 */
+    margin: 0;
+}
+
+.weather-summary-block p {
+    font-size: 1.125rem; /* ~text-lg */
+    font-weight: 600; /* ~font-semibold */
+    color: #1D4ED8; /* Blue-700 */
+    margin-top: 0.25rem; /* Small margin for spacing */
+}
+
+.weather-summary-block p.small-text {
+    font-size: 0.875rem; /* ~text-sm */
+    color: #3B82F6; /* Blue-600 */
+}
+
+.weather-details {
+    font-size: 0.875rem; /* ~text-sm */
+    color: #4B5563; /* ~gray-700 */
+    margin-top: 1rem; /* ~mt-4 */
+    width: 100%; /* Take full width */
+}
+
+.weather-details .details-heading {
+    font-weight: 600; /* ~font-semibold */
+    color: #1D4ED8; /* Blue-800 */
+    margin-bottom: 0.25rem; /* ~mb-1 */
+}
+
+.weather-details ul {
+    list-style-type: disc;
+    padding-left: 1.25rem; /* ~pl-5 */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.weather-details ul li strong {
+    font-weight: 700;
+}
+
+.forecast-update-info {
+    margin-top: 0.5rem; /* ~mt-2 */
+}
+
+.forecast-link {
+    color: #2563EB; /* Blue-600 */
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.5rem; /* ~mt-2 */
+    font-size: 0.875rem;
+}
+.forecast-link:hover {
+    color: #1D4ED8; /* Blue-800 */
+    text-decoration: underline;
+}
+
+/* Table Styles (similar to what you had, but with adjusted colors for consistency) */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.625rem; /* ~mt-10px */
+    background-color: #fff;
+    border-radius: 0.5rem; /* ~rounded-lg */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* ~shadow-sm */
 }
 
 table th,
 table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
+    padding: 0.75rem 1rem; /* ~py-3 px-4 */
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb; /* ~border-gray-200 */
 }
 
 table th {
-  background-color: #f0f0f0;
+    background-color: #EEF2FF; /* Light blue for header */
+    color: #4338CA; /* Darker blue for header text */
+    font-weight: 600; /* ~font-semibold */
+    text-transform: uppercase;
+    font-size: 0.875rem; /* ~text-sm */
 }
 
 table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+    background-color: #F9FAFB; /* Slightly darker for even rows */
 }
 
-.weather-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  align-items: center;
+table tbody tr:hover {
+    background-color: #F3F4F6; /* Hover effect */
 }
 
-.weather-summary {
-  background-color: #4da3ff;
-  color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  text-align: center;
-  min-width: 120px;
+/* Notes Section Specifics */
+.important-notes ul {
+    list-style-type: disc;
+    padding-left: 1.25rem; /* ~pl-5 */
+    margin-top: 0.5rem;
 }
 
-.weather-summary h3 {
-  margin: 0;
-  font-size: 2em;
+.important-notes ul li strong {
+    font-weight: 600;
+    color: #4B5563; /* Darker gray for bolded text */
 }
 
-.weather-summary p {
-  margin: 5px 0 0;
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    margin-top: 2rem; /* ~mt-8 */
+    padding-top: 1rem; /* ~pt-4 */
+    border-top: 2px solid #e5e7eb; /* ~border-gray-200 */
+    color: #6B7280; /* ~gray-500 */
+    font-size: 0.875rem; /* ~text-sm */
 }
 
-.forecast-link {
-  display: inline-block;
-  background-color: #2a5d84;
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 5px;
-  text-decoration: none;
+
+/* Responsive Adjustments */
+@media (min-width: 640px) { /* Corresponds to Tailwind's sm breakpoint */
+    .details-content {
+        flex-direction: row;
+    }
+    .details-content > div {
+        margin-bottom: 0;
+    }
 }
 
-.forecast-link:hover {
-  background-color: #244a6b;
-}
-
-a {
-  color: #2a5d84;
-}
-
-ul {
-  list-style-type: disc;
-  padding-left: 20px;
-}
-
-ul li strong {
-  color: #000;
-}
-
-@media (max-width: 600px) {
-  .weather-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  header {
-    padding: 15px;
-  }
+@media (max-width: 600px) { /* For smaller screens */
+    .container {
+        padding: 1rem; /* Smaller padding on mobile */
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    section {
+        padding: 1rem;
+    }
+    section h2 {
+        font-size: 1.25rem;
+    }
+    .details-content {
+        flex-direction: column; /* Stack details vertically on small screens */
+        align-items: flex-start;
+    }
+    .details-content .text-right {
+        text-align: left; /* Align text left on small screens */
+    }
+    .weather-summary-block {
+        min-width: 100%; /* Take full width on small screens */
+    }
 }
