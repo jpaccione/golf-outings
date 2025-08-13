@@ -4,180 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Douglaston Golf Outing - August 15, 2025</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
+    <!-- Google Fonts - Inter (keeping this as it's a nice, modern font) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
-            color: #374151; /* Dark gray text */
-        }
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #e0e0e0;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #9ca3af;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6b7280;
-        }
-        /* Table specific styles for responsiveness and appearance */
-        .table-responsive {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .table-auto {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .table-auto th, .table-auto td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .table-auto th {
-            background-color: #eef2ff; /* Light blue for header */
-            color: #4338ca; /* Darker blue for header text */
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.875rem;
-        }
-        .table-auto tr:last-child td {
-            border-bottom: none;
-        }
-        .table-auto tbody tr:nth-child(even) {
-            background-color: #f9fafb; /* Slightly darker for even rows */
-        }
-        .table-auto tbody tr:hover {
-            background-color: #f3f4f6; /* Hover effect */
-        }
-    </style>
+    <!-- Link to your custom styles.css -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="p-4 sm:p-6 lg:p-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
+<body>
+    <div class="container">
 
         <!-- Header Section -->
-        <header class="text-center mb-8 pb-4 border-b-2 border-gray-200">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-green-700 mb-2">Douglaston Golf Outing<br>August 15, 2025</h1>
+        <header>
+            <h1>Douglaston Golf Outing<br>August 15, 2025</h1>
         </header>
 
         <!-- Event Details Section -->
-        <div style="background-color: #f0fdf4; padding: 1.5rem; margin-bottom: 2rem;">
-            <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+        <section class="event-details">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
                 Event Details
             </h2>
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
-                <div class="mb-2 sm:mb-0">
-                    <p class="font-semibold text-gray-700">Location:</p>
-                    <p class="font-bold text-green-900">Douglaston Golf Course - Queens, NY</p>
-                    <a href="https://www.google.com/maps/search/Douglaston+Golf+Course,+Queens,+NY" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+            <div class="details-content">
+                <div>
+                    <p class="label">Location:</p>
+                    <p class="value">Douglaston Golf Course - Queens, NY</p>
+                    <a href="https://www.google.com/maps/search/Douglaston+Golf+Course,+Queens,+NY" target="_blank" class="external-link">
                         View on Google Maps
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-small" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                     </a>
                 </div>
-                <div class="text-left sm:text-right">
-                    <p class="font-semibold text-gray-700">Tee Time:</p>
-                    <p class="font-bold text-green-900">1:42 PM</p>
+                <div class="text-right">
+                    <p class="label">Tee Time:</p>
+                    <p class="value">1:42 PM</p>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Weather Forecast Section -->
-        <div style="background-color: #eff6ff; padding: 1.5rem; margin-bottom: 2rem;">
-            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+        <section class="weather-forecast">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
                 </svg>
                 Live Weather Forecast
             </h2>
-            <div id="weather-content">
-                <p class="text-center text-gray-500">Loading weather data...</p>
+            <div id="weather-content" class="weather-container">
+                <p class="loading-message">Loading weather data...</p>
             </div>
-        </div>
+        </section>
 
         <!-- Attendees Section -->
-        <div style="background-color: #f5f3ff; padding: 1.5rem; margin-bottom: 2rem;">
-            <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+        <section class="attendees">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                 </svg>
                 Attendees
             </h2>
             <div class="table-responsive">
-                <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
+                <table>
                     <thead>
                         <tr>
-                            <th class="py-3 px-4 rounded-tl-lg">Name</th>
-                            <th class="py-3 px-4">Tee Time</th>
-                            <th class="py-3 px-4">Arrival at Course</th>
-                            <th class="py-3 px-4 rounded-tr-lg">Notes</th>
+                            <th>Name</th>
+                            <th>Tee Time</th>
+                            <th>Arrival at Course</th>
+                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">Your Name</td>
-                            <td class="py-3 px-4">1:42 PM</td>
-                            <td class="py-3 px-4">1:15 PM</td>
-                            <td class="py-3 px-4">Solo outing (for now!)</td>
+                            <td>Your Name</td>
+                            <td>1:42 PM</td>
+                            <td>1:15 PM</td>
+                            <td>Solo outing (for now!)</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">VACANT 1</td>
-                            <td class="py-3 px-4">1:42 PM</td>
-                            <td class="py-3 px-4">1:15 PM</td>
-                            <td class="py-3 px-4">TBD</td>
+                            <td>VACANT 1</td>
+                            <td>1:42 PM</td>
+                            <td>1:15 PM</td>
+                            <td>TBD</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">VACANT 2</td>
-                            <td class="py-3 px-4">1:42 PM</td>
-                            <td class="py-3 px-4">1:15 PM</td>
-                            <td class="py-3 px-4">TBD</td>
+                            <td>VACANT 2</td>
+                            <td>1:42 PM</td>
+                            <td>1:15 PM</td>
+                            <td>TBD</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">VACANT 3</td>
-                            <td class="py-3 px-4">1:42 PM</td>
-                            <td class="py-3 px-4">1:15 PM</td>
-                            <td class="py-3 px-4">TBD</td>
+                            <td>VACANT 3</td>
+                            <td>1:42 PM</td>
+                            <td>1:15 PM</td>
+                            <td>TBD</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
+        </section>
 
         <!-- Notes and Important Information Section -->
-        <div style="background-color: #fffbeb; padding: 1.5rem;">
-            <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+        <section class="important-notes">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
                 Important Notes
             </h2>
-            <ul class="list-disc list-inside space-y-2 text-gray-700">
-                <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to **Douglaston Golf Course** (6320 Marathon Pkwy, Little Neck, NY 11362).</li>
-                <li><strong class="font-semibold">Arrival Time:</strong> Plan to arrive at Douglaston Golf Course by <strong>1:15 PM</strong> to allow time for check-in and warm-up.</li>
-                <li><strong class="font-semibold">Tee Time:</strong> Our tee time is <strong>1:42 PM</strong>. Please be ready at the tee box at least 10 minutes prior.</li>
-                <li><strong class="font-semibold">Green Fee:</strong> The green fee is <strong>$52 for walking</strong>, with an additional <strong>$21 per person for a golf cart</strong>.</li>
-                <li><strong class="font-semibold">Practice Facilities:</strong> Douglaston Golf Course does not have a driving range, but it does feature a **practice putting green**.</li>
-                <li><strong class="font-semibold">Course Layout:</strong> Douglaston is known for its challenging hilly terrain and scenic views.</li>
-                <li><strong class="font-semibold">Amenities:</strong> The course has a pro shop and a snack bar/restaurant.</li>
+            <ul>
+                <li><strong>Driving Directions:</strong> Please set your GPS to **Douglaston Golf Course** (6320 Marathon Pkwy, Little Neck, NY 11362).</li>
+                <li><strong>Arrival Time:</strong> Plan to arrive at Douglaston Golf Course by <strong>1:15 PM</strong> to allow time for check-in and warm-up.</li>
+                <li><strong>Tee Time:</strong> Our tee time is <strong>1:42 PM</strong>. Please be ready at the tee box at least 10 minutes prior.</li>
+                <li><strong>Green Fee:</strong> The green fee is <strong>$52 for walking</strong>, with an additional <strong>$21 per person for a golf cart</strong>.</li>
+                <li><strong>Practice Facilities:</strong> Douglaston Golf Course does not have a driving range, but it does feature a **practice putting green**.</li>
+                <li><strong>Course Layout:</strong> Douglaston is known for its challenging hilly terrain and scenic views.</li>
+                <li><strong>Amenities:</strong> The course has a pro shop and a snack bar/restaurant.</li>
             </ul>
-        </div>
+        </section>
 
         <!-- Footer -->
-        <footer class="text-center mt-8 pt-4 border-t-2 border-gray-200 text-gray-500 text-sm">
+        <footer>
+            <p>&copy; 2025 Parfect Strangers Golf Outings. All rights reserved.</p>
         </footer>
 
     </div>
@@ -205,7 +153,15 @@
                 if (result.candidates && result.candidates.length > 0 &&
                     result.candidates[0].content && result.candidates[0].content.parts &&
                     result.candidates[0].content.parts.length > 0) {
-                    return JSON.parse(result.candidates[0].content.parts[0].text);
+                    let text = result.candidates[0].content.parts[0].text;
+                    // Attempt to remove markdown code block wrapper if present
+                    if (text.startsWith('```json') && text.endsWith('```')) {
+                        text = text.substring(7, text.length - 3).trim();
+                    } else if (text.startsWith('```') && text.endsWith('```')) {
+                        // General markdown block, might not be explicitly 'json'
+                        text = text.substring(3, text.length - 3).trim();
+                    }
+                    return JSON.parse(text);
                 } else {
                     throw new Error("Invalid response structure from the API or missing content.");
                 }
@@ -222,7 +178,7 @@
         }
 
         async function fetchWeather() {
-            weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
+            weatherContent.innerHTML = '<p class="loading-message">Loading weather data...</p>';
 
             const date = "August 15, 2025";
             const time = "1:42 PM";
@@ -267,39 +223,37 @@
                 const weatherData = await fetchWithExponentialBackoff(payload);
                 renderWeather(weatherData, time);
             } catch (error) {
-                weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load weather data. Please try again later.</p>';
+                weatherContent.innerHTML = '<p class="error-message">Failed to load weather data. Please try again later.</p>';
                 console.error("Error fetching weather:", error);
             }
         }
 
-        function renderWeather(data, teeTime) { // Changed 'time' to 'teeTime' for clarity and to avoid conflict
+        function renderWeather(data, teeTime) {
             weatherContent.innerHTML = `
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                    <div class="p-4 bg-blue-100 rounded-lg sm:col-span-1">
-                        <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
-                        <p class="text-3xl font-bold text-blue-900">${data.high_temp_day}</p>
-                    </div>
-                    <div class="p-4 bg-blue-100 rounded-lg sm:col-span-2">
-                        <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
-                        <p class="text-3xl font-bold text-blue-900">${data.conditions_tee_time}</p>
-                        <p class="text-sm text-blue-600">Feels like ${data.feels_like_temp}</p>
-                    </div>
-                    <div class="sm:col-span-3 text-sm text-gray-500 mt-2">
-                        <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
-                        <ul class="list-disc list-inside text-left">
-                            <li>Temperature: The daily high is expected to be **${data.high_temp_day}**, with a "feels like" temperature of **${data.feels_like_temp}**.</li>
-                            <li>Precipitation: **${data.precipitation_chance}** chance of rain.</li>
-                            <li>Wind: **${data.wind_speed_direction}**.</li>
-                            <li>UV Index: **${data.uv_index}**. Sunscreen recommended.</li>
-                        </ul>
-                        <p class="mt-2">Forecast last updated: ${data.forecast_updated}. Conditions are subject to change. Please check closer to the date.</p>
-                        <a href="https://www.google.com/search?q=hourly+weather+Douglaston+NY+August+15+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            Get the Latest Hourly Forecast
-                        </a>
-                    </div>
+                <div class="weather-summary-block">
+                    <h3>${data.high_temp_day}</h3>
+                    <p>High (for the day)</p>
+                </div>
+                <div class="weather-summary-block">
+                    <h3>${data.conditions_tee_time}</h3>
+                    <p>Conditions (around ${teeTime})</p>
+                    <p>Feels like ${data.feels_like_temp}</p>
+                </div>
+                <div class="weather-details">
+                    <p class="details-heading">Expected Conditions During Play:</p>
+                    <ul>
+                        <li>Temperature: The daily high is expected to be <strong>${data.high_temp_day}</strong>, with a "feels like" temperature of <strong>${data.feels_like_temp}</strong>.</li>
+                        <li>Precipitation: <strong>${data.precipitation_chance}</strong> chance of rain.</li>
+                        <li>Wind: <strong>${data.wind_speed_direction}</strong>.</li>
+                        <li>UV Index: <strong>${data.uv_index}</strong>. Sunscreen recommended.</li>
+                    </ul>
+                    <p class="forecast-update-info">Forecast last updated: ${data.forecast_updated}. Conditions are subject to change. Please check closer to the date.</p>
+                    <a href="https://www.google.com/search?q=hourly+weather+Douglaston+NY+August+15+2025" target="_blank" class="forecast-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-small" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get the Latest Hourly Forecast
+                    </a>
                 </div>
             `;
         }
