@@ -172,7 +172,7 @@
                 <li><strong class="font-semibold">Green Fee:</strong> The green fee is <strong>$52 for walking</strong>, with an additional <strong>$21 per person for a golf cart</strong>.</li>
                 <li><strong class="font-semibold">Practice Facilities:</strong> Douglaston Golf Course does not have a driving range, but it does feature a **practice putting green**.</li>
                 <li><strong class="font-semibold">Course Layout:</strong> Douglaston is known for its challenging hilly terrain and scenic views.</li>
-                <li><strong class="font-semibold">Amenities:</strong> The course has a pro shop and a snack bar/restaurant.</li>
+                <li><strong class="font-semibold">Amenities:</b> The course has a pro shop and a snack bar/restaurant.</li>
             </ul>
         </div>
 
@@ -184,19 +184,16 @@
 
     <script>
         const weatherContent = document.getElementById('weather-content');
-        const teeTimeContent = document.getElementById('tee-time-content'); // Keeping this if you decide to make it dynamic again
-
-        const outingTeeTime = "1:42 PM"; // Define the tee time once
+        const outingTeeTime = "1:42 PM";
 
         async function fetchWeather() {
             weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
 
             const date = "August 15, 2025";
             const location = "Douglaston, Queens, NY";
-            const time = outingTeeTime; // Use the defined outingTeeTime
+            const time = outingTeeTime;
 
             try {
-                // Call your Netlify Function
                 const response = await fetch(`/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`);
 
                 if (!response.ok) {
@@ -215,26 +212,40 @@
         }
 
         function renderWeather(data, teeTime) {
+            // Function to convert basic Markdown bold (**text**) to HTML strong (<strong>text</strong>)
+            function markdownToHtmlBold(text) {
+                return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            }
+
+            // Apply markdown conversion to relevant data fields
+            const formattedHighTempDay = markdownToHtmlBold(data.high_temp_day);
+            const formattedConditionsTeeTime = markdownToHtmlBold(data.conditions_tee_time);
+            const formattedFeelsLikeTemp = markdownToHtmlBold(data.feels_like_temp);
+            const formattedPrecipitationChance = markdownToHtmlBold(data.precipitation_chance);
+            const formattedWindSpeedDirection = markdownToHtmlBold(data.wind_speed_direction);
+            const formattedUvIndex = markdownToHtmlBold(data.uv_index);
+            const formattedForecastUpdated = markdownToHtmlBold(data.forecast_updated);
+
             weatherContent.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                     <div class="p-4 bg-blue-100 rounded-lg sm:col-span-1">
                         <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
-                        <p class="text-3xl font-bold text-blue-900">${data.high_temp_day}</p>
+                        <p class="text-3xl font-bold text-blue-900">${formattedHighTempDay}</p>
                     </div>
                     <div class="p-4 bg-blue-100 rounded-lg sm:col-span-2">
                         <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
-                        <p class="text-3xl font-bold text-blue-900">${data.conditions_tee_time}</p>
-                        <p class="text-sm text-blue-600">Feels like ${data.feels_like_temp}</p>
+                        <p class="text-3xl font-bold text-blue-900">${formattedConditionsTeeTime}</p>
+                        <p class="text-sm text-blue-600">Feels like ${formattedFeelsLikeTemp}</p>
                     </div>
                     <div class="sm:col-span-3 text-sm text-gray-500 mt-2">
                         <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
                         <ul class="list-disc list-inside text-left">
-                            <li>Temperature: The daily high is expected to be **${data.high_temp_day}**, with a "feels like" temperature of **${data.feels_like_temp}**.</li>
-                            <li>Precipitation: **${data.precipitation_chance}** chance of rain.</li>
-                            <li>Wind: **${data.wind_speed_direction}**.</li>
-                            <li>UV Index: **${data.uv_index}**. Sunscreen recommended.</li>
+                            <li>Temperature: The daily high is expected to be ${formattedHighTempDay}, with a "feels like" temperature of ${formattedFeelsLikeTemp}.</li>
+                            <li>Precipitation: ${formattedPrecipitationChance} chance of rain.</li>
+                            <li>Wind: ${formattedWindSpeedDirection}.</li>
+                            <li>UV Index: ${formattedUvIndex}. Sunscreen recommended.</li>
                         </ul>
-                        <p class="mt-2">Forecast last updated: ${data.forecast_updated}. Conditions are subject to change. Please check closer to the date.</p>
+                        <p class="mt-2">Forecast last updated: ${formattedForecastUpdated}. Conditions are subject to change. Please check closer to the date.</p>
                         <a href="https://www.google.com/search?q=hourly+weather+Douglaston+NY+August+15+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
