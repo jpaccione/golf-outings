@@ -192,9 +192,28 @@
         const outingTeeTime = "12:30 PM"; // Tee time for Black Bear
 
         async function fetchWeather() {
+            // Define the outing date and a threshold for when to show the live forecast
+            const outingDateStr = "August 24, 2025"; // Must be in a format parseable by Date object
+            const outingDate = new Date(outingDateStr);
+            const currentDate = new Date();
+            // Calculate days remaining (round up to ensure it becomes active earlier in the day)
+            const diffTime = outingDate.getTime() - currentDate.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const forecastThresholdDays = 7; // Number of days before the outing to start showing live forecast
+
+            if (diffDays > forecastThresholdDays) {
+                weatherContent.innerHTML = `
+                    <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
+                    <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
+                `;
+                return; // Stop function execution if it's too far in the future
+            }
+
+            // If within the threshold, proceed with fetching the forecast
             weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
 
-            const date = "August 24, 2025"; // Date for Black Bear
+            const date = outingDateStr;
             const location = "Franklin, NJ"; // Location for Black Bear
             const time = outingTeeTime;
 
