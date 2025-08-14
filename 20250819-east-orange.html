@@ -365,46 +365,51 @@
         }
 
         function renderWeather(data, teeTime) {
-            function markdownToHtmlBold(text) {
+            // Function to remove any markdown bolding and ensure plain text for temperatures
+            function stripMarkdownBold(text) {
                 if (!text) return '';
-                return text.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold">$1</span>');
+                return text.replace(/\*\*(.*?)\*\*/g, '$1'); // Removes ** and keeps inner text
             }
 
-            const formattedHighTempDay = markdownToHtmlBold(data.high_temp_day);
-            const formattedConditionsTeeTime = markdownToHtmlBold(data.conditions_tee_time);
-            let feelsLikeValue = data.feels_like_temp;
-            if (!feelsLikeValue || feelsLikeValue.toLowerCase().includes('not specified') || feelsLikeValue.toLowerCase().includes('value')) {
-                feelsLikeValue = 'Not available';
+            // Extract and format Fahrenheit values, stripping any markdown or unwanted characters
+            const highTempDayF = stripMarkdownBold(data.high_temp_day).replace(/\s*\(.*\)/, ''); // Remove (C) if present
+            const conditionsTeeTimeF = stripMarkdownBold(data.conditions_tee_time);
+            let feelsLikeValueF = stripMarkdownBold(data.feels_like_temp).replace(/\s*\(.*\)/, ''); // Remove (C) if present
+            if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
+                feelsLikeValueF = 'Not available';
             }
-            const formattedFeelsLikeTemp = markdownToHtmlBold(feelsLikeValue);
-            const formattedPrecipitationChance = markdownToHtmlBold(data.precipitation_chance);
-            const formattedWindSpeedDirection = markdownToHtmlBold(data.wind_speed_direction);
-            const formattedUvIndex = markdownToHtmlBold(data.uv_index);
+            
+            // Other fields still use markdownToHtmlBold for the descriptive text
+            const precipitationChance = stripMarkdownBold(data.precipitation_chance); // Changed to strip, as % should not be bolded by markdownToHtmlBold
+            const windSpeedDirection = stripMarkdownBold(data.wind_speed_direction); // Changed to strip
+            const uvIndex = stripMarkdownBold(data.uv_index); // Changed to strip
+
             let forecastUpdatedText = data.forecast_updated;
             if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
                  forecastUpdatedText = 'Date not specified';
             }
-            const formattedForecastUpdated = markdownToHtmlBold(forecastUpdatedText);
+            const formattedForecastUpdated = stripMarkdownBold(forecastUpdatedText);
+
 
             weatherContent.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
                     <div class="p-4 bg-blue-100 rounded-lg">
                         <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
-                        <p class="text-3xl font-bold text-blue-900">${formattedHighTempDay}</p>
+                        <p class="text-3xl font-bold text-blue-900">${highTempDayF}</p>
                     </div>
                     <div class="p-4 bg-blue-100 rounded-lg">
                         <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
-                        <p class="text-3xl font-bold text-blue-900">${formattedConditionsTeeTime}</p>
-                        <p class="text-sm text-blue-600">Feels like ${formattedFeelsLikeTemp}</p>
+                        <p class="text-3xl font-bold text-blue-900">${conditionsTeeTimeF}</p>
+                        <p class="text-sm text-blue-600">Feels like ${feelsLikeValueF}</p>
                     </div>
                 </div>
                 <div class="text-sm text-gray-500 mt-2">
                     <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
                     <ul class="list-disc list-inside text-left">
-                        <li>Temperature: The daily high is expected to be ${formattedHighTempDay}, with a "feels like" temperature of ${formattedFeelsLikeTemp}.</li>
-                        <li>Precipitation: ${formattedPrecipitationChance} chance of rain.</li>
-                        <li>Wind: ${formattedWindSpeedDirection}.</li>
-                        <li>UV Index: ${formattedUvIndex}. Sunscreen recommended.</li>
+                        <li>Temperature: The daily high is expected to be ${highTempDayF}, with a "feels like" temperature of ${feelsLikeValueF}.</li>
+                        <li>Precipitation: ${precipitationChance} chance of rain.</li>
+                        <li>Wind: ${windSpeedDirection}.</li>
+                        <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
                     </ul>
                     <p class="mt-2">Forecast last updated: ${formattedForecastUpdated}. Conditions are subject to change. Please check closer to the date.</p>
                     <a href="https://www.google.com/search?q=hourly+weather+Short+Hills+NJ+August+19+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
