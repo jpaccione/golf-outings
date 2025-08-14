@@ -1,61 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>20250806_Ballyowen_Golf_Day</title>
-<link rel="stylesheet" href="./styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballyowen Golf Outing - August 6, 2025</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            color: #374151; /* Dark gray text */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        /* Table specific styles for responsiveness and appearance */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .table-auto {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-auto th, .table-auto td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .table-auto th {
+            background-color: #eef2ff; /* Light blue for header */
+            color: #4338ca; /* Darker blue for header text */
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+        .table-auto tr:last-child td {
+            border-bottom: none;
+        }
+        .table-auto tbody tr:nth-child(even) {
+            background-color: #f9fafb; /* Slightly darker for even rows */
+        }
+        .table-auto tbody tr:hover {
+            background-color: #f3f4f6; /* Hover effect */
+        }
+
+        /* Styles for the header background */
+        .header-background-container {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 0.75rem; /* ~rounded-xl */
+            overflow: hidden; /* Ensures border-radius applies to background */
+            transition: background-image 1s ease-in-out; /* Smooth transition for image change */
+        }
+
+        /* Overlay for readability */
+        .header-background-overlay {
+            background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent dark overlay */
+            padding: 1.5rem;
+            position: relative; /* To keep content above the overlay */
+            z-index: 10;
+        }
+
+        /* Specific section background colors within the header-background-overlay, for consistency */
+        .header-background-overlay .event-details-bg {
+            background-color: rgba(240, 253, 244, 0.85); /* Light green with transparency */
+        }
+
+        /* Fallback background if no specific images are found */
+        .header-background-container.fallback-bg {
+            background-color: #d1fae5; /* A light, generic green for fallback */
+        }
+        /* Style for text shadow on the main title */
+        .text-shadow-md {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        /* Removed the explicit border-bottom from the header CSS */
+        header {
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+        /* Style for the tee time separator row */
+        .tee-time-separator {
+            background-color: #e5e7eb; /* A light gray */
+            height: 2px; /* A thin line */
+        }
+        .tee-time-separator td {
+            padding: 0; /* No padding for separator cells */
+        }
+    </style>
 </head>
-<body>
-<header id="page-header" class="page-header">
-  <div class="header-content">
-    <h1>Ballyowen Golf Outing</h1>
-    <h2>August 6, 2025</h2>
-  </div>
-</header>
-<main>
-<section id="event-details" class="card-section">
-  <h2>Event Details</h2>
-  <p><strong>Location:</strong> Ballyowen Golf Club - Hamburg, NJ (<a href="https://maps.google.com/?q=Ballyowen+Golf+Club" target="_blank">View on Google Maps</a>)</p>
-  <p><strong>Tee Times:</strong> 12:40 PM & 12:50 PM</p>
-</section>
+<body class="p-4 sm:p-6 lg:p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
 
-<section id="weather-forecast" class="card-section">
-  <h2>Weather Forecast</h2>
-  <p><strong>Forecast at tee time:</strong> 78°F, partly cloudy with light breeze.</p>
-</section>
+        <!-- Header and Event Details Wrapper with Background Image -->
+        <div id="main-header-wrapper" class="header-background-container mb-8">
+            <div class="header-background-overlay">
+                <!-- Header Section -->
+                <header class="text-center pb-4">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md">Ballyowen Golf Outing<br>August 6, 2025 (Wednesday)</h1>
+                </header>
 
-<section id="attendees" class="card-section">
-  <h2>Attendees</h2>
-  <table class="attendees-table">
-    <thead>
-      <tr><th>Name</th><th>Tee Time</th><th>Arrival</th><th>Pickup Time</th><th>Driver / Notes</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Justin Gonzalez</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Collin</td></tr>
-      <tr><td>Collin Cothran</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Justin</td></tr>
-      <tr><td>Jane Pineda</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Noelani</td></tr>
-      <tr><td>Noelani Pao</td><td>12:50 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Jane</td></tr>
-      <tr><td>John Paccione</td><td>12:40 PM</td><td>11:30 AM</td><td>N/A</td><td>Driving</td></tr>
-      <tr><td>Suze Lee</td><td>12:40 PM</td><td>11:30 AM</td><td>9:40 AM</td><td>Pickup by John</td></tr>
-      <tr><td>Kazu Okano</td><td>12:40 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Noriko</td></tr>
-      <tr><td>Noriko Okano</td><td>12:40 PM</td><td>11:30 AM</td><td>N/A</td><td>Riding with Kazu</td></tr>
-    </tbody>
-  </table>
-</section>
+                <!-- Event Details Section - now transparent inside the overlay -->
+                <div class="event-details-bg p-6 rounded-xl relative z-20">
+                    <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        Event Details
+                    </h2>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                        <div class="mb-2 sm:mb-0">
+                            <p class="font-semibold text-gray-700">Location:</p>
+                            <p class="font-bold text-green-900">Ballyowen Golf Club - Hamburg, NJ</p>
+                            <a href="https://www.google.com/maps/search/Ballyowen+Golf+Club,+Hamburg,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+                                View on Google Maps
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
+                            <p class="text-lg font-semibold text-green-700">Tee Times:</p>
+                            <p class="text-3xl font-bold text-green-900">12:40 PM & 12:50 PM</p>
+                            <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<section id="important-notes" class="card-section">
-  <h2>Important Notes</h2>
-  <ul>
-    <li><strong>Theme:</strong> Homage to Scotland (or Celtic Celebration) - bagpipes NOT required.</li>
-    <li><strong>GPS:</strong> Ballyowen Golf Club, 105-137 Wheatsworth Road, Hamburg, NJ.</li>
-    <li><strong>Arrival:</strong> Be at the club by 11:30 AM for check-in and warm-up.</li>
-    <li><strong>Green Fee:</strong> $109/pp including cart.</li>
-    <li><strong>Driving Range & Practice Facilities:</strong> Available.</li>
-    <li><strong>Course Layout:</strong> Returns to clubhouse after 9 holes.</li>
-    <li><strong>Amenities:</strong> Pro Shop, Lockers, Showers, Owen's Pub, beverage carts.</li>
-  </ul>
-</section>
-</main>
+        <!-- Weather Forecast Section - Conditionally hidden post-event -->
+        <div id="weather-section-container" class="bg-eff6ff p-6 mb-8 rounded-xl">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
+                </svg>
+                Live Weather Forecast
+            </h2>
+            <div id="weather-content" class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="p-4 bg-blue-100 rounded-lg sm:col-span-1">
+                    <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
+                    <p class="text-3xl font-bold text-blue-900">78°F</p>
+                </div>
+                <div class="p-4 bg-blue-100 rounded-lg sm:col-span-2">
+                    <p class="text-lg font-semibold text-blue-700">Conditions (around 12:00 PM)</p>
+                    <p class="text-3xl font-bold text-blue-900">Cloudy</p>
+                    <p class="text-sm text-blue-600">Feels like 75°F</p>
+                </div>
+                <div class="sm:col-span-3 text-sm text-gray-500 mt-2">
+                    <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play (Approx. 12:40 PM - 5:10 PM):</p>
+                    <ul class="list-disc list-inside text-left">
+                        <li>Temperature: The daily high is expected to be **78°F**, with a "feels like" temperature of **75°F**.</li>
+                        <li>Precipitation: **20%** chance of rain.</li>
+                        <li>Wind: Moderate wind (approx. **7 mph from the Southeast**).</li>
+                        <li>UV Index: Low to moderate (UV index of **3**). Sunscreen recommended.</li>
+                    </ul>
+                    <p class="mt-2">Forecast last updated: August 6, 2025. Conditions are subject to change. Please check closer to the date.</p>
+                    <a href="https://www.google.com/search?q=hourly+weather+Hamburg+NJ+August+6+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get the Latest Hourly Forecast
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendees Section -->
+        <div class="bg-f5f3ff p-6 mb-8 rounded-xl">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                Attendees
+            </h2>
+            <div class="table-responsive">
+                <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-4 rounded-tl-lg">Name</th>
+                            <th class="py-3 px-4">Tee Time</th>
+                            <th class="py-3 px-4">Arrival at Course</th>
+                            <th class="py-3 px-4">Pickup Time</th>
+                            <th class="py-3 px-4 rounded-tr-lg">Driver / Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 12:40 PM Tee Time -->
+                        <tr>
+                            <td class="py-3 px-4">Suze Lee</td>
+                            <td class="py-3 px-4">12:40 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">9:40 AM</td>
+                            <td class="py-3 px-4">Pickup by John Paccione</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Kazu Okano</td>
+                            <td class="py-3 px-4">12:40 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A</td>
+                            <td class="py-3 px-4">Driving self (with Noriko Okano)</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Noriko Okano</td>
+                            <td class="py-3 px-4">12:40 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A</td>
+                            <td class="py-3 px-4">Riding with Kazu Okano</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">John Paccione</td>
+                            <td class="py-3 px-4">12:40 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A (Driving)</td>
+                            <td class="py-3 px-4">Picking up Suze Lee</td>
+                        </tr>
+                        
+                        <!-- Separator Row -->
+                        <tr class="tee-time-separator">
+                            <td colspan="5"></td>
+                        </tr>
+
+                        <!-- 12:50 PM Tee Time -->
+                        <tr>
+                            <td class="py-3 px-4">Collin Cothran</td>
+                            <td class="py-3 px-4">12:50 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A</td>
+                            <td class="py-3 px-4">Riding with Justin Gonzalez</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Justin Gonzalez</td>
+                            <td class="py-3 px-4">12:50 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A</td>
+                            <td class="py-3 px-4">Riding with Collin Cothran</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Noelani Pao</td>
+                            <td class="py-3 px-4">12:50 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A</td>
+                            <td class="py-3 px-4">Riding with Jane Pineda</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Jane Pineda</td>
+                            <td class="py-3 px-4">12:50 PM</td>
+                            <td class="py-3 px-4">11:30 AM</td>
+                            <td class="py-3 px-4">N/A</td>
+                            <td class="py-3 px-4">Riding with Noelani Pao</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Notes and Important Information Section -->
+        <div class="bg-fffbeb p-6 rounded-xl">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                Important Notes
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li><strong class="font-semibold">Theme:</strong> Homage to Scotland (or Celtic Celebration) - feel free to highlight Ballyowen's Scottish/Irish links-inspired layout! Bagpipes NOT required...</li>
+                <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to **Ballyowen Golf Club** (105-137 Wheatsworth Road, Hamburg, NJ), which is part of the Crystal Springs Resort.</li>
+                <li><strong class="font-semibold">Arrival Time:</strong> Everyone should plan to arrive at Ballyowen Golf Club by <strong>11:30 AM</strong> to allow time for check-in, warm-up, and organization before the tee time.</li>
+                <li><strong class="font-semibold">Tee Times:</strong> Our tee times are <strong>12:40 PM and 12:50 PM</strong>. Please be ready at the tee box at least 10 minutes prior.</li>
+                <li><strong class="font-semibold">Green Fee:</strong> The green fee is <strong>$109/pp and includes a cart</strong>. There is no separate walking rate for this round. <a href="https://www.crystalgolfresort.com/golf/courses/ballyowen" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Ballyowen Golf Club)</a></li>
+                <li><strong class="font-semibold">Driving Range:</strong> Ballyowen Golf Club features practice facilities including a driving range, putting greens, and chipping area. <a href="https://www.crystalgolfresort.com/golf/courses/ballyowen" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Ballyowen Golf Club)</a></li>
+                <li><strong class="font-semibold">Course Layout:</strong> The course layout returns to the clubhouse after 9 holes for an opportunity to use restrooms and access amenities like Owen's Pub. Ballyowen Golf Club features a links-style layout with open meadows and rolling farmland, offering 360-degree views. <a href="https://www.cryst-golf-resort.com/golf/courses/ballyowen" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Ballyowen Golf Club)</a></li>
+                <li><strong class="font-semibold">Amenities:</strong> The course features a Pro Shop, Lockers, Showers, and Owen's Pub (restaurant, bar, snack bar). Beverage carts are also available. <a href="https://www.crystalgolfresort.com/golf/courses/ballyowen" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Ballyowen Golf Club)</a></li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-8 pt-4 border-t-2 border-gray-200 text-gray-500 text-sm">
+        </footer>
+
+    </div>
+
+    <script>
+        const weatherContent = document.getElementById('weather-content');
+        const weatherSectionContainer = document.getElementById('weather-section-container');
+        const outingTeeTime = "12:40 PM"; // Main tee time for Ballyowen
+
+        // Header background elements
+        const mainHeaderWrapper = document.getElementById('main-header-wrapper');
+        const outingLocation = "ballyowen"; // Lowercase, hyphenated name of the course for image filename
+        
+        let currentImageIndex = 0;
+        let courseImages = []; // Array to hold image paths
+        const maxImages = 5; // Max number of images to check for (e.g., ballyowen-01.jpg to ballyowen-05.jpg)
+        const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
+        let rotationTimer; // To store the interval timer
+
+        // Function to load all available course images and start rotation as background
+        async function loadCourseBackgroundImagesAndStartRotation() {
+            let foundImages = false;
+            const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
+
+            for (let i = 1; i <= maxImages; i++) {
+                const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
+                try {
+                    // Use new Image() to pre-load and check if the image exists
+                    const img = new Image();
+                    img.src = imagePath;
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                    });
+                    courseImages.push(imagePath);
+                    foundImages = true;
+                } catch (error) {
+                    // console.log(`Image not found or error loading ${imagePath}, stopping search.`);
+                    break;
+                }
+            }
+
+            if (foundImages && courseImages.length > 0) {
+                mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
+                mainHeaderWrapper.classList.remove('fallback-bg');
+                if (courseImages.length > 1) {
+                    rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
+                }
+            } else {
+                mainHeaderWrapper.style.backgroundImage = 'none';
+                mainHeaderWrapper.classList.add('fallback-bg');
+            }
+        }
+
+        // Function to rotate to the next image as background
+        function rotateCourseBackgroundImage() {
+            currentImageIndex = (currentImageIndex + 1) % courseImages.length;
+            mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
+        }
+
+
+        // Function to handle weather section display based on date
+        function handleWeatherSectionDisplay() {
+            const outingDateStr = "August 06, 2025"; // Outing date for Ballyowen
+            const outingDate = new Date(outingDateStr);
+            const currentDate = new Date();
+            // Normalize dates to just the day for comparison (ignore time)
+            outingDate.setHours(0, 0, 0, 0);
+            currentDate.setHours(0, 0, 0, 0);
+
+            // Hide weather section if the outing date has passed
+            if (currentDate > outingDate) {
+                if (weatherSectionContainer) {
+                    weatherSectionContainer.style.display = 'none';
+                }
+            }
+            // No need to fetch live weather, as this page uses static weather data
+        }
+
+        // Initialize display logic and image loading on page load
+        window.onload = function() {
+            handleWeatherSectionDisplay();
+            loadCourseBackgroundImagesAndStartRotation();
+        };
+    </script>
 </body>
 </html>
