@@ -75,8 +75,8 @@
 
         /* Overlay for readability */
         .header-background-overlay {
-            /* Changed opacity from 0.4 to 0.3 for more image visibility */
-            background-color: rgba(0, 0, 0, 0.3); 
+            /* Changed opacity from 0.3 to 0.25 for more image visibility */
+            background-color: rgba(0, 0, 0, 0.25); 
             padding: 1.5rem;
             position: relative; /* To keep content above the overlay */
             z-index: 10;
@@ -95,6 +95,11 @@
         .text-shadow-md {
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
+        /* Removed the explicit border-bottom from the header CSS */
+        header {
+            text-align: center;
+            padding-bottom: 1rem;
+        }
     </style>
 </head>
 <body class="p-4 sm:p-6 lg:p-8">
@@ -104,7 +109,7 @@
         <div id="main-header-wrapper" class="header-background-container mb-8">
             <div class="header-background-overlay">
                 <!-- Header Section -->
-                <header class="text-center pb-4 /* Removed border-b-2 border-gray-200 */">
+                <header class="text-center pb-4"> <!-- Removed border-b-2 border-gray-200 class -->
                     <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md">Black Bear Golf Outing<br>August 24, 2025 (Sunday)</h1>
                 </header>
 
@@ -178,21 +183,21 @@
                             <td class="py-3 px-4">Picking up Suze</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">Suze Lee</td>
+                            <td class="py-3 px-4">Suze Lee</td>
                             <td class="py-3 px-4">12:30 PM</td>
                             <td class="py-3 px-4">11:00 AM</td>
                             <td class="py-3 px-4">9:30 AM</td>
                             <td class="py-3 px-4">Riding with John P</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">May</td>
+                            <td class="py-3 px-4">May</td>
                             <td class="py-3 px-4">12:30 PM</td>
                             <td class="py-3 px-4">11:00 AM</td>
                             <td class="py-3 px-4">N/A (Driving)</td>
                             <td class="py-3 px-4">Driving self</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">Noelani Pao</td>
+                            <td class="py-3 px-4">Noelani Pao</td>
                             <td class="py-3 px-4">12:30 PM</td>
                             <td class="py-3 px-4">11:00 AM</td>
                             <td class="py-3 px-4">N/A (Driving)</td>
@@ -301,7 +306,7 @@
 
             if (diffDays > forecastThresholdDays) {
                 weatherContent.innerHTML = `
-                    <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
+                    <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days}</span> before the outing.</p>
                     <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
                 `;
                 return; // Stop function execution if it's too far in the future
