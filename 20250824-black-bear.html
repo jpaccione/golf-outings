@@ -60,45 +60,73 @@
         .table-auto tbody tr:hover {
             background-color: #f3f4f6; /* Hover effect */
         }
+
+        /* Styles for the header background */
+        .header-background-container {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 0.75rem; /* ~rounded-xl */
+            overflow: hidden; /* Ensures border-radius applies to background */
+            transition: background-image 1s ease-in-out; /* Smooth transition for image change */
+        }
+
+        /* Overlay for readability */
+        .header-background-overlay {
+            background-color: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
+            padding: 1.5rem;
+            position: relative; /* To keep content above the overlay */
+            z-index: 10;
+        }
+
+        /* Specific section background colors within the header-background-overlay, for readability */
+        .header-background-overlay .bg-f0fdf4 {
+            background-color: rgba(240, 253, 244, 0.85); /* Light green with transparency */
+        }
+
+        /* Fallback background if no specific images are found */
+        .header-background-container.fallback-bg {
+            background-color: #d1fae5; /* A light, generic green for fallback */
+        }
     </style>
 </head>
 <body class="p-4 sm:p-6 lg:p-8">
     <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
 
-        <!-- Header Section -->
-        <header class="text-center mb-8 pb-4 border-b-2 border-gray-200">
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-green-700 mb-2">Black Bear Golf Outing<br>August 24, 2025</h1>
-        </header>
+        <!-- Header and Event Details Wrapper with Background Image -->
+        <div id="main-header-wrapper" class="header-background-container mb-8">
+            <div class="header-background-overlay">
+                <!-- Header Section -->
+                <header class="text-center pb-4 border-b-2 border-gray-200">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">Black Bear Golf Outing<br>August 24, 2025</h1>
+                </header>
 
-        <!-- Event Details Section -->
-        <div class="bg-f0fdf4 p-6 mb-8 rounded-xl" style="background-color: #f0fdf4;">
-            <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                </svg>
-                Event Details
-            </h2>
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
-                <div class="mb-2 sm:mb-0">
-                    <p class="font-semibold text-gray-700">Location:</p>
-                    <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
-                    <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
-                        View on Google Maps
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <!-- Event Details Section - now transparent inside the overlay -->
+                <div class="bg-f0fdf4 p-6 rounded-xl relative z-20"> <!-- Added relative z-20 for layering -->
+                    <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                         </svg>
-                    </a>
+                        Event Details
+                    </h2>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                        <div class="mb-2 sm:mb-0">
+                            <p class="font-semibold text-gray-700">Location:</p>
+                            <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
+                            <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+                                View on Google Maps
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
+                            <p class="text-lg font-semibold text-green-700">Tee Time:</p>
+                            <p class="text-3xl font-bold text-green-900">12:30 PM</p>
+                        </div>
+                    </div>
                 </div>
-                <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
-                    <p class="text-lg font-semibold text-green-700">Tee Time:</p>
-                    <p class="text-3xl font-bold text-green-900">12:30 PM</p>
-                </div>
-            </div>
-             <!-- Course Photo Section -->
-            <div id="course-photo-section" class="mt-6 text-center">
-                <p class="text-lg font-semibold text-gray-700 mb-2">Course Snapshot:</p>
-                <img id="course-photo" class="mx-auto rounded-lg shadow-md max-w-full h-auto" style="max-height: 250px; object-fit: cover;" alt="Course Photo">
-                <p id="photo-fallback-message" class="text-gray-500 text-sm mt-2 hidden">No specific photo yet, but here's a ⛳!</p>
             </div>
         </div>
 
@@ -197,10 +225,8 @@
         const weatherContent = document.getElementById('weather-content');
         const outingTeeTime = "12:30 PM"; // Tee time for Black Bear
 
-        // Course image elements
-        const coursePhotoImg = document.getElementById('course-photo');
-        const photoFallbackMessage = document.getElementById('photo-fallback-message');
-        const outingDateString = "August 24, 2025"; // Date for Black Bear (used for image filename)
+        // Header background elements
+        const mainHeaderWrapper = document.getElementById('main-header-wrapper');
         const outingLocation = "black-bear"; // Lowercase, hyphenated name of the course for image filename
         
         let currentImageIndex = 0;
@@ -209,20 +235,23 @@
         const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
         let rotationTimer; // To store the interval timer
 
-        // Function to load all available course images and start rotation
-        async function loadCourseImagesAndStartRotation() {
+        // Function to load all available course images and start rotation as background
+        async function loadCourseBackgroundImagesAndStartRotation() {
             let foundImages = false;
-            // Updated path to look in a subfolder within images/
-            const baseImagePath = `images/courses/${outingLocation}/`; // NEW: Includes 'courses' subfolder
+            const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
 
             for (let i = 1; i <= maxImages; i++) {
-                const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`; // e.g., images/courses/black-bear/black-bear-01.jpg
+                const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
                 try {
-                    const response = await fetch(imagePath);
-                    if (response.ok) {
-                        courseImages.push(imagePath);
-                        foundImages = true;
-                    }
+                    // Use new Image() to pre-load and check if the image exists
+                    const img = new Image();
+                    img.src = imagePath;
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                    });
+                    courseImages.push(imagePath);
+                    foundImages = true;
                 } catch (error) {
                     // console.log(`Image not found or error loading ${imagePath}, stopping search.`);
                     // Stop searching if a numbered image is not found (assumes sequential numbering)
@@ -231,33 +260,30 @@
             }
 
             if (foundImages && courseImages.length > 0) {
-                // Show the first image and start rotation
-                coursePhotoImg.src = courseImages[0];
-                coursePhotoImg.alt = `Course photo for ${outingLocation}`;
-                coursePhotoImg.classList.remove('hidden');
-                photoFallbackMessage.classList.add('hidden');
+                // Apply the first image as background
+                mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
+                mainHeaderWrapper.classList.remove('fallback-bg'); // Remove fallback if images are found
 
                 if (courseImages.length > 1) {
-                    rotationTimer = setInterval(rotateCourseImage, imageRotationInterval);
+                    rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
                 }
             } else {
-                // Fallback to golf emoji if no images are found
-                coursePhotoImg.classList.add('hidden');
-                photoFallbackMessage.classList.remove('hidden');
-                photoFallbackMessage.innerHTML = 'No specific photo yet, but here\'s a <span class="text-4xl">⛳</span>!';
+                // Apply fallback background if no images are found
+                mainHeaderWrapper.style.backgroundImage = 'none'; // Ensure no previous image is left
+                mainHeaderWrapper.classList.add('fallback-bg'); // Apply generic fallback background
             }
         }
 
-        // Function to rotate to the next image
-        function rotateCourseImage() {
+        // Function to rotate to the next image as background
+        function rotateCourseBackgroundImage() {
             currentImageIndex = (currentImageIndex + 1) % courseImages.length;
-            coursePhotoImg.src = courseImages[currentImageIndex];
+            mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
         }
 
 
         async function fetchWeather() {
             // Define the outing date and a threshold for when to show the live forecast
-            const outingDateStr = outingDateString; // Use the same string as defined for image
+            const outingDateStr = "August 24, 2025"; // Date for Black Bear
             const outingDate = new Date(outingDateStr);
             const currentDate = new Date();
             // Calculate days remaining (round up to ensure it becomes active earlier in the day)
@@ -376,7 +402,7 @@
         // Initialize weather fetching and image loading on page load
         window.onload = function() {
             fetchWeather();
-            loadCourseImagesAndStartRotation(); // Call the updated function for image loading
+            loadCourseBackgroundImagesAndStartRotation(); // Call the updated function for background image loading
         };
     </script>
 </body>
