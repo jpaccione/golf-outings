@@ -94,6 +94,12 @@
                     <p class="text-3xl font-bold text-green-900">12:30 PM</p>
                 </div>
             </div>
+             <!-- Course Photo Section -->
+            <div id="course-photo-section" class="mt-6 text-center">
+                <p class="text-lg font-semibold text-gray-700 mb-2">Course Snapshot:</p>
+                <img id="course-photo" class="mx-auto rounded-lg shadow-md max-w-full h-auto" style="max-height: 250px; object-fit: cover;" alt="Course Photo">
+                <p id="photo-fallback-message" class="text-gray-500 text-sm mt-2 hidden">No specific photo yet, but here's a ⛳!</p>
+            </div>
         </div>
 
         <!-- Weather Forecast Section -->
@@ -191,9 +197,67 @@
         const weatherContent = document.getElementById('weather-content');
         const outingTeeTime = "12:30 PM"; // Tee time for Black Bear
 
+        // Course image elements
+        const coursePhotoImg = document.getElementById('course-photo');
+        const photoFallbackMessage = document.getElementById('photo-fallback-message');
+        const outingDateString = "August 24, 2025"; // Date for Black Bear (used for image filename)
+        const outingLocation = "black-bear"; // Lowercase, hyphenated name of the course for image filename
+        
+        let currentImageIndex = 0;
+        let courseImages = []; // Array to hold image paths
+        const maxImages = 5; // Max number of images to check for (e.g., black-bear-01.jpg to black-bear-05.jpg)
+        const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
+        let rotationTimer; // To store the interval timer
+
+        // Function to load all available course images and start rotation
+        async function loadCourseImagesAndStartRotation() {
+            let foundImages = false;
+            // Updated path to look in a subfolder within images/
+            const baseImagePath = `images/courses/${outingLocation}/`; // NEW: Includes 'courses' subfolder
+
+            for (let i = 1; i <= maxImages; i++) {
+                const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`; // e.g., images/courses/black-bear/black-bear-01.jpg
+                try {
+                    const response = await fetch(imagePath);
+                    if (response.ok) {
+                        courseImages.push(imagePath);
+                        foundImages = true;
+                    }
+                } catch (error) {
+                    // console.log(`Image not found or error loading ${imagePath}, stopping search.`);
+                    // Stop searching if a numbered image is not found (assumes sequential numbering)
+                    break;
+                }
+            }
+
+            if (foundImages && courseImages.length > 0) {
+                // Show the first image and start rotation
+                coursePhotoImg.src = courseImages[0];
+                coursePhotoImg.alt = `Course photo for ${outingLocation}`;
+                coursePhotoImg.classList.remove('hidden');
+                photoFallbackMessage.classList.add('hidden');
+
+                if (courseImages.length > 1) {
+                    rotationTimer = setInterval(rotateCourseImage, imageRotationInterval);
+                }
+            } else {
+                // Fallback to golf emoji if no images are found
+                coursePhotoImg.classList.add('hidden');
+                photoFallbackMessage.classList.remove('hidden');
+                photoFallbackMessage.innerHTML = 'No specific photo yet, but here\'s a <span class="text-4xl">⛳</span>!';
+            }
+        }
+
+        // Function to rotate to the next image
+        function rotateCourseImage() {
+            currentImageIndex = (currentImageIndex + 1) % courseImages.length;
+            coursePhotoImg.src = courseImages[currentImageIndex];
+        }
+
+
         async function fetchWeather() {
             // Define the outing date and a threshold for when to show the live forecast
-            const outingDateStr = "August 24, 2025"; // Must be in a format parseable by Date object
+            const outingDateStr = outingDateString; // Use the same string as defined for image
             const outingDate = new Date(outingDateStr);
             const currentDate = new Date();
             // Calculate days remaining (round up to ensure it becomes active earlier in the day)
@@ -309,9 +373,10 @@
             `;
         }
 
-        // Initialize weather fetching on page load
+        // Initialize weather fetching and image loading on page load
         window.onload = function() {
             fetchWeather();
+            loadCourseImagesAndStartRotation(); // Call the updated function for image loading
         };
     </script>
 </body>
