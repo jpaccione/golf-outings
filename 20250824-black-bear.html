@@ -142,11 +142,11 @@
             </div>
         </div>
 
-        <!-- Weather Forecast Section -->
-        <div class="bg-eff6ff p-6 mb-8 rounded-xl" style="background-color: #eff6ff;">
+        <!-- Weather Forecast Section - Now conditionally hidden post-event -->
+        <div id="weather-section-container" class="bg-eff6ff p-6 mb-8 rounded-xl" style="background-color: #eff6ff;">
             <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0  001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
                 </svg>
                 Live Weather Forecast
             </h2>
@@ -235,6 +235,7 @@
 
     <script>
         const weatherContent = document.getElementById('weather-content');
+        const weatherSectionContainer = document.getElementById('weather-section-container'); // Get the whole weather section
         const outingTeeTime = "12:30 PM"; // Tee time for Black Bear
 
         // Header background elements
@@ -298,11 +299,22 @@
             const outingDateStr = "August 24, 2025"; // Date for Black Bear
             const outingDate = new Date(outingDateStr);
             const currentDate = new Date();
-            // Calculate days remaining (round up to ensure it becomes active earlier in the day)
+            // Normalize dates to just the day for comparison (ignore time)
+            outingDate.setHours(0, 0, 0, 0);
+            currentDate.setHours(0, 0, 0, 0);
+
+            // Hide weather section if the outing date has passed
+            if (currentDate > outingDate) {
+                if (weatherSectionContainer) {
+                    weatherSectionContainer.style.display = 'none';
+                }
+                return; // Stop function execution
+            }
+
+            const forecastThresholdDays = 7; // Number of days before the outing to start showing live forecast
             const diffTime = outingDate.getTime() - currentDate.getTime();
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-            const forecastThresholdDays = 7; // Number of days before the outing to start showing live forecast
 
             if (diffDays > forecastThresholdDays) {
                 weatherContent.innerHTML = `
