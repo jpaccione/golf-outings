@@ -69,21 +69,19 @@
             background-repeat: no-repeat;
             border-radius: 0.75rem; /* ~rounded-xl */
             overflow: hidden; /* Ensures border-radius applies to background */
-            /* Added transition for background image for a smoother fade effect */
-            transition: background-image 1s ease-in-out; 
+            transition: background-image 1s ease-in-out; /* Smooth transition for image change */
         }
 
         /* Overlay for readability */
         .header-background-overlay {
-            /* Changed opacity from 0.3 to 0.25 for more image visibility */
-            background-color: rgba(0, 0, 0, 0.25); 
+            background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent dark overlay */
             padding: 1.5rem;
             position: relative; /* To keep content above the overlay */
             z-index: 10;
         }
 
-        /* Specific section background colors within the header-background-overlay, for readability */
-        .header-background-overlay .bg-f0fdf4 {
+        /* Specific section background colors within the header-background-overlay, for consistency */
+        .header-background-overlay .event-details-bg {
             background-color: rgba(240, 253, 244, 0.85); /* Light green with transparency */
         }
 
@@ -100,6 +98,28 @@
             text-align: center;
             padding-bottom: 1rem;
         }
+
+        /* Consistent Section Backgrounds and Styling */
+        .weather-section-bg {
+            background-color: #eff6ff; /* Light blue */
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .attendees-section-bg {
+            background-color: #f5f3ff; /* Light purple */
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .notes-section-bg {
+            background-color: #fffbeb; /* Light yellow */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
     </style>
 </head>
 <body class="p-4 sm:p-6 lg:p-8">
@@ -109,12 +129,12 @@
         <div id="main-header-wrapper" class="header-background-container mb-8">
             <div class="header-background-overlay">
                 <!-- Header Section -->
-                <header class="text-center pb-4"> <!-- Removed border-b-2 border-gray-200 class -->
+                <header class="text-center pb-4">
                     <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md">Black Bear Golf Outing<br>August 24, 2025 (Sunday)</h1>
                 </header>
 
                 <!-- Event Details Section - now transparent inside the overlay -->
-                <div class="bg-f0fdf4 p-6 rounded-xl relative z-20"> <!-- Added relative z-20 for layering -->
+                <div class="event-details-bg p-6 rounded-xl relative z-20">
                     <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -135,28 +155,28 @@
                         <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
                             <p class="text-lg font-semibold text-green-700">Tee Time:</p>
                             <p class="text-3xl font-bold text-green-900">12:30 PM</p>
-                            <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p> <!-- Added 18-hole specification -->
+                            <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Weather Forecast Section - Now conditionally hidden post-event -->
-        <div id="weather-section-container" class="bg-eff6ff p-6 mb-8 rounded-xl" style="background-color: #eff6ff;">
+        <!-- Weather Forecast Section - Conditionally hidden post-event -->
+        <div id="weather-section-container" class="weather-section-bg">
             <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0  001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
                 </svg>
                 Live Weather Forecast
             </h2>
-            <div id="weather-content">
+            <div id="weather-content" class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                 <p class="text-center text-gray-500">Loading weather data...</p>
             </div>
         </div>
 
         <!-- Attendees Section -->
-        <div class="bg-f5f3ff p-6 mb-8 rounded-xl" style="background-color: #f5f3ff;">
+        <div class="attendees-section-bg">
             <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -176,18 +196,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="py-3 px-4 font-semibold">John Paccione</td>
-                            <td class="py-3 px-4">12:30 PM</td>
-                            <td class="py-3 px-4">11:00 AM</td>
-                            <td class="py-3 px-4">N/A (Driving)</td>
-                            <td class="py-3 px-4">Picking up Suze</td>
-                        </tr>
-                        <tr>
                             <td class="py-3 px-4">Suze Lee</td>
                             <td class="py-3 px-4">12:30 PM</td>
                             <td class="py-3 px-4">11:00 AM</td>
                             <td class="py-3 px-4">9:30 AM</td>
-                            <td class="py-3 px-4">Riding with John P</td>
+                            <td class="py-3 px-4">Pickup by John</td>
                         </tr>
                         <tr>
                             <td class="py-3 px-4">May</td>
@@ -203,13 +216,20 @@
                             <td class="py-3 px-4">N/A (Driving)</td>
                             <td class="py-3 px-4">Driving self</td>
                         </tr>
+                        <tr>
+                            <td class="py-3 px-4">John Paccione</td>
+                            <td class="py-3 px-4">12:30 PM</td>
+                            <td class="py-3 px-4">11:00 AM</td>
+                            <td class="py-3 px-4">N/A (Driving)</td>
+                            <td class="py-3 px-4">Picking up Suze</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <!-- Notes and Important Information Section -->
-        <div class="bg-fffbeb p-6 rounded-xl" style="background-color: #fffbeb;">
+        <div class="notes-section-bg">
             <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -223,7 +243,7 @@
                 <li><span class="font-semibold">Green Fee:</span> The green fee is <span class="font-bold">$90.50 per person and includes a cart</span> (This was a GolfNow Hot Deal tee time, so the price is lower than typical published rates). There is no separate walking rate for this round. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course - Rates)</a></li>
                 <li><span class="font-semibold">Driving Range:</span> Black Bear Golf Course features a lighted double-ended driving range on-site, as well as putting and chipping greens. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course)</a></li>
                 <li><span class="font-semibold">Course Layout:</span> The course layout returns to the clubhouse after 9 holes for an opportunity to use restrooms and re-stock. Black Bear offers an inviting diversity of terrain, scenery, and shot selections across its 18 holes. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course)</a></li>
-                <li><span class="font-semibold">Amenities:</span> The course features the Bear Den Grille (restaurant and bar), outdoor patio, and pro shop. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course)</a></li>
+                <li><span class="font-semibold">Amenities:</span> The course features the Bear Den Grille (restaurant and bar), outdoor pool tables, and dart boards. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course)</a></li>
             </ul>
         </div>
 
@@ -235,7 +255,7 @@
 
     <script>
         const weatherContent = document.getElementById('weather-content');
-        const weatherSectionContainer = document.getElementById('weather-section-container'); // Get the whole weather section
+        const weatherSectionContainer = document.getElementById('weather-section-container');
         const outingTeeTime = "12:30 PM"; // Tee time for Black Bear
 
         // Header background elements
@@ -267,23 +287,19 @@
                     foundImages = true;
                 } catch (error) {
                     // console.log(`Image not found or error loading ${imagePath}, stopping search.`);
-                    // Stop searching if a numbered image is not found (assumes sequential numbering)
                     break;
                 }
             }
 
             if (foundImages && courseImages.length > 0) {
-                // Apply the first image as background
                 mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
-                mainHeaderWrapper.classList.remove('fallback-bg'); // Remove fallback if images are found
-
+                mainHeaderWrapper.classList.remove('fallback-bg');
                 if (courseImages.length > 1) {
                     rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
                 }
             } else {
-                // Apply fallback background if no images are found
-                mainHeaderWrapper.style.backgroundImage = 'none'; // Ensure no previous image is left
-                mainHeaderWrapper.classList.add('fallback-bg'); // Apply generic fallback background
+                mainHeaderWrapper.style.backgroundImage = 'none';
+                mainHeaderWrapper.classList.add('fallback-bg');
             }
         }
 
@@ -294,49 +310,41 @@
         }
 
 
+        // Function to handle weather section display based on date
         async function fetchWeather() {
-            // Define the outing date and a threshold for when to show the live forecast
             const outingDateStr = "August 24, 2025"; // Date for Black Bear
             const outingDate = new Date(outingDateStr);
             const currentDate = new Date();
-            // Normalize dates to just the day for comparison (ignore time)
             outingDate.setHours(0, 0, 0, 0);
             currentDate.setHours(0, 0, 0, 0);
 
-            // Hide weather section if the outing date has passed
             if (currentDate > outingDate) {
                 if (weatherSectionContainer) {
                     weatherSectionContainer.style.display = 'none';
                 }
-                return; // Stop function execution
+                return;
             }
 
-            const forecastThresholdDays = 7; // Number of days before the outing to start showing live forecast
+            const forecastThresholdDays = 7;
             const diffTime = outingDate.getTime() - currentDate.getTime();
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-
             if (diffDays > forecastThresholdDays) {
                 weatherContent.innerHTML = `
-                    <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days}</span> before the outing.</p>
+                    <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
                     <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
                 `;
-                return; // Stop function execution if it's too far in the future
+                return;
             }
 
-            // If within the threshold, proceed with fetching the forecast
             weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
 
             const date = outingDateStr;
-            const location = "Franklin, NJ"; // Location for Black Bear
+            const location = "Franklin, NJ";
             const time = outingTeeTime;
 
             let fetchUrl;
-            // Determine the base URL for Netlify Functions.
-            // In the Canvas preview (blob: protocol), we need the absolute deployed URL.
-            // On the live Netlify site, a relative path works.
             if (window.location.protocol === 'blob:') {
-                // IMPORTANT: Replace 'https://parfect-strangers-golf-outings.netlify.app' with your actual Netlify site URL
                 const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
                 fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
             } else {
@@ -345,16 +353,13 @@
 
             try {
                 const response = await fetch(fetchUrl);
-
                 if (!response.ok) {
                     const errorBody = await response.text();
                     console.error("Netlify Function error response:", errorBody);
                     throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
                 }
-
                 const weatherData = await response.json();
                 renderWeather(weatherData, time);
-
             } catch (error) {
                 weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
                 console.error("Error fetching live weather via Netlify Function:", error);
@@ -362,35 +367,26 @@
         }
 
         function renderWeather(data, teeTime) {
-            // Function to convert basic Markdown bold (**text**) to HTML span with font-bold
             function markdownToHtmlBold(text) {
-                if (!text) return ''; // Handle null/undefined text
-                // Use a span with Tailwind's font-bold class for reliable bolding
+                if (!text) return '';
                 return text.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold">$1</span>');
             }
 
-            // Apply markdown conversion to relevant data fields
             const formattedHighTempDay = markdownToHtmlBold(data.high_temp_day);
             const formattedConditionsTeeTime = markdownToHtmlBold(data.conditions_tee_time);
-            
-            // Handle 'feels_like_temp' specifically if it returns a generic or empty value
             let feelsLikeValue = data.feels_like_temp;
             if (!feelsLikeValue || feelsLikeValue.toLowerCase().includes('not specified') || feelsLikeValue.toLowerCase().includes('value')) {
                 feelsLikeValue = 'Not available';
             }
             const formattedFeelsLikeTemp = markdownToHtmlBold(feelsLikeValue);
-
             const formattedPrecipitationChance = markdownToHtmlBold(data.precipitation_chance);
             const formattedWindSpeedDirection = markdownToHtmlBold(data.wind_speed_direction);
             const formattedUvIndex = markdownToHtmlBold(data.uv_index);
-            
-            // Ensure forecast_updated is formatted and doesn't show 'VALUE'
             let forecastUpdatedText = data.forecast_updated;
             if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
-                 forecastUpdatedText = 'Date not specified'; // Or a default like 'Current'
+                 forecastUpdatedText = 'Date not specified';
             }
-            const formattedForecastUpdated = markdownToHtmlBold(forecastUpdatedText);
-
+            const formattedForecastUpdated = markdownToHtmlBold(formattedForecastUpdated);
 
             weatherContent.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
@@ -423,10 +419,10 @@
             `;
         }
 
-        // Initialize weather fetching and image loading on page load
+        // Initialize display logic and image loading on page load
         window.onload = function() {
             fetchWeather();
-            loadCourseBackgroundImagesAndStartRotation(); // Call the updated function for background image loading
+            loadCourseBackgroundImagesAndStartRotation();
         };
     </script>
 </body>
