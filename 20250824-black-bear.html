@@ -117,6 +117,7 @@
         .notes-section-bg {
             background-color: #fffbeb; /* Light yellow */
             padding: 1.5rem;
+            margin-bottom: 2rem; /* Added for consistent spacing before footer/next sections */
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
@@ -309,7 +310,6 @@
             mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
         }
 
-
         // Function to handle weather section display based on date
         async function fetchWeather() {
             const outingDateStr = "August 24, 2025"; // Date for Black Bear
@@ -386,7 +386,7 @@
             if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
                  forecastUpdatedText = 'Date not specified';
             }
-            const formattedForecastUpdated = markdownToHtmlBold(formattedForecastUpdated);
+            const formattedForecastUpdated = markdownToHtmlBold(forecastUpdatedText);
 
             weatherContent.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
