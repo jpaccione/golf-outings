@@ -1,120 +1,135 @@
 // netlify/functions/get-weather.js
-// This function acts as a secure proxy to fetch weather data from the Google Gemini API.
+// This function acts as a secure proxy to fetch REAL weather data from an external weather API.
 
-// We need 'node-fetch' to make HTTP requests in a Netlify Function environment.
-// Make sure to add it as a dependency if you're bundling: npm install node-fetch
-const fetch = require('node-fetch');
+const fetch = require('node-fetch'); // Ensure 'node-fetch' is installed (npm install node-fetch)
 
 exports.handler = async function(event, context) {
     // Extract query parameters sent from your frontend (location, date, time)
     const { location, date, time } = event.queryStringParameters;
 
-    // IMPORTANT: Your Google API key should be stored securely as an environment variable in Netlify.
+    // IMPORTANT: Get your API key from WeatherAPI.com (or your chosen weather service)
+    // and set it securely as a Netlify environment variable named WEATHER_API_KEY.
     // Go to Netlify Dashboard -> Site settings -> Build & deploy -> Environment.
-    // Add a new variable named WEATHER_API_KEY with your Google API key as its value.
     const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 
-    // Define the API URL for the Gemini model
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${WEATHER_API_KEY}`;
+    if (!WEATHER_API_KEY) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Weather API Key not configured. Please set WEATHER_API_KEY in Netlify environment variables.' }),
+        };
+    }
 
-    // Construct the prompt for the Gemini API to request weather data
-    const prompt = `Provide a detailed weather forecast for ${location} on ${date} at approximately ${time}. Include the high temperature for the day, the condition around the tee time (e.g., sunny, cloudy, partly cloudy, chance of rain), the "feels like" temperature, percentage chance of precipitation, wind speed and direction, and UV index. Present this information as a JSON object with the following structure:
-        {
-            "high_temp_day": "VALUE",
-            "conditions_tee_time": "VALUE",
-            "feels_like_temp": "VALUE",
-            "precipitation_chance": "VALUE",
-            "wind_speed_direction": "VALUE",
-            "uv_index": "VALUE",
-            "forecast_updated": "VALUE (e.g., August 14, 2025)"
-        }`;
+    if (!location || !date || !time) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'Missing location, date, or time parameters for weather forecast.' }),
+        };
+    }
 
-    // Prepare the payload for the Gemini API request
-    const payload = {
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: {
-            responseMimeType: "application/json", // Request a JSON response
-            responseSchema: { // Define the expected JSON schema
-                type: "OBJECT",
-                properties: {
-                    "high_temp_day": { "type": "STRING" },
-                    "conditions_tee_time": { "type": "STRING" },
-                    "feels_like_temp": { "type": "STRING" },
-                    "precipitation_chance": { "type": "STRING" },
-                    "wind_speed_direction": { "type": "STRING" },
-                    "uv_index": { "type": "STRING" },
-                    "forecast_updated": { "type": "STRING" }
-                }
-            }
-        }
-    };
+    try {
+        // Format the date for WeatherAPI.com (YYYY-MM-DD)
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toISOString().split('T')[0]; // e.g., '2025-08-19'
 
-    // Implement exponential backoff for API calls
-    const maxRetries = 3;
-    let currentRetry = 0;
-    let delay = 1000; // 1 second initial delay
+        // Construct the URL for WeatherAPI.com's Future API
+        // This API returns 14-day future forecast, suitable for your needs.
+        // It takes 'q' (query/location) and 'dt' (date in YYYY-MM-DD).
+        // Added 'units=imperial' if the API supports it, though WeatherAPI returns both F/C and we extract F.
+        const weatherApiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${encodeURIComponent(location)}&dt=${formattedDate}&aqi=no&alerts=no`;
 
-    while (currentRetry < maxRetries) {
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+        console.log("Calling WeatherAPI.com URL:", weatherApiUrl);
 
-            // If the response is not OK, throw an error to trigger a retry
-            if (!response.ok) {
-                console.warn(`API call failed (attempt ${currentRetry + 1}). Status: ${response.status}`);
-                if (response.status === 429) { // Too Many Requests
-                    // Increase delay significantly for rate limit errors
-                    delay = delay * 4;
-                }
-                throw new Error(`API call failed with status: ${response.status}`);
-            }
+        const response = await fetch(weatherApiUrl);
+        const data = await response.json();
 
-            const result = await response.json();
-            let weatherData = {};
-
-            // Parse the response, handling potential markdown wrappers
-            if (result.candidates && result.candidates.length > 0 &&
-                result.candidates[0].content && result.candidates[0].content.parts &&
-                result.candidates[0].content.parts.length > 0) {
-                let text = result.candidates[0].content.parts[0].text;
-                if (text.startsWith('```json') && text.endsWith('```')) {
-                    text = text.substring(7, text.length - 3).trim();
-                } else if (text.startsWith('```') && text.endsWith('```')) {
-                    text = text.substring(3, text.length - 3).trim();
-                }
-                weatherData = JSON.parse(text);
-            } else {
-                console.error("Invalid response structure from the Gemini API.");
-                // Return a non-retryable error if the structure is fundamentally bad
-                return {
-                    statusCode: 500,
-                    body: JSON.stringify({ error: "Invalid response from weather API." })
-                };
-            }
-
-            // If successful, return the weather data
+        if (!response.ok) {
+            console.error("WeatherAPI.com error response:", data);
+            // Handle specific WeatherAPI.com errors if necessary
+            const errorMessage = data.error ? data.error.message : 'Unknown error from weather API';
             return {
-                statusCode: 200,
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(weatherData)
+                statusCode: response.status,
+                body: JSON.stringify({ error: `Weather API Error: ${errorMessage}` }),
             };
+        }
 
-        } catch (error) {
-            currentRetry++;
-            if (currentRetry < maxRetries) {
-                console.warn(`Retrying in ${delay / 1000} seconds...`);
-                await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2; // Double the delay for the next retry
-            } else {
-                console.error("Max retries reached. Failed to fetch weather data:", error);
-                return {
-                    statusCode: 500,
-                    body: JSON.stringify({ error: "Failed to fetch weather data after multiple attempts." })
-                };
+        // --- Extract and format data from WeatherAPI.com's response ---
+        // WeatherAPI.com's forecast.json gives `forecast.forecastday` array.
+        // We expect only one day for `dt` query.
+        const forecastDay = data.forecast?.forecastday?.[0];
+
+        if (!forecastDay) {
+            return {
+                statusCode: 404,
+                body: JSON.stringify({ error: 'No forecast data found for the specified date.' }),
+            };
+        }
+
+        const dayData = forecastDay.day;
+        const hourData = forecastDay.hour; // Array of hourly forecasts
+
+        // Find the closest hourly forecast to the teeTime for detailed conditions
+        let closestHourForecast = null;
+        let minDiff = Infinity;
+        // Parse teeTime in HH:MM AM/PM format
+        const [timePart, ampmPart] = time.split(' ');
+        let [hours, minutes] = timePart.split(':').map(Number);
+
+        // Adjust hours for PM and 12 AM/PM
+        if (ampmPart && ampmPart.toLowerCase() === 'pm' && hours < 12) {
+            hours += 12;
+        } else if (ampmPart && ampmPart.toLowerCase() === 'am' && hours === 12) {
+            hours = 0; // 12 AM (midnight)
+        }
+
+        const teeTimeInMinutes = hours * 60 + minutes;
+
+        for (const hour of hourData) {
+            const hourDate = new Date(hour.time);
+            const currentHourInMinutes = hourDate.getHours() * 60 + hourDate.getMinutes();
+            const diff = Math.abs(currentHourInMinutes - teeTimeInMinutes);
+            
+            // Prioritize hours on the requested day, if multiple days are returned (though `dt` should give one)
+            // Or just find the closest hour based on time difference for the given forecast day
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestHourForecast = hour;
             }
         }
+
+
+        const high_temp_day = dayData.maxtemp_f ? `${Math.round(dayData.maxtemp_f)}°F` : 'N/A';
+        const conditions_tee_time = closestHourForecast?.condition?.text || 'N/A';
+        const feels_like_temp = closestHourForecast?.feelslike_f ? `${Math.round(closestHourForecast.feelslike_f)}°F` : 'N/A';
+        const precipitation_chance = dayData.daily_chance_of_rain !== undefined ? `${dayData.daily_chance_of_rain}%` : 'N/A';
+        const wind_speed_direction = closestHourForecast?.wind_mph !== undefined ? `${Math.round(closestHourForecast.wind_mph)} mph from ${closestHourForecast.wind_dir}` : 'N/A';
+        const uv_index = dayData.uv !== undefined ? `${Math.round(dayData.uv)}` : 'N/A';
+        
+        // This date should come from the forecast data to verify it's the correct day's forecast
+        const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000); // Convert epoch to date object
+        const forecast_updated = forecast_updated_date.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+
+
+        // Return the structured weather data
+        return {
+            statusCode: 200,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                high_temp_day,
+                conditions_tee_time,
+                feels_like_temp,
+                precipitation_chance,
+                wind_speed_direction,
+                uv_index,
+                forecast_updated,
+                api_forecast_date: forecastDay.date // YYYY-MM-DD format directly from WeatherAPI to confirm date
+            }),
+        };
+
+    } catch (error) {
+        console.error('Netlify function error:', error);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Failed to fetch weather data: ' + error.message }),
+        };
     }
 };
