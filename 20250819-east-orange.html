@@ -371,41 +371,36 @@
         }
 
         function renderWeather(data, teeTime, displayDate) {
-            // Function to remove any markdown bolding and ensure plain text for temperatures
-            function stripMarkdownBold(text) {
-                if (!text) return '';
-                return text.replace(/\*\*(.*?)\*\*/g, '$1'); // Removes ** and keeps inner text
-            }
-
-            // Function to remove any "(C)" or "(F)" suffixes and then strip markdown bolding
-            function cleanAndStripTemp(text) {
+            // Function to remove any markdown bolding and ensure plain text.
+            // This is primarily for robustness if any bolding slips through from the API.
+            function cleanText(text) {
                 if (!text) return '';
                 // Remove any temperature unit in parentheses (e.g., " (25°C)")
                 let cleanedText = text.replace(/\s*\(.*?\)/g, '').trim();
-                return stripMarkdownBold(cleanedText);
+                // Remove any markdown bolding remnants (e.g., **text**)
+                return cleanedText.replace(/\*\*(.*?)\*\*/g, '$1'); 
             }
 
-            // Extract and format Fahrenheit values, stripping any markdown or unwanted characters
-            const highTempDayF = cleanAndStripTemp(data.high_temp_day);
-            const conditionsTeeTimeF = cleanAndStripTemp(data.conditions_tee_time); // Conditions should not have temp suffix
-            let feelsLikeValueF = cleanAndStripTemp(data.feels_like_temp);
+            // Extract and format values using the new cleanText function
+            const highTempDayF = cleanText(data.high_temp_day);
+            const conditionsTeeTimeF = cleanText(data.conditions_tee_time);
+            let feelsLikeValueF = cleanText(data.feels_like_temp);
             if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
                 feelsLikeValueF = 'Not available';
             }
             
-            // Other fields still use stripMarkdownBold for the descriptive text
-            const precipitationChance = stripMarkdownBold(data.precipitation_chance);
-            const windSpeedDirection = stripMarkdownBold(data.wind_speed_direction);
-            const uvIndex = stripMarkdownBold(data.uv_index);
+            const precipitationChance = cleanText(data.precipitation_chance);
+            const windSpeedDirection = cleanText(data.wind_speed_direction);
+            const uvIndex = cleanText(data.uv_index);
 
             let forecastUpdatedText = data.forecast_updated;
             if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
                  forecastUpdatedText = 'Date not specified';
             }
-            const formattedForecastUpdated = stripMarkdownBold(forecastUpdatedText);
+            const formattedForecastUpdated = cleanText(forecastUpdatedText);
 
-            // Update the date in the header
-            weatherForDateSpan.textContent = `(Forecast for: ${displayDate})`;
+            // Update the date in the header using the date received from the weather API for verification
+            weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`; // Use API's date if available
 
             weatherContent.innerHTML = `
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
