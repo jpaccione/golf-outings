@@ -105,7 +105,7 @@
             padding: 1.5rem;
             margin-bottom: 2rem;
             border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2 px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .attendees-section-bg {
             background-color: #f5f3ff; /* Light purple */
@@ -169,9 +169,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
                 </svg>
-                Live Weather Forecast
+                Live Weather Forecast <span id="weather-for-date" class="ml-2 text-base font-normal text-blue-700"></span>
             </h2>
-            <div id="weather-content" class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+            <div id="weather-content">
                 <p class="text-center text-gray-500">Loading weather data...</p>
             </div>
         </div>
@@ -257,6 +257,7 @@
     <script>
         const weatherContent = document.getElementById('weather-content');
         const weatherSectionContainer = document.getElementById('weather-section-container');
+        const weatherForDateSpan = document.getElementById('weather-for-date');
         const outingTeeTime = "12:30 PM"; // Tee time for Black Bear
 
         // Header background elements
@@ -334,10 +335,12 @@
                     <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
                     <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
                 `;
+                weatherForDateSpan.textContent = `(Forecast for: ${outingDateStr})`;
                 return;
             }
 
             weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
+            weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
 
             const date = outingDateStr;
             const location = "Franklin, NJ";
@@ -359,56 +362,69 @@
                     throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
                 }
                 const weatherData = await response.json();
-                renderWeather(weatherData, time);
+                console.log("Raw weather data received:", weatherData); // Log raw data for inspection
+                renderWeather(weatherData, time, outingDateStr);
             } catch (error) {
                 weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
+                weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
                 console.error("Error fetching live weather via Netlify Function:", error);
             }
         }
 
-        function renderWeather(data, teeTime) {
-            function markdownToHtmlBold(text) {
+        function renderWeather(data, teeTime, displayDate) {
+            // Function to remove any markdown bolding and ensure plain text.
+            // This is primarily for robustness if any bolding slips through from the API.
+            function cleanText(text) {
                 if (!text) return '';
-                return text.replace(/\*\*(.*?)\*\*/g, '<span class="font-bold">$1</span>');
+                // Remove any temperature unit in parentheses (e.g., " (25°C)")
+                let cleanedText = text.replace(/\s*\(.*?\)/g, '').trim();
+                // Remove any markdown bolding remnants (e.g., **text**)
+                return cleanedText.replace(/\*\*(.*?)\*\*/g, '$1'); 
             }
 
-            const formattedHighTempDay = markdownToHtmlBold(data.high_temp_day);
-            const formattedConditionsTeeTime = markdownToHtmlBold(data.conditions_tee_time);
-            let feelsLikeValue = data.feels_like_temp;
-            if (!feelsLikeValue || feelsLikeValue.toLowerCase().includes('not specified') || feelsLikeValue.toLowerCase().includes('value')) {
-                feelsLikeValue = 'Not available';
+            // Extract and format values using the new cleanText function
+            const highTempDayF = cleanText(data.high_temp_day);
+            const conditionsTeeTimeF = cleanText(data.conditions_tee_time);
+            let feelsLikeValueF = cleanText(data.feels_like_temp);
+            if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
+                feelsLikeValueF = 'Not available';
             }
-            const formattedFeelsLikeTemp = markdownToHtmlBold(feelsLikeValue);
-            const formattedPrecipitationChance = markdownToHtmlBold(data.precipitation_chance);
-            const formattedWindSpeedDirection = markdownToHtmlBold(data.wind_speed_direction);
-            const formattedUvIndex = markdownToHtmlBold(data.uv_index);
+            
+            const precipitationChance = cleanText(data.precipitation_chance);
+            const windSpeedDirection = cleanText(data.wind_speed_direction);
+            const uvIndex = cleanText(data.uv_index);
+
             let forecastUpdatedText = data.forecast_updated;
             if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
                  forecastUpdatedText = 'Date not specified';
             }
-            const formattedForecastUpdated = markdownToHtmlBold(forecastUpdatedText);
+            const formattedForecastUpdated = cleanText(forecastUpdatedText);
+
+            // Update the date in the header using the date received from the weather API for verification
+            weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`; // Use API's date if available
 
             weatherContent.innerHTML = `
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                    <div class="p-4 bg-blue-100 rounded-lg sm:col-span-1">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
+                    <div class="p-4 bg-blue-100 rounded-lg">
                         <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
-                        <p class="text-3xl font-bold text-blue-900">${formattedHighTempDay}</p>
+                        <p class="text-3xl font-bold text-blue-900">${highTempDayF}</p>
                     </div>
-                    <div class="p-4 bg-blue-100 rounded-lg sm:col-span-2">
+                    <div class="p-4 bg-blue-100 rounded-lg">
                         <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
-                        <p class="text-3xl font-bold text-blue-900">${formattedConditionsTeeTime}</p>
-                        <p class="text-sm text-blue-600">Feels like ${formattedFeelsLikeTemp}</p>
+                        <p class="text-3xl font-bold text-blue-900">${conditionsTeeTimeF}</p>
+                        <p class="text-sm text-blue-600">Feels like ${feelsLikeValueF}</p>
                     </div>
-                    <div class="sm:col-span-3 text-sm text-gray-500 mt-2">
-                        <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
-                        <ul class="list-disc list-inside text-left">
-                            <li>Temperature: The daily high is expected to be ${formattedHighTempDay}, with a "feels like" temperature of ${formattedFeelsLikeTemp}.</li>
-                            <li>Precipitation: ${formattedPrecipitationChance} chance of rain.</li>
-                            <li>Wind: ${formattedWindSpeedDirection}.</li>
-                            <li>UV Index: ${formattedUvIndex}. Sunscreen recommended.</li>
-                        </ul>
-                        <p class="mt-2">Forecast last updated: ${formattedForecastUpdated}. Conditions are subject to change. Please check closer to the date.</p>
-                        <a href="https://www.google.com/search?q=hourly+weather+Franklin+NJ+August+24+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
+                </div>
+                <div class="text-sm text-gray-500 mt-2">
+                    <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
+                    <ul class="list-disc list-inside text-left">
+                        <li>Temperature: The daily high is expected to be ${highTempDayF}, with a "feels like" temperature of ${feelsLikeValueF}.</li>
+                        <li>Precipitation: ${precipitationChance} chance of rain.</li>
+                        <li>Wind: ${windSpeedDirection}.</li>
+                        <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
+                    </ul>
+                    <p class="mt-2">Forecast last updated: ${formattedForecastUpdated}. Conditions are subject to change. Please check closer to the date.</p>
+                    <a href="https://www.google.com/search?q=hourly+weather+Franklin+NJ+August+24+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
