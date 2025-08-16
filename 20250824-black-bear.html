@@ -316,17 +316,18 @@
             const outingDateStr = "August 24, 2025"; // Date for Black Bear
             const outingDate = new Date(outingDateStr);
             const currentDate = new Date();
-            outingDate.setHours(0, 0, 0, 0);
-            currentDate.setHours(0, 0, 0, 0);
+            currentDate.setHours(0, 0, 0, 0); // Normalize current date to start of day
 
+            // Check 1: Is the event date in the past?
             if (currentDate > outingDate) {
                 if (weatherSectionContainer) {
-                    weatherSectionContainer.style.display = 'none';
+                    weatherSectionContainer.style.display = 'none'; // Hide the entire weather section
                 }
                 return;
             }
 
-            const forecastThresholdDays = 7;
+            // Check 2: Is the event date too far in the future (beyond 14 days)?
+            const forecastThresholdDays = 14; // Updated threshold
             const diffTime = outingDate.getTime() - currentDate.getTime();
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -339,6 +340,7 @@
                 return;
             }
 
+            // Check 3: Otherwise, try to fetch weather.
             weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
             weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
 
@@ -363,7 +365,21 @@
                 }
                 const weatherData = await response.json();
                 console.log("Raw weather data received:", weatherData); // Log raw data for inspection
-                renderWeather(weatherData, time, outingDateStr);
+
+                // Check 3a: Does the received weatherData contain a valid forecast for the requested date?
+                const receivedForecastDate = weatherData.api_forecast_date;
+                const requestedFormattedDate = outingDate.toISOString().split('T')[0]; // YYYY-MM-DD for comparison
+
+                if (receivedForecastDate === requestedFormattedDate && weatherData.high_temp_day && weatherData.conditions_tee_time) {
+                    renderWeather(weatherData, time, outingDateStr);
+                } else {
+                    // If the date doesn't match, or essential data is missing/invalid
+                    weatherContent.innerHTML = `
+                        <p class="text-center text-gray-700">Forecast not available for ${outingDateStr}.</p>
+                        <p class="text-center text-gray-700 mt-2">Please check back closer to the date or refer to a direct weather source.</p>
+                    `;
+                    weatherForDateSpan.textContent = `(Forecast not available)`;
+                }
             } catch (error) {
                 weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
                 weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
