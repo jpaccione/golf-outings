@@ -13,7 +13,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Light gray background */
             color: #374151; /* Dark gray text */
-            margin: 0; /* Remove default body margin */
+            /* Removed body margin for consistency with centralized content */
         }
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar {
@@ -62,55 +62,39 @@
             background-color: #f3f4f6; /* Hover effect */
         }
 
-        /* Styles for the header background - now truly full width */
+        /* Styles for the header background container - now contained within the max-w-4xl div */
         .header-background-container {
             position: relative;
-            width: 100%; /* Make it span full width */
-            height: 250px; /* Or a suitable height for a banner */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* Removed border-radius here as it will apply to the content div now */
-            overflow: hidden; 
-            transition: background-image 1s ease-in-out; 
-            display: flex; /* Use flexbox to center content */
-            align-items: center; /* Vertically center */
-            justify-content: center; /* Horizontally center */
-            margin-bottom: 2rem; /* Space below header */
+            border-radius: 0.75rem; /* ~rounded-xl */
+            overflow: hidden; /* Ensures border-radius applies to background */
+            transition: background-image 1s ease-in-out; /* Smooth transition for image change */
         }
 
         /* Overlay for readability */
         .header-background-overlay {
-            background-color: rgba(0, 0, 0, 0.4); /* Darker overlay for better text contrast */
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.25); /* Semi-transparent dark overlay */
             padding: 1.5rem;
-            text-align: center;
+            position: relative; /* To keep content above the overlay */
+            z-index: 10;
         }
 
         /* Specific section background colors within the header-background-overlay, for consistency */
-        .event-details-bg {
+        .header-background-overlay .event-details-bg {
             background-color: rgba(240, 253, 244, 0.85); /* Light green with transparency */
-            padding: 1.5rem;
-            border-radius: 0.75rem; /* Matches general section border-radius */
-            margin-top: 1rem; /* Space between title and details */
-            max-width: 90%; /* To keep details from going too wide on very large screens */
-            width: 100%;
         }
 
         /* Fallback background if no specific images are found */
         .header-background-container.fallback-bg {
-            background-color: #a7f3d0; /* A slightly darker light green for fallback */
+            background-color: #d1fae5; /* A light, generic green for fallback */
         }
         /* Style for text shadow on the main title */
         .text-shadow-md {
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
-        /* Removed the explicit border-bottom from the header CSS */
+        /* Header section itself */
         header {
             text-align: center;
             padding-bottom: 1rem;
@@ -122,7 +106,7 @@
             padding: 1.5rem;
             margin-bottom: 2rem;
             border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2 px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .attendees-section-bg {
             background-color: #f5f3ff; /* Light purple */
@@ -134,65 +118,51 @@
         .notes-section-bg {
             background-color: #fffbeb; /* Light yellow */
             padding: 1.5rem;
-            margin-bottom: 2rem; 
+            margin-bottom: 2rem; /* Added for consistent spacing before footer/next sections */
             border-radius: 0.75rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
-        /* Small screen adjustments for the header text */
-        @media (max-width: 640px) {
-            .header-background-container {
-                height: 200px; /* Slightly shorter on mobile */
-            }
-            .header-background-overlay h1 {
-                font-size: 2.25rem; /* Smaller text on mobile */
-            }
-            .event-details-bg {
-                padding: 1rem;
-                margin-top: 0.5rem;
-            }
-        }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="p-4 sm:p-6 lg:p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10">
 
-    <!-- Header and Event Details Wrapper with Background Image - now full width -->
-    <div id="main-header-wrapper" class="header-background-container">
-        <div class="header-background-overlay">
-            <!-- Header Section -->
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md">East Orange Golf Outing<br>August 19, 2025 (Tuesday)</h1>
-            <!-- Event Details Section - now transparent inside the overlay -->
-            <div class="event-details-bg">
-                <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                    Event Details
-                </h2>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
-                    <div class="mb-2 sm:mb-0">
-                        <p class="font-semibold text-gray-700">Location:</p>
-                        <p class="font-bold text-green-900">East Orange Golf Course - Short Hills, NJ</p>
-                        <a href="https://www.google.com/maps/search/East+Orange+Golf+Course,+Short+Hills,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
-                            View on Google Maps
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
-                        <p class="text-lg font-semibold text-green-700">Tee Time:</p>
-                        <p class="text-3xl font-bold text-green-900">9:00 AM</p>
-                        <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+        <!-- Header and Event Details Wrapper with Background Image -->
+        <div id="main-header-wrapper" class="header-background-container mb-8">
+            <div class="header-background-overlay">
+                <!-- Header Section -->
+                <header class="text-center pb-4">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md">East Orange Golf Outing<br>August 19, 2025 (Tuesday)</h1>
+                </header>
+
+                <!-- Event Details Section - now transparent inside the overlay -->
+                <div class="event-details-bg p-6 rounded-xl relative z-20">
+                    <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        Event Details
+                    </h2>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                        <div class="mb-2 sm:mb-0">
+                            <p class="font-semibold text-gray-700">Location:</p>
+                            <p class="font-bold text-green-900">East Orange Golf Course - Short Hills, NJ</p>
+                            <a href="https://www.google.com/maps/search/East+Orange+Golf+Course,+Short+Hills,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+                                View on Google Maps
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
+                            <p class="text-lg font-semibold text-green-700">Tee Time:</p>
+                            <p class="text-3xl font-bold text-green-900">9:00 AM</p>
+                            <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Main Content Container - now separates from the full-width header -->
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8 lg:p-10 -mt-24 relative z-10">
-        <!-- The -mt-24 pulls the content block up to overlap the header image -->
 
         <!-- Weather Forecast Section - Conditionally hidden post-event -->
         <div id="weather-section-container" class="weather-section-bg">
