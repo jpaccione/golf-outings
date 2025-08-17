@@ -67,62 +67,85 @@
         .header-background-container {
             position: relative;
             width: 100%; /* Make it span full width */
-            height: 280px; /* Increased height for better visual impact */
+            height: 320px; /* Increased height for better visual impact and space */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             overflow: hidden; 
             transition: background-image 1s ease-in-out; 
-            display: flex; /* Use flexbox to center content */
-            align-items: center; /* Vertically center */
-            justify-content: center; /* Horizontally center */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow for the header */
+            display: flex; /* Use flexbox to center content */
+            justify-content: center; /* Horizontally center overlay content */
+            align-items: center; /* Vertically center overlay content on initial load */
         }
 
         /* Overlay for readability */
         .header-background-overlay {
-            background-color: rgba(0, 0, 0, 0.45); /* Darker overlay for better text contrast */
+            background-color: rgba(0, 0, 0, 0.55); /* Slightly darker overlay for better text contrast */
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            text-align: center;
+            flex-direction: column; /* Stack title and card vertically */
+            align-items: center; /* Center items within the overlay on small screens */
+            justify-content: center; /* Center vertically on small screens */
+            padding: 1.5rem 1rem; /* Vertical padding, slightly less horizontal on small */
         }
 
-        /* Specific section background colors within the header-background-overlay, for consistency */
-        /* This class will now be applied to the inner div to control its background/border/shadow */
+        /* New inner container for header content to control max-width and alignment */
+        .header-content-inner {
+            width: 100%;
+            max-width: 64rem; /* Equivalent to max-w-4xl for central content */
+            text-align: center; /* Default for mobile (center-aligned) */
+            padding: 0 1rem; /* Small padding from sides of max-width container */
+        }
+        @media (min-width: 768px) { /* md breakpoint for desktop alignment */
+            .header-background-overlay {
+                align-items: flex-start; /* Align content to the left side of the overlay */
+                padding-left: 2rem; /* Add more left padding for desktop */
+                padding-right: 2rem; /* Add more right padding for desktop */
+            }
+            .header-content-inner {
+                text-align: left; /* Left align title and event details card */
+            }
+        }
+
+        .header-title {
+            font-size: 3rem; /* text-4xl sm:text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: white; /* text-white */
+            margin-bottom: 0.5rem; /* mb-2 */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6); /* text-shadow-md */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            .header-title {
+                font-size: 3.5rem; /* sm:text-5xl */
+            }
+        }
+        @media (max-width: 640px) { /* Small screen adjustments for the header text */
+            .header-background-container {
+                height: 250px; /* Adjusted mobile height */
+            }
+            .header-title {
+                font-size: 2.25rem; /* Smaller text on mobile */
+            }
+        }
+
         .event-details-card {
             background-color: rgba(240, 253, 244, 0.9); /* Light green with more transparency */
             padding: 1.5rem;
-            border-radius: 0.75rem; /* Matches general section border-radius */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow */
-            max-width: 90%; /* To keep details from going too wide on very large screens */
-            width: 100%;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            width: 100%; /* Take full width of its parent (.header-content-inner) */
             margin-top: 1rem; /* Space between title and details */
         }
+        /* On larger screens, the card's content will follow the header-content-inner's text-align */
 
-        /* Fallback background if no specific images are found */
-        .header-background-container.fallback-bg {
-            background-color: #a7f3d0; /* A slightly darker light green for fallback */
-        }
-        /* Style for text shadow on the main title */
-        .text-shadow-md {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-        }
-        
-        /* Removed the explicit border-bottom from the header CSS */
-        header { /* This header element is no longer used directly as a container, its content is in the h1 */
-            text-align: center;
-            padding-bottom: 1rem;
-        }
 
-        /* Responsive adjustments for overall sections */
+        /* Responsive adjustments for overall sections (now truly full width with inner max-width content) */
         .section-container {
             padding-top: 2rem; /* Vertical spacing between full-width sections */
             padding-bottom: 2rem;
+            width: 100%; /* Make full width */
         }
         .section-content {
             max-width: 64rem; /* Equivalent to max-w-4xl for content width */
@@ -145,20 +168,31 @@
             background-color: #fffbeb; /* Light yellow */
         }
 
-        /* Small screen adjustments for the header text */
-        @media (max-width: 640px) {
-            .header-background-container {
-                height: 220px; /* Slightly shorter on mobile */
-            }
-            .header-background-overlay h1 {
-                font-size: 2.25rem; /* Smaller text on mobile */
-            }
-            .event-details-card {
-                padding: 1rem;
-                margin-top: 0.5rem;
-            }
+        /* Footer - also full-width, with its content centered */
+        footer {
+            padding-top: 2rem; /* Consistent padding top */
+            padding-bottom: 2rem; /* Consistent padding bottom */
+            border-top: 2px solid #e5e7eb;
+            color: #6B7280;
+            font-size: 0.875rem;
+            background-color: #fff; /* Footer also goes full width with a background */
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05), 0 -2px 4px -1px rgba(0, 0, 0, 0.03); /* Subtle top shadow */
+        }
+        footer .footer-content-inner {
+            max-width: 64rem; /* Same as other section content */
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) { /* Small screen adjustments for content cards */
             .section-content {
                 padding: 1rem; /* Smaller padding on mobile for content cards */
+                margin-left: 1rem; /* Add some side margin */
+                margin-right: 1rem;
+            }
+            .header-content-inner {
+                padding: 0 0.5rem; /* Less padding for header content on very small screens */
             }
         }
     </style>
@@ -168,31 +202,33 @@
     <!-- Header and Event Details Wrapper with Background Image - now full width -->
     <div id="main-header-wrapper" class="header-background-container">
         <div class="header-background-overlay">
-            <!-- Header Title -->
-            <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2 text-shadow-md">Black Bear Golf Outing<br>August 24, 2025 (Sunday)</h1>
-            <!-- Event Details Section - now transparent inside the overlay, but its content is centralized within a card -->
-            <div class="event-details-card">
-                <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                    Event Details
-                </h2>
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
-                    <div class="mb-2 sm:mb-0">
-                        <p class="font-semibold text-gray-700">Location:</p>
-                        <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
-                        <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
-                            View on Google Maps
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                        </a>
-                    </div>
-                    <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
-                        <p class="text-lg font-semibold text-green-700">Tee Time:</p>
-                        <p class="text-3xl font-bold text-green-900">12:30 PM</p>
-                        <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+            <div class="header-content-inner">
+                <!-- Header Title -->
+                <h1 class="header-title">Black Bear Golf Outing<br>August 24, 2025 (Sunday)</h1>
+                <!-- Event Details Section - now transparent inside the overlay, but its content is centralized within a card -->
+                <div class="event-details-card">
+                    <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        Event Details
+                    </h2>
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                        <div class="mb-2 sm:mb-0">
+                            <p class="font-semibold text-gray-700">Location:</p>
+                            <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
+                            <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+                                View on Google Maps
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
+                            <p class="text-lg font-semibold text-green-700">Tee Time:</p>
+                            <p class="text-3xl font-bold text-green-900">12:30 PM</p>
+                            <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -292,7 +328,7 @@
 
     <!-- Footer - also full-width, with its content centered -->
     <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
-        <div class="max-w-4xl mx-auto text-center">
+        <div class="footer-content-inner">
             <!-- Footer content here, if any specific content is needed outside the general text -->
         </div>
     </footer>
@@ -326,13 +362,16 @@
                     img.src = imagePath;
                     await new Promise((resolve, reject) => {
                         img.onload = resolve;
-                        img.onerror = reject;
+                        img.onerror = resolve; // Resolve even on error so it doesn't block the loop
                     });
-                    courseImages.push(imagePath);
-                    foundImages = true;
+                    if (img.complete && img.naturalWidth > 0) { // Check if image loaded successfully
+                        courseImages.push(imagePath);
+                        foundImages = true;
+                    } else {
+                        console.log(`Image not found or error loading: ${imagePath}`);
+                    }
                 } catch (error) {
-                    // console.log(`Image not found or error loading ${imagePath}, stopping search.`);
-                    break;
+                    console.log(`Error checking image ${imagePath}:`, error);
                 }
             }
 
@@ -345,6 +384,7 @@
             } else {
                 mainHeaderWrapper.style.backgroundImage = 'none';
                 mainHeaderWrapper.classList.add('fallback-bg');
+                console.warn(`No images found for ${outingLocation}. Using fallback background color.`);
             }
         }
 
