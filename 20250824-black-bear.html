@@ -76,37 +76,26 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow for the header */
             display: flex; /* Use flexbox to center content */
             justify-content: center; /* Horizontally center overlay content */
-            align-items: center; /* Vertically center overlay content on initial load */
+            align-items: center; /* Vertically center overlay content */
         }
 
         /* Overlay for readability */
         .header-background-overlay {
-            background-color: rgba(0, 0, 0, 0.55); /* Slightly darker overlay for better text contrast */
+            background-color: rgba(0, 0, 0, 0.6); /* Darker overlay for better text contrast */
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column; /* Stack title and card vertically */
-            align-items: center; /* Center items within the overlay on small screens */
-            justify-content: center; /* Center vertically on small screens */
-            padding: 1.5rem 1rem; /* Vertical padding, slightly less horizontal on small */
+            flex-direction: column; /* Stack title and date vertically */
+            align-items: center; /* Center items within the overlay */
+            justify-content: center; /* Center vertically within the overlay */
+            padding: 1rem; /* Overall padding */
         }
 
         /* New inner container for header content to control max-width and alignment */
         .header-content-inner {
-            width: 100%;
             max-width: 64rem; /* Equivalent to max-w-4xl for central content */
-            text-align: center; /* Default for mobile (center-aligned) */
-            padding: 0 1rem; /* Small padding from sides of max-width container */
-        }
-        @media (min-width: 768px) { /* md breakpoint for desktop alignment */
-            .header-background-overlay {
-                align-items: flex-start; /* Align content to the left side of the overlay */
-                padding-left: 2rem; /* Add more left padding for desktop */
-                padding-right: 2rem; /* Add more right padding for desktop */
-            }
-            .header-content-inner {
-                text-align: left; /* Left align title and event details card */
-            }
+            width: 100%;
+            text-align: center; /* Always center header text for simplicity and visual balance */
         }
 
         .header-title {
@@ -114,8 +103,16 @@
             font-weight: 800; /* font-extrabold */
             color: white; /* text-white */
             margin-bottom: 0.5rem; /* mb-2 */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6); /* text-shadow-md */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Stronger text-shadow for readability */
         }
+        .header-date {
+            font-size: 1.75rem; /* text-2xl for date/time */
+            font-weight: 600; /* font-semibold */
+            color: #d1fae5; /* Light green for contrast */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            margin-top: 0.25rem;
+        }
+
         @media (min-width: 640px) { /* sm breakpoint */
             .header-title {
                 font-size: 3.5rem; /* sm:text-5xl */
@@ -128,43 +125,38 @@
             .header-title {
                 font-size: 2.25rem; /* Smaller text on mobile */
             }
+            .header-date {
+                font-size: 1.25rem; /* Smaller text on mobile */
+            }
         }
-
-        .event-details-card {
-            background-color: rgba(240, 253, 244, 0.9); /* Light green with more transparency */
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            width: 100%; /* Take full width of its parent (.header-content-inner) */
-            margin-top: 1rem; /* Space between title and details */
-        }
-        /* On larger screens, the card's content will follow the header-content-inner's text-align */
-
 
         /* Responsive adjustments for overall sections (now truly full width with inner max-width content) */
         .section-container {
             padding-top: 2rem; /* Vertical spacing between full-width sections */
             padding-bottom: 2rem;
             width: 100%; /* Make full width */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); /* Subtle shadow for each section */
         }
         .section-content {
             max-width: 64rem; /* Equivalent to max-w-4xl for content width */
             margin-left: auto;
             margin-right: auto;
-            background-color: #fff; /* Default white background for content cards */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-radius: 0.75rem;
+            background-color: #fff; /* Default white background for inner content cards */
+            border-radius: 0.75rem; /* Rounded corners for inner content cards */
             padding: 1.5rem; /* Equivalent to p-6 */
         }
         
-        /* Specific background colors for content cards within sections */
-        .weather-card-bg {
+        /* Specific background colors for full-width section containers */
+        .event-details-section-bg {
+            background-color: #f0fdf4; /* Light green */
+        }
+        .weather-section-bg {
             background-color: #eff6ff; /* Light blue */
         }
-        .attendees-card-bg {
+        .attendees-section-bg {
             background-color: #f5f3ff; /* Light purple */
         }
-        .notes-card-bg {
+        .notes-section-bg {
             background-color: #fffbeb; /* Light yellow */
         }
 
@@ -191,53 +183,52 @@
                 margin-left: 1rem; /* Add some side margin */
                 margin-right: 1rem;
             }
-            .header-content-inner {
-                padding: 0 0.5rem; /* Less padding for header content on very small screens */
-            }
         }
     </style>
 </head>
 <body class="bg-gray-100">
 
-    <!-- Header and Event Details Wrapper with Background Image - now full width -->
+    <!-- Header Section (Full Width with Background Image) -->
     <div id="main-header-wrapper" class="header-background-container">
         <div class="header-background-overlay">
             <div class="header-content-inner">
-                <!-- Header Title -->
-                <h1 class="header-title">Black Bear Golf Outing<br>August 24, 2025 (Sunday)</h1>
-                <!-- Event Details Section - now transparent inside the overlay, but its content is centralized within a card -->
-                <div class="event-details-card">
-                    <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                        Event Details
-                    </h2>
-                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
-                        <div class="mb-2 sm:mb-0">
-                            <p class="font-semibold text-gray-700">Location:</p>
-                            <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
-                            <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
-                                View on Google Maps
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                </svg>
-                            </a>
-                        </div>
-                        <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
-                            <p class="text-lg font-semibold text-green-700">Tee Time:</p>
-                            <p class="text-3xl font-bold text-green-900">12:30 PM</p>
-                            <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
-                        </div>
-                    </div>
-                </div>
+                <h1 class="header-title">Black Bear Golf Outing</h1>
+                <p class="header-date">August 24, 2025 (Sunday)</p>
             </div>
         </div>
     </div>
 
+    <!-- Event Details Section (Now a distinct full-width section) -->
+    <div class="section-container event-details-section-bg">
+        <div class="section-content">
+            <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                Event Details
+            </h2>
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                <div class="mb-2 sm:mb-0">
+                    <p class="font-semibold text-gray-700">Location:</p>
+                    <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
+                    <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+                        View on Google Maps
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </a>
+                </div>
+                <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
+                    <p class="text-lg font-semibold text-green-700">Tee Time:</p>
+                    <p class="text-3xl font-bold text-green-900">12:30 PM</p>
+                    <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+                </div>
+            </div>
+        </div>
+
     <!-- Weather Forecast Section -->
-    <div id="weather-section-container" class="section-container">
-        <div class="section-content weather-card-bg">
+    <div id="weather-section-container" class="section-container weather-section-bg">
+        <div class="section-content">
             <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
@@ -251,8 +242,8 @@
     </div>
 
     <!-- Attendees Section -->
-    <div class="section-container">
-        <div class="section-content attendees-card-bg">
+    <div class="section-container attendees-section-bg">
+        <div class="section-content">
             <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -303,11 +294,10 @@
                 </table>
             </div>
         </div>
-    </div>
 
     <!-- Notes and Important Information Section -->
-    <div class="section-container">
-        <div class="section-content notes-card-bg">
+    <div class="section-container notes-section-bg">
+        <div class="section-content">
             <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -324,7 +314,6 @@
                 <li><strong class="font-semibold">Amenities:</strong> The course features the Bear Den Grille (restaurant and bar), outdoor pool tables, and dart boards. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course)</a></li>
             </ul>
         </div>
-    </div>
 
     <!-- Footer - also full-width, with its content centered -->
     <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
