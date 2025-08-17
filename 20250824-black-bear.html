@@ -67,7 +67,7 @@
         .header-background-container {
             position: relative;
             width: 100%; /* Make it span full width */
-            height: 320px; /* Increased height for better visual impact and space */
+            height: 320px; /* Height for visual impact and space */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -88,12 +88,12 @@
             flex-direction: column; /* Stack title and date vertically */
             align-items: center; /* Center items within the overlay */
             justify-content: center; /* Center vertically within the overlay */
-            padding: 1rem; /* Overall padding */
+            padding: 2rem 1rem; /* Increased padding-top/bottom for header content */
         }
 
-        /* New inner container for header content to control max-width and alignment */
+        /* Inner container for header content to control max-width and alignment */
         .header-content-inner {
-            max-width: 64rem; /* Equivalent to max-w-4xl for central content */
+            max-width: 64rem; /* Standard content width */
             width: 100%;
             text-align: center; /* Always center header text for simplicity and visual balance */
         }
@@ -132,33 +132,29 @@
 
         /* Responsive adjustments for overall sections (now truly full width with inner max-width content) */
         .section-container {
-            padding-top: 2rem; /* Vertical spacing between full-width sections */
-            padding-bottom: 2rem;
             width: 100%; /* Make full width */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); /* Subtle shadow for each section */
+            /* Remove vertical padding/margin here to prevent "bars" between colored sections */
+            /* The specific background colors will be applied directly to these containers */
+            /* Shadow will be on the inner content-card */
         }
         .section-content {
             max-width: 64rem; /* Equivalent to max-w-4xl for content width */
             margin-left: auto;
             margin-right: auto;
-            background-color: #fff; /* Default white background for inner content cards */
+            margin-top: 2rem; /* Spacing between content cards */
+            margin-bottom: 2rem; /* Spacing between content cards */
+            background-color: #fff; /* White background for inner content cards */
             border-radius: 0.75rem; /* Rounded corners for inner content cards */
             padding: 1.5rem; /* Equivalent to p-6 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow for the card itself */
         }
         
         /* Specific background colors for full-width section containers */
-        .event-details-section-bg {
-            background-color: #f0fdf4; /* Light green */
-        }
-        .weather-section-bg {
-            background-color: #eff6ff; /* Light blue */
-        }
-        .attendees-section-bg {
-            background-color: #f5f3ff; /* Light purple */
-        }
-        .notes-section-bg {
-            background-color: #fffbeb; /* Light yellow */
-        }
+        /* These classes are applied directly to .section-container */
+        .bg-event-details { background-color: #f0fdf4; } /* Light green */
+        .bg-weather-forecast { background-color: #eff6ff; } /* Light blue */
+        .bg-attendees { background-color: #f5f3ff; } /* Light purple */
+        .bg-notes { background-color: #fffbeb; } /* Light yellow */
 
         /* Footer - also full-width, with its content centered */
         footer {
@@ -198,8 +194,8 @@
         </div>
     </div>
 
-    <!-- Event Details Section (Now a distinct full-width section) -->
-    <div class="section-container event-details-section-bg">
+    <!-- Event Details Section (Now a distinct full-width section with its own background) -->
+    <div class="section-container bg-event-details">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
@@ -210,7 +206,9 @@
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
                 <div class="mb-2 sm:mb-0">
                     <p class="font-semibold text-gray-700">Location:</p>
-                    <p class="font-bold text-green-900">Black Bear Golf Course - Franklin, NJ</p>
+                    <!-- Changed here: Course name and city/state on separate lines -->
+                    <p class="font-bold text-green-900">Black Bear Golf Course</p>
+                    <p class="font-bold text-green-900">Franklin, NJ</p>
                     <a href="https://www.google.com/maps/search/Black+Bear+Golf+Course,+Franklin,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
                         View on Google Maps
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -225,9 +223,10 @@
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- Weather Forecast Section -->
-    <div id="weather-section-container" class="section-container weather-section-bg">
+    <div id="weather-section-container" class="section-container bg-weather-forecast">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
@@ -242,7 +241,7 @@
     </div>
 
     <!-- Attendees Section -->
-    <div class="section-container attendees-section-bg">
+    <div class="section-container bg-attendees">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
@@ -294,9 +293,10 @@
                 </table>
             </div>
         </div>
+    </div>
 
     <!-- Notes and Important Information Section -->
-    <div class="section-container notes-section-bg">
+    <div class="section-container bg-notes">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
@@ -314,6 +314,7 @@
                 <li><strong class="font-semibold">Amenities:</strong> The course features the Bear Den Grille (restaurant and bar), outdoor pool tables, and dart boards. <a href="https://www.crystalgolfresort.com/golf/courses/black-bear" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Black Bear Golf Course)</a></li>
             </ul>
         </div>
+    </div>
 
     <!-- Footer - also full-width, with its content centered -->
     <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
