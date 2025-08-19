@@ -72,7 +72,7 @@
             background-position: center;
             background-repeat: no-repeat;
             overflow: hidden; 
-            transition: background-image 1s ease-in-out; 
+            transition: background-image 1s ease-in-out, background-color 1s ease-in-out; /* Smooth transition for image change AND color change */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow for the header */
             display: flex; /* Use flexbox to center content */
             justify-content: center; /* Horizontally center overlay content */
@@ -328,7 +328,7 @@
             async function loadCourseBackgroundImagesAndStartRotation() {
                 let foundImages = false;
                 const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
-                const genericPlaceholder = 'https://placehold.co/1920x320/548235/ffffff?text=GOLF+OUTING'; // Generic golf image
+                const genericPlaceholderColor = '#548235'; // Generic grass-green color
 
                 for (let i = 1; i <= maxImages; i++) {
                     const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
@@ -352,13 +352,15 @@
 
                 if (foundImages && courseImages.length > 0) {
                     mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
+                    mainHeaderWrapper.style.backgroundColor = 'transparent'; // Ensure color is not visible behind image
                     if (courseImages.length > 1) {
                         rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
                     }
                 } else {
-                    // Use generic placeholder if no specific images are found
-                    mainHeaderWrapper.style.backgroundImage = `url('${genericPlaceholder}')`;
-                    console.warn(`No specific images found for ${outingLocation}. Using generic placeholder.`);
+                    // Use generic placeholder color if no specific images are found
+                    mainHeaderWrapper.style.backgroundImage = 'none'; // Remove any potential image
+                    mainHeaderWrapper.style.backgroundColor = genericPlaceholderColor;
+                    console.warn(`No specific images found for ${outingLocation}. Using generic placeholder color.`);
                 }
             }
 
