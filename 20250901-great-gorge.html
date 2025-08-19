@@ -328,18 +328,18 @@
             async function loadCourseBackgroundImagesAndStartRotation() {
                 let foundImages = false;
                 const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
+                const genericPlaceholder = 'https://placehold.co/1920x320/548235/ffffff?text=GOLF+OUTING'; // Generic golf image
 
                 for (let i = 1; i <= maxImages; i++) {
                     const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
                     try {
-                        // Use new Image() to pre-load and check if the image exists
                         const img = new Image();
                         img.src = imagePath;
                         await new Promise((resolve, reject) => {
                             img.onload = resolve;
-                            img.onerror = resolve; // Resolve even on error so it doesn't block the loop
+                            img.onerror = resolve; 
                         });
-                        if (img.complete && img.naturalWidth > 0) { // Check if image loaded successfully
+                        if (img.complete && img.naturalWidth > 0) { 
                             courseImages.push(imagePath);
                             foundImages = true;
                         } else {
@@ -352,14 +352,13 @@
 
                 if (foundImages && courseImages.length > 0) {
                     mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
-                    mainHeaderWrapper.classList.remove('fallback-bg');
                     if (courseImages.length > 1) {
                         rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
                     }
                 } else {
-                    mainHeaderWrapper.style.backgroundImage = 'none';
-                    mainHeaderWrapper.classList.add('fallback-bg');
-                    console.warn(`No images found for ${outingLocation}. Using fallback background color.`);
+                    // Use generic placeholder if no specific images are found
+                    mainHeaderWrapper.style.backgroundImage = `url('${genericPlaceholder}')`;
+                    console.warn(`No specific images found for ${outingLocation}. Using generic placeholder.`);
                 }
             }
 
