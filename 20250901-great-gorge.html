@@ -404,7 +404,8 @@
                 weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
 
                 const date = outingDateStr;
-                const location = "Hamburg, NJ"; // Great Gorge is in Hamburg
+                // CHANGED: Using coordinates for more precise location for Great Gorge
+                const location = "41.188676,-74.536689"; // Great Gorge Golf Club, Hamburg, NJ coordinates
                 const time = outingTeeTime; // Using the first tee time for general weather query
 
                 let fetchUrl;
@@ -415,8 +416,10 @@
                     fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
                 }
 
+                console.log("Attempting to fetch weather from:", fetchUrl); // Added for debugging
+
                 try {
-                    const response = await fetch(fetchUrl);
+                    const response = await fetch(fetchUrl, { mode: 'cors' }); // Added mode: 'cors'
                     if (!response.ok) {
                         const errorBody = await response.text();
                         console.error("Netlify Function error response:", errorBody);
@@ -470,7 +473,14 @@
                 if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
                     forecastUpdatedText = 'Date not specified';
                 }
-                const formattedForecastUpdated = cleanText(forecastUpdatedText);
+                // CHANGED: Explicitly set timeZone for forecast_updated to America/New_York
+                const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000); // Convert epoch to date object
+                const forecast_updated = forecast_updated_date.toLocaleString('en-US', { 
+                    dateStyle: 'medium', 
+                    timeStyle: 'short', 
+                    timeZone: 'America/New_York' // Set to Eastern Time Zone
+                });
+
 
                 // Update the date in the header using the date received from the weather API for verification
                 weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`; // Use API's date if available
