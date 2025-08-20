@@ -72,7 +72,7 @@
             background-position: center;
             background-repeat: no-repeat;
             overflow: hidden; 
-            transition: background-image 1s ease-in-out, background-color 1s ease-in-out; /* Smooth transition for image change AND color change */
+            transition: background-image 1s ease-in-out; 
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow for the header */
             display: flex; /* Use flexbox to center content */
             justify-content: center; /* Horizontally center overlay content */
@@ -133,6 +133,9 @@
         /* Responsive adjustments for overall sections (now truly full width with inner max-width content) */
         .section-container {
             width: 100%; /* Make full width */
+            /* Remove vertical padding/margin here to prevent "bars" between colored sections */
+            /* The specific background colors will be applied directly to these containers */
+            /* Shadow will be on the inner content-card */
         }
         .section-content {
             max-width: 64rem; /* Equivalent to max-w-4xl for content width */
@@ -151,7 +154,7 @@
         .bg-event-details { background-color: #f0fdf4; } /* Light green */
         .bg-weather-forecast { background-color: #eff6ff; } /* Light blue */
         .bg-attendees { background-color: #f5f3ff; } /* Light purple */
-        .bg-notes { background-color: #fffbeb; } /* Light yellow for notes */
+        .bg-notes { background-color: #fffbeb; } /* Light yellow */
 
         /* Footer - also full-width, with its content centered */
         footer {
@@ -195,17 +198,15 @@
     <div class="section-container bg-event-details">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
-                    <line x1="4" y1="22" x2="4" y2="15"></line>
-                    <line x1="12" y1="22" x2="12" y2="15"></line>
-                    <line x1="20" y1="22" x2="20" y2="15"></line>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                 </svg>
                 Event Details
             </h2>
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
                 <div class="mb-2 sm:mb-0">
                     <p class="font-semibold text-gray-700">Location:</p>
+                    <!-- Changed here: Course name and city/state on separate lines -->
                     <p class="font-bold text-green-900">Galloping Hill Golf Course</p>
                     <p class="font-bold text-green-900">Kenilworth, NJ</p>
                     <a href="https://www.google.com/maps/search/Galloping+Hill+Golf+Course,+Kenilworth,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
@@ -222,285 +223,315 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Weather Forecast Section -->
-        <div id="weather-section-container" class="section-container bg-weather-forecast">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
-                    </svg>
-                    Live Weather Forecast <span id="weather-for-date" class="ml-2 text-base font-normal text-blue-700"></span>
-                </h2>
-                <div id="weather-content">
-                    <p class="text-center text-gray-500">Loading weather data...</p>
-                </div>
+    <!-- Weather Forecast Section -->
+    <div id="weather-section-container" class="section-container bg-weather-forecast">
+        <div class="section-content">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
+                </svg>
+                Live Weather Forecast <span id="weather-for-date" class="ml-2 text-base font-normal text-blue-700"></span>
+            </h2>
+            <div id="weather-content">
+                <p class="text-center text-gray-500">Loading weather data...</p>
             </div>
         </div>
+    </div>
 
-        <!-- Attendees Section -->
-        <div class="section-container bg-attendees">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                    </svg>
-                    Attendees
-                </h2>
-                <div class="table-responsive">
-                    <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
-                        <thead>
-                            <tr>
-                                <th class="py-3 px-4 rounded-tl-lg">Name</th>
-                                <th class="py-3 px-4">Tee Time</th>
-                                <th class="py-3 px-4">Arrival at Course</th>
-                                <th class="py-3 px-4">Pickup Time</th>
-                                <th class="py-3 px-4 rounded-tr-lg">Driver / Notes</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td class="py-3 px-4">Suze Lee</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">08:50 AM</td><td class="py-3 px-4">Pickup by John</td></tr>
-                            <tr><td class="py-3 px-4">John Paccione</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4">Picking up Suze</td></tr>
-                            <tr><td class="py-3 px-4">Jane Pineda</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4 text-gray-400 italic">VACANT / RANDOM</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">N/A</td><td class="py-3 px-4">N/A</td><td class="py-3 px-4"></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        <!-- Notes and Important Information Section -->
-        <div class="section-container bg-notes">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                    Important Notes
-                </h2>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                    <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to **Galloping Hill Golf Course** (3 Golf Dr, Kenilworth, NJ).</li>
-                    <li><strong class="font-semibold">Arrival Time:</strong> Plan to arrive at Galloping Hill Golf Course by <span class="font-bold">09:45 AM</span> to allow time for check-in and warm-up.</li>
-                    <li><strong class="font-semibold">Tee Time:</strong> Our tee time is <span class="font-bold">10:50 AM</span>. Please be ready at the tee box at least 10 minutes prior.</li>
-                    <li><strong class="font-semibold">Green Fee:</strong> The average green fee is <span class="font-bold">$78 per person, which includes a cart</span>.</li>
-                    <li><strong class="font-semibold">Driving Range:</strong> Galloping Hill Golf Course offers a state-of-the-art learning center and practice facility with a spacious driving range (52 stalls, 20 covered and heated), dedicated short-game areas, and target greens. <a href="https://www.gallopinghillgolfcourse.com/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">(SOURCE: Galloping Hill Golf Course)</a></li>
-                    <li><strong class="font-semibold">Amenities:</strong> The club features a pro shop and an on-site restaurant, The Hill Tavern, offering acclaimed a la carte dining options. We will likely eat after at the on-site restaurant. <a href="https://www.gallopinghillgolfcourse.com/hill-tavern/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">(SOURCE: The Hill Tavern)</a></li>
-                </ul>
+    <!-- Attendees Section -->
+    <div class="section-container bg-attendees">
+        <div class="section-content">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                Attendees
+            </h2>
+            <div class="table-responsive">
+                <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-4 rounded-tl-lg">Name</th>
+                            <th class="py-3 px-4">Tee Time</th>
+                            <th class="py-3 px-4">Arrival at Course</th>
+                            <th class="py-3 px-4">Pickup Time</th>
+                            <th class="py-3 px-4 rounded-tr-lg">Driver / Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-3 px-4 font-semibold">John P (Driver)</td>
+                            <td class="py-3 px-4">10:50 AM</td>
+                            <td class="py-3 px-4">10:00 AM</td>
+                            <td class="py-3 px-4">N/A (Driving)</td>
+                            <td class="py-3 px-4">Picking up Suze L, Kazu O</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Kazu O</td>
+                            <td class="py-3 px-4">10:50 AM</td>
+                            <td class="py-3 px-4">10:00 AM</td>
+                            <td class="py-3 px-4">9:10 AM</td>
+                            <td class="py-3 px-4">Pickup by John P</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4">Suze L</td>
+                            <td class="py-3 px-4">10:50 AM</td>
+                            <td class="py-3 px-4">10:00 AM</td>
+                            <td class="py-3 px-4">9:00 AM</td>
+                            <td class="py-3 px-4">Pickup by John P</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
-        <!-- Footer - also full-width, with its content centered -->
-        <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
-            <div class="footer-content-inner">
-                <!-- Footer content here, if any specific content is needed outside the general text -->
-            </div>
-        </footer>
+    <!-- Notes and Important Information Section -->
+    <div class="section-container bg-notes">
+        <div class="section-content">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                Important Notes
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to <span class="font-bold">Galloping Hill Golf Course</span> (3 Golf Dr, Kenilworth, NJ 07033).</li>
+                <li><strong class="font-semibold">Arrival Time:</strong> Everyone should plan to arrive at Galloping Hill Golf Course by <span class="font-bold">10:00 AM</span> to allow time for check-in, warm-up, and organization before the tee time.</li>
+                <li><strong class="font-semibold">Tee Time:</strong> Our tee time is <span class="font-bold">10:50 AM</span>. Please be ready at the tee box at least 10 minutes prior.</li>
+                <li><strong class="font-semibold">Green Fee:</strong> The green fee is <span class="font-bold">$73 and includes a cart</span>. There is no separate walking rate for this round. <a href="https://www.gallopinghillgolfcourse.com/" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Galloping Hill Golf Course)</a></li>
+                <li><strong class="font-semibold">Driving Range:</strong> Galloping Hill Golf Course features a state-of-the-art learning center and practice facility with a spacious driving range (52 stalls, 20 covered and heated), dedicated short-game areas, and target greens. <a href="https://www.gallopinghillgolfcourse.com/" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Galloping Hill Golf Course)</a></li>
+                <li><strong class="font-semibold">Course Layout:</strong> The course layout returns to the clubhouse after 9 holes for an opportunity to use restrooms and re-stock golf balls. Galloping Hill Golf Course is known for its natural terrain of rolling hills and valleys. <a href="https://www.gallopinghillgolfcourse.com/" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: Galloping Hill Golf Course)</a></li>
+                <li><strong class="font-semibold">Amenities:</strong> The course features an on-site restaurant, The Hill Tavern, and acclaimed a la carte dining options. <a href="https://www.gallopinghillgolfcourse.com/hill-tavern/" target="_blank" class="text-blue-600 hover:text-blue-800">(SOURCE: The Hill Tavern)</a></li>
+            </ul>
+        </div>
+    </div>
 
-        <script>
-            const weatherContent = document.getElementById('weather-content');
-            const weatherSectionContainer = document.getElementById('weather-section-container');
-            const weatherForDateSpan = document.getElementById('weather-for-date');
-            const outingTeeTime = "10:50 AM"; // Updated Tee time for weather query
+    <!-- Footer - also full-width, with its content centered -->
+    <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
+        <div class="footer-content-inner">
+            <!-- Footer content here, if any specific content is needed outside the general text -->
+        </div>
+    </footer>
 
-            // Header background elements
-            const mainHeaderWrapper = document.getElementById('main-header-wrapper');
-            const outingLocation = "galloping-hill"; // Lowercase, hyphenated name of the course for image filename
-            
-            let currentImageIndex = 0;
-            let courseImages = []; // Array to hold image paths
-            const maxImages = 5; // Max number of images to check for (e.g., galloping-hill-01.jpg to galloping-hill-05.jpg)
-            const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
-            let rotationTimer; // To store the interval timer
+    <script>
+        const weatherContent = document.getElementById('weather-content');
+        const weatherSectionContainer = document.getElementById('weather-section-container');
+        const weatherForDateSpan = document.getElementById('weather-for-date');
+        const outingTeeTime = "10:50 AM"; // Tee time for Galloping Hill
 
-            // Function to load all available course images and start rotation as background
-            async function loadCourseBackgroundImagesAndStartRotation() {
-                let foundImages = false;
-                const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
-                const genericPlaceholderColor = '#548235'; // Generic grass-green color
+        // Header background elements
+        const mainHeaderWrapper = document.getElementById('main-header-wrapper');
+        const outingLocation = "galloping-hill"; // Lowercase, hyphenated name of the course for image filename
+        
+        let currentImageIndex = 0;
+        let courseImages = []; // Array to hold image paths
+        const maxImages = 5; // Max number of images to check for (e.g., galloping-hill-01.jpg to galloping-hill-05.jpg)
+        const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
+        let rotationTimer; // To store the interval timer
 
-                for (let i = 1; i <= maxImages; i++) {
-                    const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
-                    try {
-                        const img = new Image();
-                        img.src = imagePath;
-                        await new Promise((resolve, reject) => {
-                            img.onload = resolve;
-                            img.onerror = resolve; 
-                        });
-                        if (img.complete && img.naturalWidth > 0) { 
-                            courseImages.push(imagePath);
-                            foundImages = true;
-                        } else {
-                            console.log(`Image not found or error loading: ${imagePath}`);
-                        }
-                    } catch (error) {
-                        console.log(`Error checking image ${imagePath}:`, error);
-                    }
-                }
+        // Function to load all available course images and start rotation as background
+        async function loadCourseBackgroundImagesAndStartRotation() {
+            let foundImages = false;
+            const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
 
-                if (foundImages && courseImages.length > 0) {
-                    mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
-                    mainHeaderWrapper.style.backgroundColor = 'transparent'; // Ensure color is not visible behind image
-                    if (courseImages.length > 1) {
-                        rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
-                    }
-                } else {
-                    // Use generic placeholder color if no specific images are found
-                    mainHeaderWrapper.style.backgroundImage = 'none'; // Remove any potential image
-                    mainHeaderWrapper.style.backgroundColor = genericPlaceholderColor;
-                    console.warn(`No specific images found for ${outingLocation}. Using generic placeholder color.`);
-                }
-            }
-
-            // Function to rotate to the next image as background
-            function rotateCourseBackgroundImage() {
-                currentImageIndex = (currentImageIndex + 1) % courseImages.length;
-                mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
-            }
-
-            // Function to handle weather section display based on date
-            async function fetchWeather() {
-                const outingDateStr = "August 21, 2025"; // Date for Galloping Hill
-                const outingDate = new Date(outingDateStr);
-                const currentDate = new Date();
-                currentDate.setHours(0, 0, 0, 0); // Normalize current date to start of day
-
-                // Check 1: Is the event date in the past?
-                if (currentDate > outingDate) {
-                    if (weatherSectionContainer) {
-                        weatherSectionContainer.style.display = 'none'; // Hide the entire weather section
-                    }
-                    return;
-                }
-
-                // Check 2: Is the event date too far in the future (beyond 14 days)?
-                const forecastThresholdDays = 14; // Updated threshold
-                const diffTime = outingDate.getTime() - currentDate.getTime();
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                if (diffDays > forecastThresholdDays) {
-                    weatherContent.innerHTML = `
-                        <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
-                        <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
-                    `;
-                    weatherForDateSpan.textContent = `(Forecast for: ${outingDateStr})`;
-                    return;
-                }
-
-                // Check 3: Otherwise, try to fetch weather.
-                weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
-                weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
-
-                const date = outingDateStr;
-                // Using coordinates for more precise location
-                const location = "40.678089,-74.288114"; // Kenilworth, NJ coordinates
-                const time = outingTeeTime; // Using the updated tee time for general weather query
-
-                let fetchUrl;
-                if (window.location.protocol === 'blob:') {
-                    const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
-                    fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-                } else {
-                    fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-                }
-
-                console.log("Attempting to fetch weather from:", fetchUrl); // Added for debugging
-
+            for (let i = 1; i <= maxImages; i++) {
+                const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
                 try {
-                    const response = await fetch(fetchUrl, { mode: 'cors' }); // Added mode: 'cors'
-                    if (!response.ok) {
-                        const errorBody = await response.text();
-                        console.error("Netlify Function error response:", errorBody);
-                        throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
-                    }
-                    const weatherData = await response.json();
-                    console.log("Raw weather data received:", weatherData); // Log raw data for inspection
-
-                    // Check 3a: Does the received weatherData contain a valid forecast for the requested date?
-                    const receivedForecastDate = weatherData.api_forecast_date;
-                    const requestedFormattedDate = outingDate.toISOString().split('T')[0]; // YYYY-MM-DD for comparison
-
-                    if (receivedForecastDate === requestedFormattedDate && weatherData.high_temp_day && weatherData.conditions_tee_time) {
-                        renderWeather(weatherData, time, outingDateStr);
+                    // Use new Image() to pre-load and check if the image exists
+                    const img = new Image();
+                    img.src = imagePath;
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = resolve; // Resolve even on error so it doesn't block the loop
+                    });
+                    if (img.complete && img.naturalWidth > 0) { // Check if image loaded successfully
+                        courseImages.push(imagePath);
+                        foundImages = true;
                     } else {
-                        // If the date doesn't match, or essential data is missing/invalid
-                        weatherContent.innerHTML = `
-                            <p class="text-center text-gray-700">Forecast not available for ${outingDateStr}.</p>
-                            <p class="text-center text-gray-700 mt-2">Please check back closer to the date or refer to a direct weather source.</p>
-                        `;
-                        weatherForDateSpan.textContent = `(Forecast not available)`;
+                        console.log(`Image not found or error loading: ${imagePath}`);
                     }
                 } catch (error) {
-                    weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
-                    weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
-                    console.error("Error fetching live weather via Netlify Function:", error);
+                    console.log(`Error checking image ${imagePath}:`, error);
                 }
             }
 
-            function renderWeather(data, teeTime, displayDate) {
-                // Function to remove any markdown bolding and ensure plain text.
-                function cleanText(text) {
-                    if (!text) return '';
-                    let cleanedText = text.replace(/\s*\(.*?\)/g, '').trim();
-                    return cleanedText.replace(/\*\*(.*?)\*\*/g, '$1'); 
+            if (foundImages && courseImages.length > 0) {
+                mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
+                mainHeaderWrapper.classList.remove('fallback-bg');
+                if (courseImages.length > 1) {
+                    rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
                 }
+            } else {
+                mainHeaderWrapper.style.backgroundImage = 'none';
+                mainHeaderWrapper.classList.add('fallback-bg');
+                console.warn(`No images found for ${outingLocation}. Using fallback background color.`);
+            }
+        }
 
-                // Extract and format values using the new cleanText function
-                const highTempDayF = cleanText(data.high_temp_day);
-                const conditionsTeeTimeF = cleanText(data.conditions_tee_time);
-                let feelsLikeValueF = cleanText(data.feels_like_temp);
-                if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
-                    feelsLikeValueF = 'Not available';
+        // Function to rotate to the next image as background
+        function rotateCourseBackgroundImage() {
+            currentImageIndex = (currentImageIndex + 1) % courseImages.length;
+            mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
+        }
+
+        // Function to handle weather section display based on date
+        async function fetchWeather() {
+            const outingDateStr = "August 21, 2025"; // Date for Galloping Hill
+            const outingDate = new Date(outingDateStr);
+            const currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0); // Normalize current date to start of day
+
+            // Check 1: Is the event date in the past?
+            if (currentDate > outingDate) {
+                if (weatherSectionContainer) {
+                    weatherSectionContainer.style.display = 'none'; // Hide the entire weather section
                 }
-                
-                const precipitationChance = cleanText(data.precipitation_chance);
-                const windSpeedDirection = cleanText(data.wind_speed_direction);
-                const uvIndex = cleanText(data.uv_index);
+                return;
+            }
 
-                let forecastUpdatedText = data.forecast_updated;
-                if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
-                    forecastUpdatedText = 'Date not specified';
-                }
-                const formattedForecastUpdated = cleanText(forecastUpdatedText);
+            // Check 2: Is the event date too far in the future (beyond 14 days)?
+            const forecastThresholdDays = 14; // Updated threshold
+            const diffTime = outingDate.getTime() - currentDate.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-                // Update the date in the header using the date received from the weather API for verification
-                weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`; // Use API's date if available
-
+            if (diffDays > forecastThresholdDays) {
                 weatherContent.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
-                        <div class="p-4 bg-blue-100 rounded-lg">
-                            <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
-                            <p class="text-3xl font-bold text-blue-900">${highTempDayF}</p>
-                        </div>
-                        <div class="p-4 bg-blue-100 rounded-lg">
-                            <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
-                            <p class="text-3xl font-bold text-blue-900">${conditionsTeeTimeF}</p>
-                            <p class="text-sm text-blue-600">Feels like ${feelsLikeValueF}</p>
-                        </div>
-                    </div>
-                    <div class="text-sm text-gray-500 mt-2">
-                        <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
-                        <ul class="list-disc list-inside text-left">
-                            <li>Temperature: The daily high is expected to be ${highTempDayF}, with a "feels like" temperature of ${feelsLikeValueF}.</li>
-                            <li>Precipitation: ${precipitationChance} chance of rain.</li>
-                            <li>Wind: ${windSpeedDirection}.</li>
-                            <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
-                        </ul>
-                        <p class="mt-2">Forecast last updated: ${formattedForecastUpdated}. Conditions are subject to change. Please check closer to the date.</p>
-                        <a href="https://www.google.com/search?q=hourly+weather+Kenilworth+NJ+August+21+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            Get the Latest Hourly Forecast
-                        </a>
-                    </div>
+                    <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
+                    <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
                 `;
+                weatherForDateSpan.textContent = `(Forecast for: ${outingDateStr})`;
+                return;
             }
 
-            // Initialize display logic and image loading on page load
-            window.onload = function() {
-                fetchWeather();
-                loadCourseBackgroundImagesAndStartRotation();
-            };
-        </script>
+            // Check 3: Otherwise, try to fetch weather.
+            weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
+            weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
+
+            const date = outingDateStr;
+            const location = "40.6710,-74.3039"; // Coordinates for Galloping Hill Golf Course, Kenilworth, NJ
+            const time = outingTeeTime;
+
+            let fetchUrl;
+            if (window.location.protocol === 'blob:') {
+                const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
+                fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+            } else {
+                fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+            }
+
+            try {
+                const response = await fetch(fetchUrl);
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("Netlify Function error response:", errorBody);
+                    throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
+                }
+                const weatherData = await response.json();
+                console.log("Raw weather data received:", weatherData); // Log raw data for inspection
+
+                // Check 3a: Does the received weatherData contain a valid forecast for the requested date?
+                const receivedForecastDate = weatherData.api_forecast_date;
+                const requestedFormattedDate = outingDate.toISOString().split('T')[0]; // YYYY-MM-DD for comparison
+
+                if (receivedForecastDate === requestedFormattedDate && weatherData.high_temp_day && weatherData.conditions_tee_time) {
+                    renderWeather(weatherData, time, outingDateStr);
+                } else {
+                    // If the date doesn't match, or essential data is missing/invalid
+                    weatherContent.innerHTML = `
+                        <p class="text-center text-gray-700">Forecast not available for ${outingDateStr}.</p>
+                        <p class="text-center text-gray-700 mt-2">Please check back closer to the date or refer to a direct weather source.</p>
+                    `;
+                    weatherForDateSpan.textContent = `(Forecast not available)`;
+                }
+            } catch (error) {
+                weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
+                weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
+                console.error("Error fetching live weather via Netlify Function:", error);
+            }
+        }
+
+        function renderWeather(data, teeTime, displayDate) {
+            // Function to remove any markdown bolding and ensure plain text.
+            function cleanText(text) {
+                if (!text) return '';
+                let cleanedText = text.replace(/\s*\(.*?\)/g, '').trim();
+                return cleanedText.replace(/\*\*(.*?)\*\*/g, '$1'); 
+            }
+
+            // Extract and format values using the new cleanText function
+            const highTempDayF = cleanText(data.high_temp_day);
+            const conditionsTeeTimeF = cleanText(data.conditions_tee_time);
+            let feelsLikeValueF = cleanText(data.feels_like_temp);
+            if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
+                feelsLikeValueF = 'Not available';
+            }
+            
+            const precipitationChance = cleanText(data.precipitation_chance);
+            const windSpeedDirection = cleanText(data.wind_speed_direction);
+            const uvIndex = cleanText(data.uv_index);
+
+            let forecast_updated_display = '';
+
+            // Try to get the specific last updated time for current conditions if available
+            if (data.current && data.current.last_updated_epoch) {
+                const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000);
+                forecast_updated_display = `Forecast last updated: ${forecast_updated_date.toLocaleString('en-US', { 
+                    dateStyle: 'medium', 
+                    timeStyle: 'short', 
+                    timeZone: 'America/New_York' // Ensure Eastern Time Zone
+                })}`;
+            } else if (data.api_forecast_date) {
+                // For future dates where 'current' data is not about the live update,
+                // indicate when the forecast itself was "compiled" or "issued".
+                const today = new Date();
+                const todayFormatted = today.toLocaleString('en-US', { dateStyle: 'medium' });
+                forecast_updated_display = `Forecast issued on ${todayFormatted} for ${data.api_forecast_date}`;
+            } else {
+                forecast_updated_display = 'Recently updated (check official source)'; // Final fallback
+            }
+
+
+            weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`;
+
+            weatherContent.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
+                    <div class="p-4 bg-blue-100 rounded-lg">
+                        <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
+                        <p class="text-3xl font-bold text-blue-900">${highTempDayF}</p>
+                    </div>
+                    <div class="p-4 bg-blue-100 rounded-lg">
+                        <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
+                        <p class="text-3xl font-bold text-blue-900">${conditionsTeeTimeF}</p>
+                        <p class="text-sm text-blue-600">Feels like ${feelsLikeValueF}</p>
+                    </div>
+                </div>
+                <div class="text-sm text-gray-500 mt-2">
+                    <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
+                    <ul class="list-disc list-inside text-left">
+                        <li>Temperature: The daily high is expected to be ${highTempDayF}, with a "feels like" temperature of ${feelsLikeValueF}.</li>
+                        <li>Precipitation: ${precipitationChance} chance of rain.</li>
+                        <li>Wind: ${windSpeedDirection}.</li>
+                        <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
+                    </ul>
+                    <p class="mt-2">${forecast_updated_display}. Conditions are subject to change. Please check closer to the date.</p>
+                    <a href="https://www.google.com/search?q=hourly+weather+Kenilworth+NJ+August+21+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Get the Latest Hourly Forecast
+                    </a>
+                </div>
+            `;
+        }
+
+        // Initialize display logic and image loading on page load
+        window.onload = function() {
+            fetchWeather();
+            loadCourseBackgroundImagesAndStartRotation();
+        };
+    </script>
 </body>
 </html>
