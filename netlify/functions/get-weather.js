@@ -7,6 +7,24 @@ exports.handler = async function(event, context) {
     // Extract query parameters sent from your frontend (location, date, time)
     const { location, date, time } = event.queryStringParameters;
 
+    // Define CORS headers for all responses
+    const headers = {
+        "Content-Type": "application/json",
+        // This header allows requests from any origin. For more security, you could
+        // replace '*' with your specific Netlify site URL (e.g., 'https://parfect-strangers-golf-outings.netlify.app')
+        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS", // Allow common methods
+        "Access-Control-Allow-Headers": "Content-Type" // Allow Content-Type header
+    };
+
+    // Handle preflight OPTIONS requests for CORS
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 204, // No content needed for preflight
+            headers: headers
+        };
+    }
+
     // IMPORTANT: Get your API key from WeatherAPI.com (or your chosen weather service)
     // and set it securely as a Netlify environment variable named WEATHER_API_KEY.
     // Go to Netlify Dashboard -> Site settings -> Build & deploy -> Environment.
@@ -15,6 +33,7 @@ exports.handler = async function(event, context) {
     if (!WEATHER_API_KEY) {
         return {
             statusCode: 500,
+            headers: headers, // Include headers even for error responses
             body: JSON.stringify({ error: 'Weather API Key not configured. Please set WEATHER_API_KEY in Netlify environment variables.' }),
         };
     }
@@ -22,6 +41,7 @@ exports.handler = async function(event, context) {
     if (!location || !date || !time) {
         return {
             statusCode: 400,
+            headers: headers, // Include headers even for error responses
             body: JSON.stringify({ error: 'Missing location, date, or time parameters for weather forecast.' }),
         };
     }
@@ -34,7 +54,6 @@ exports.handler = async function(event, context) {
         // Construct the URL for WeatherAPI.com's Future API
         // This API returns 14-day future forecast, suitable for your needs.
         // It takes 'q' (query/location) and 'dt' (date in YYYY-MM-DD).
-        // Added 'units=imperial' if the API supports it, though WeatherAPI returns both F/C and we extract F.
         const weatherApiUrl = `http://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${encodeURIComponent(location)}&dt=${formattedDate}&aqi=no&alerts=no`;
 
         console.log("Calling WeatherAPI.com URL:", weatherApiUrl);
@@ -48,6 +67,7 @@ exports.handler = async function(event, context) {
             const errorMessage = data.error ? data.error.message : 'Unknown error from weather API';
             return {
                 statusCode: response.status,
+                headers: headers, // Include headers even for error responses
                 body: JSON.stringify({ error: `Weather API Error: ${errorMessage}` }),
             };
         }
@@ -60,6 +80,7 @@ exports.handler = async function(event, context) {
         if (!forecastDay) {
             return {
                 statusCode: 404,
+                headers: headers, // Include headers even for error responses
                 body: JSON.stringify({ error: 'No forecast data found for the specified date.' }),
             };
         }
@@ -96,7 +117,6 @@ exports.handler = async function(event, context) {
             }
         }
 
-
         const high_temp_day = dayData.maxtemp_f ? `${Math.round(dayData.maxtemp_f)}°F` : 'N/A';
         const conditions_tee_time = closestHourForecast?.condition?.text || 'N/A';
         const feels_like_temp = closestHourForecast?.feelslike_f ? `${Math.round(closestHourForecast.feelslike_f)}°F` : 'N/A';
@@ -112,7 +132,7 @@ exports.handler = async function(event, context) {
         // Return the structured weather data
         return {
             statusCode: 200,
-            headers: { "Content-Type": "application/json" },
+            headers: headers, // Use the shared headers object
             body: JSON.stringify({
                 high_temp_day,
                 conditions_tee_time,
@@ -129,6 +149,7 @@ exports.handler = async function(event, context) {
         console.error('Netlify function error:', error);
         return {
             statusCode: 500,
+            headers: headers, // Include headers even for error responses
             body: JSON.stringify({ error: 'Failed to fetch weather data: ' + error.message }),
         };
     }
