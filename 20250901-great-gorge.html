@@ -467,19 +467,18 @@
                 
                 const precipitationChance = cleanText(data.precipitation_chance);
                 const windSpeedDirection = cleanText(data.wind_speed_direction);
-                const uvIndex = cleanText(data.uv_index);
-
-                let forecastUpdatedText = data.forecast_updated;
-                if (!forecastUpdatedText || forecastUpdatedText.toLowerCase().includes('value')) {
-                    forecastUpdatedText = 'Date not specified';
+                const uvIndex = data.uv !== undefined ? `${Math.round(data.uv)}` : 'N/A'; // UV is on dayData, not closestHourForecast
+                
+                // CHANGED: Safely access forecast_updated and provide a fallback.
+                let forecast_updated = 'Recently updated (check official source)'; // Default message
+                if (data.current && data.current.last_updated_epoch) {
+                    const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000); // Convert epoch to date object
+                    forecast_updated = forecast_updated_date.toLocaleString('en-US', { 
+                        dateStyle: 'medium', 
+                        timeStyle: 'short', 
+                        timeZone: 'America/New_York' // Set to Eastern Time Zone
+                    });
                 }
-                // CHANGED: Explicitly set timeZone for forecast_updated to America/New_York
-                const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000); // Convert epoch to date object
-                const forecast_updated = forecast_updated_date.toLocaleString('en-US', { 
-                    dateStyle: 'medium', 
-                    timeStyle: 'short', 
-                    timeZone: 'America/New_York' // Set to Eastern Time Zone
-                });
 
 
                 // Update the date in the header using the date received from the weather API for verification
@@ -505,7 +504,7 @@
                             <li>Wind: ${windSpeedDirection}.</li>
                             <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
                         </ul>
-                        <p class="mt-2">Forecast last updated: ${formattedForecastUpdated}. Conditions are subject to change. Please check closer to the date.</p>
+                        <p class="mt-2">Forecast last updated: ${forecast_updated}. Conditions are subject to change. Please check closer to the date.</p>
                         <a href="https://www.google.com/search?q=hourly+weather+Hamburg+NJ+September+1+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
