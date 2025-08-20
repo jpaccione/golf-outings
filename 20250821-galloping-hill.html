@@ -195,8 +195,11 @@
     <div class="section-container bg-event-details">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                    <line x1="4" y1="22" x2="4" y2="15"></line>
+                    <line x1="12" y1="22" x2="12" y2="15"></line>
+                    <line x1="20" y1="22" x2="20" y2="15"></line>
                 </svg>
                 Event Details
             </h2>
@@ -259,7 +262,7 @@
                             <tr><td class="py-3 px-4">Suze Lee</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">08:50 AM</td><td class="py-3 px-4">Pickup by John</td></tr>
                             <tr><td class="py-3 px-4">John Paccione</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4">Picking up Suze</td></tr>
                             <tr><td class="py-3 px-4">Jane Pineda</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4 text-gray-400 italic">VACANT</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">09:45 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4"></td></tr>
+                            <tr><td class="py-3 px-4 text-gray-400 italic">VACANT / RANDOM</td><td class="py-3 px-4">10:50 AM</td><td class="py-3 px-4">N/A</td><td class="py-3 px-4">N/A</td><td class="py-3 px-4"></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -338,7 +341,7 @@
                     mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
                     mainHeaderWrapper.style.backgroundColor = 'transparent'; // Ensure color is not visible behind image
                     if (courseImages.length > 1) {
-                        rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
+                        rotationTimer = setInterval(setInterval(rotateCourseBackgroundImage, imageRotationInterval));
                     }
                 } else {
                     // Use generic placeholder color if no specific images are found
