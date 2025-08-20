@@ -341,7 +341,7 @@
                     mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
                     mainHeaderWrapper.style.backgroundColor = 'transparent'; // Ensure color is not visible behind image
                     if (courseImages.length > 1) {
-                        rotationTimer = setInterval(setInterval(rotateCourseBackgroundImage, imageRotationInterval));
+                        rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
                     }
                 } else {
                     // Use generic placeholder color if no specific images are found
@@ -391,7 +391,8 @@
                 weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
 
                 const date = outingDateStr;
-                const location = "Kenilworth, NJ"; // Galloping Hill is in Kenilworth
+                // Using coordinates for more precise location
+                const location = "40.678089,-74.288114"; // Kenilworth, NJ coordinates
                 const time = outingTeeTime; // Using the updated tee time for general weather query
 
                 let fetchUrl;
@@ -402,8 +403,10 @@
                     fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
                 }
 
+                console.log("Attempting to fetch weather from:", fetchUrl); // Added for debugging
+
                 try {
-                    const response = await fetch(fetchUrl);
+                    const response = await fetch(fetchUrl, { mode: 'cors' }); // Added mode: 'cors'
                     if (!response.ok) {
                         const errorBody = await response.text();
                         console.error("Netlify Function error response:", errorBody);
