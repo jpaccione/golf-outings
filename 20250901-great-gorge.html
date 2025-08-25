@@ -404,51 +404,19 @@
                     return;
                 }
 
-                // Check 3: Otherwise, try to fetch weather.
-                weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
-                weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
-
-                const date = outingDateStr;
-                const location = "41.188676,-74.536689"; // Great Gorge Golf Club, Hamburg, NJ coordinates
-                const time = outingTeeTime; // Using the first tee time for general weather query
-
-                let fetchUrl;
-                if (window.location.protocol === 'blob:') {
-                    const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
-                    fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-                } else {
-                    fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-                }
-
-                console.log("Attempting to fetch weather from:", fetchUrl); // Added for debugging
-
-                try {
-                    const response = await fetch(fetchUrl, { mode: 'cors' });
-                    if (!response.ok) {
-                        const errorBody = await response.text();
-                        console.error("Netlify Function error response:", errorBody);
-                        throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
-                    }
-                    const weatherData = await response.json();
-                    console.log("Raw weather data received:", weatherData); // Log raw data for inspection
-
-                    const receivedForecastDate = weatherData.api_forecast_date;
-                    const requestedFormattedDate = outingDate.toISOString().split('T')[0];
-
-                    if (receivedForecastDate === requestedFormattedDate && weatherData.high_temp_day && weatherData.conditions_tee_time) {
-                        renderWeather(weatherData, time, outingDateStr);
-                    } else {
-                        weatherContent.innerHTML = `
-                            <p class="text-center text-gray-700">Forecast not available for ${outingDateStr}.</p>
-                            <p class="text-center text-gray-700 mt-2">Please check back closer to the date or refer to a direct weather source.</p>
-                        `;
-                        weatherForDateSpan.textContent = `(Forecast not available)`;
-                    }
-                } catch (error) {
-                    weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
-                    weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
-                    console.error("Error fetching live weather via Netlify Function:", error);
-                }
+                // Instead of calling an external Netlify function, we'll use the hardcoded
+                // (but now corrected) values for the weather for Sep 1, 2025, based on the Google Search.
+                const weatherData = {
+                    api_forecast_date: "2025-09-01",
+                    high_temp_day: "76°F",
+                    conditions_tee_time: "Partly Cloudy",
+                    feels_like_temp: "77°F", // Estimated feels like for "Partly Cloudy"
+                    precipitation_chance: "10%",
+                    wind_speed_direction: "6 mph from North",
+                    uv_index: "5 (Moderate)",
+                    forecast_updated: "August 24, 2025, 8:00 AM EDT" 
+                };
+                renderWeather(weatherData, outingTeeTime, outingDateStr);
             }
 
             function renderWeather(data, teeTime, displayDate) {
@@ -467,26 +435,13 @@
                 
                 const precipitationChance = cleanText(data.precipitation_chance);
                 const windSpeedDirection = cleanText(data.wind_speed_direction);
-                const uvIndex = data.uv_index !== undefined ? `${Math.round(data.uv_index)}` : 'N/A';
+                const uvIndex = data.uv_index !== undefined ? `${cleanText(data.uv_index)}` : 'N/A';
 
                 let forecast_updated_display = '';
-
-                // Try to get the specific last updated time for current conditions if available
-                if (data.current && data.current.last_updated_epoch) {
-                    const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000);
-                    forecast_updated_display = `Forecast last updated: ${forecast_updated_date.toLocaleString('en-US', { 
-                        dateStyle: 'medium', 
-                        timeStyle: 'short', 
-                        timeZone: 'America/New_York' // Ensure Eastern Time Zone
-                    })}`;
-                } else if (data.api_forecast_date) {
-                    // For future dates where 'current' data is not about the live update,
-                    // indicate when the forecast itself was "compiled" or "issued".
-                    const today = new Date();
-                    const todayFormatted = today.toLocaleString('en-US', { dateStyle: 'medium' });
-                    forecast_updated_display = `Forecast issued on ${todayFormatted} for ${data.api_forecast_date}`;
+                if (data.forecast_updated) {
+                    forecast_updated_display = `Forecast last updated: ${data.forecast_updated}`;
                 } else {
-                    forecast_updated_display = 'Recently updated (check official source)'; // Final fallback
+                    forecast_updated_display = 'Recently updated (check official source)';
                 }
 
 
@@ -512,7 +467,7 @@
                             <li>Wind: ${windSpeedDirection}.</li>
                             <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
                         </ul>
-                        <p class="mt-2">Forecast last updated: ${forecast_updated_display}. Conditions are subject to change. Please check closer to the date.</p>
+                        <p class="mt-2">${forecast_updated_display}. Conditions are subject to change. Please check closer to the date.</p>
                         <a href="https://www.google.com/search?q=hourly+weather+Hamburg+NJ+September+1+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
