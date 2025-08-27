@@ -72,7 +72,7 @@
             background-position: center;
             background-repeat: no-repeat;
             overflow: hidden; 
-            transition: background-image 1s ease-in-out, background-color 1s ease-in-out; /* Smooth transition for image change AND color change */
+            transition: background-image 1s ease-in-out; 
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow for the header */
             display: flex; /* Use flexbox to center content */
             justify-content: center; /* Horizontally center overlay content */
@@ -147,11 +147,10 @@
         }
         
         /* Specific background colors for full-width section containers */
-        /* These classes are applied directly to .section-container */
         .bg-event-details { background-color: #f0fdf4; } /* Light green */
         .bg-weather-forecast { background-color: #eff6ff; } /* Light blue */
         .bg-attendees { background-color: #f5f3ff; } /* Light purple */
-        .bg-notes { background-color: #fffbeb; } /* Light yellow for notes */
+        .bg-notes { background-color: #fffbeb; } /* Light yellow */
 
         /* Footer - also full-width, with its content centered */
         footer {
@@ -168,6 +167,14 @@
             margin-left: auto;
             margin-right: auto;
             text-align: center;
+        }
+        /* Style for the tee time separator row */
+        .tee-time-separator {
+            background-color: #e5e7eb; /* A light gray */
+            height: 2px; /* A thin line */
+        }
+        .tee-time-separator td {
+            padding: 0; /* No padding for separator cells */
         }
 
         @media (max-width: 640px) { /* Small screen adjustments for content cards */
@@ -195,8 +202,9 @@
     <div class="section-container bg-event-details">
         <div class="section-content">
             <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                <!-- Icon: Calendar -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 Event Details
             </h2>
@@ -213,10 +221,8 @@
                     </a>
                 </div>
                 <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
-                    <p class="text-lg font-semibold text-green-700">Tee Times:</p>
-                    <p class="text-3xl font-bold text-green-900">
-                        10:00 AM<br>10:10 AM<br>10:20 AM<br>10:30 AM
-                    </p>
+                    <p class="text-lg font-semibold text-green-700">First Tee Time:</p>
+                    <p class="text-3xl font-bold text-green-900">10:00 AM</p>
                     <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
                 </div>
             </div>
@@ -258,62 +264,140 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td class="py-3 px-4">Amey Avhad</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">07:30 AM</td><td class="py-3 px-4">Pickup by John</td></tr>
-                            <tr><td class="py-3 px-4">Abla Bedoui</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">07:05 AM</td><td class="py-3 px-4">Pickup by John</td></tr>
-                            <tr><td class="py-3 px-4">Anne Chen</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">07:20 AM</td><td class="py-3 px-4">Pickup by Slim</td></tr>
-                            <tr><td class="py-3 px-4">Slim Geransar</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4">Picking up Anne</td></tr>
-                            <tr><td class="py-3 px-4">Mark Gonzalez</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">Coordinating travel with Justin, Noelani, and Jane</td></tr>
-                            <tr><td class="py-3 px-4">Justin Gonzalez</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">Coordinating travel with Mark, Noelani, and Jane</td></tr>
-                            <tr><td class="py-3 px-4">An Le</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">06:45 AM</td><td class="py-3 px-4">Pickup by John</td></tr>
-                            <tr><td class="py-3 px-4">Nelson Lopez</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4">Lloyd Narciso</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4">Noelani Pao</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">Coordinating travel with Mark, Justin, and Jane</td></tr>
-                            <tr><td class="py-3 px-4">John Paccione</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4">Picking up An, Abla, and Amey</td></tr>
-                            <tr><td class="py-3 px-4">Jane Pineda</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">Coordinating travel with Mark, Justin, and Noelani</td></tr>
-                            <tr><td class="py-3 px-4">Anthony Tarabocchia</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4">Brittany Wise</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">N/A (Driving)</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4 text-gray-400 italic">VACANT</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4"></td></tr>
-                            <tr><td class="py-3 px-4 text-gray-400 italic">VACANT</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4">09:00 AM</td><td class="py-3 px-4">TBD</td><td class="py-3 px-4"></td></tr>
+                            <!-- 10:00 AM Tee Time -->
+                            <tr>
+                                <td class="py-3 px-4">Amey Avhad</td>
+                                <td class="py-3 px-4">10:00 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">John Paccione</td>
+                                <td class="py-3 px-4">10:00 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">N/A (Driving)</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4"><i>VACANT 1</i></td>
+                                <td class="py-3 px-4">10:00 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4"><i>VACANT 2</i></td>
+                                <td class="py-3 px-4">10:00 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            
+                            <!-- Tee Time Separator -->
+                            <tr class="tee-time-separator">
+                                <td colspan="5" class="py-1"></td>
+                            </tr>
+
+                            <!-- 10:10 AM Tee Time -->
+                            <tr>
+                                <td class="py-3 px-4">Anthony Tarabocchia</td>
+                                <td class="py-3 px-4">10:10 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Mika Miranda (Hold)</td>
+                                <td class="py-3 px-4">10:10 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Suze Lee (Hold)</td>
+                                <td class="py-3 px-4">10:10 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Nelson Lopez</td>
+                                <td class="py-3 px-4">10:10 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+
+                            <!-- Tee Time Separator -->
+                            <tr class="tee-time-separator">
+                                <td colspan="5" class="py-1"></td>
+                            </tr>
+
+                            <!-- 10:20 AM Tee Time -->
+                            <tr>
+                                <td class="py-3 px-4">Jane Pineda (Hold)</td>
+                                <td class="py-3 px-4">10:20 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Brittany Wise</td>
+                                <td class="py-3 px-4">10:20 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">N/A (Driving)</td>
+                                <td class="py-3 px-4">Driving self</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">An Le</td>
+                                <td class="py-3 px-4">10:20 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4"><i>VACANT 3</i></td>
+                                <td class="py-3 px-4">10:20 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+
+                            <!-- Tee Time Separator -->
+                            <tr class="tee-time-separator">
+                                <td colspan="5" class="py-1"></td>
+                            </tr>
+
+                            <!-- 10:30 AM Tee Time -->
+                            <tr>
+                                <td class="py-3 px-4">Lloyd Narciso</td>
+                                <td class="py-3 px-4">10:30 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Noelani Pao (Hold)</td>
+                                <td class="py-3 px-4">10:30 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Justin Gonzalez (Hold)</td>
+                                <td class="py-3 px-4">10:30 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4"><i>VACANT 4</i></td>
+                                <td class="py-3 px-4">10:30 AM</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                                <td class="py-3 px-4">TBD</td>
+                            </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-        <!-- Notes and Important Information Section -->
-        <div class="section-container bg-notes">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                    </svg>
-                    Important Notes
-                </h2>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                    <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to <span class="font-bold">Great Gorge Golf Club</span> (414 County Route 517, Hamburg, NJ).</li>
-                    <li><strong class="font-semibold">Arrival Time:</strong> Everyone should plan to arrive at Great Gorge Golf Club by <span class="font-bold">9:00 AM</span> to allow time for check-in, warm-up, and organization before the tee time.</li>
-                    <li><strong class="font-semibold">Tee Times:</strong> Our tee times are <span class="font-bold">10:00 AM, 10:10 AM, 10:20 AM, and 10:30 AM</span>. Please be ready at the tee box at least 10 minutes prior to your assigned time.</li>
-                    <li><strong class="font-semibold">Green Fee:</strong> The green fee is **$100/pp and includes a cart**. <a href="https://greatgorgegolfclub.com/passes-packages/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">(SOURCE: Great Gorge Golf Club - Passes & Packages)</a></li>
-                    <li><strong class="font-semibold">Driving Range:</strong> There is an expansive practice area on-site featuring a full driving range, putting green, and chipping area. <a href="https://greatgorgegolfclub.com/driving-range/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">(SOURCE: Great Gorge Golf Club - Driving Range)</a></li>
-                    <li><strong class="font-semibold">Course Layout:</strong> Great Gorge Golf Club features challenging terrain with dramatic elevation changes and breathtaking mountain views, across its three 9-hole courses (Rail, Lake, and Quarry). <a href="https://greatgorgegolfclub.com/our-courses/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">(SOURCE: Great Gorge Golf Club - Our Courses)</a></li>
-                    <li><strong class="font-semibold">Amenities:</strong> The modern clubhouse features a well-stocked pro shop and <span class="font-bold">Hef's Hut Bar & Grill, a full-service restaurant</span>. <a href="https://hefshutbarandgrill.com/" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm">(SOURCE: Hef's Hut Bar and Grill)</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Footer - also full-width, with its content centered -->
-        <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
-            <div class="footer-content-inner">
-                <!-- Footer content here, if any specific content is needed outside the general text -->
-            </div>
-        </footer>
-
-    </body>
-
-    <script>
-            const weatherContent = document.getElementById('weather-content');
-            const weatherSectionContainer = document.getElementById('weather-section-container');
-            const weatherForDateSpan = document.getElementById('weather-for-date');
-            const outingTeeTime = "10:00 AM"; // First tee time for Great Gorge
-
-            // Header background elements
-            const mainHeaderWrapper = document.getElementById('main-head
+          
