@@ -62,6 +62,15 @@
         .table-auto tbody tr:hover {
             background-color: #f3f4f6; /* Hover effect */
         }
+        /* New styling to add a border after each group of four */
+        .foursome-border-bottom {
+            border-bottom: 4px solid #d1d5db; /* A distinct border color for groups */
+        }
+        /* Make sure the last row in the table doesn't have a border */
+        .table-auto tbody tr:last-child.foursome-border-bottom {
+            border-bottom: none;
+        }
+
 
         /* Styles for the header background - now truly full width */
         .header-background-container {
@@ -217,7 +226,7 @@
                     <p class="text-3xl font-bold text-green-900">
                         10:00 AM<br>10:10 AM<br>10:20 AM<br>10:30 AM
                     </p>
-                    <p class="text-base font-semibold text-green-700 mt-1">(18-Hole Outing)</p>
+                    <p class="text-base font-semibold text-green-700 mt-1">(Tee times have been assigned)</p>
                 </div>
             </div>
         </div>
@@ -258,22 +267,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Amey Avhad</td><td>TBD</td><td>09:00 AM</td><td>07:30 AM</td><td>Pickup by John</td></tr>
-                            <tr><td>Abla Bedoui</td><td>TBD</td><td>09:00 AM</td><td>07:05 AM</td><td>Pickup by John</td></tr>
-                            <tr><td>Anne Chen</td><td>TBD</td><td>09:00 AM</td><td>07:20 AM</td><td>Pickup by Slim</td></tr>
-                            <tr><td>Slim Geransar</td><td>TBD</td><td>09:00 AM</td><td>N/A (Driving)</td><td>Picking up Anne</td></tr>
-                            <tr><td>Justin Gonzalez</td><td>TBD</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
-                            <tr><td>Mark Gonzalez</td><td>TBD</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
-                            <tr><td>Neilia Gonzalez</td><td>TBD</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
-                            <tr><td>An Le</td><td>TBD</td><td>09:00 AM</td><td>06:45 AM</td><td>Pickup by John</td></tr>
-                            <tr><td>Nelson Lopez</td><td>TBD</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
-                            <tr><td>Lloyd Narciso</td><td>TBD</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
-                            <tr><td>John Paccione</td><td>TBD</td><td>09:00 AM</td><td>N/A (Driving)</td><td>Picking up An, Abla, and Amey</td></tr>
-                            <tr><td>Jane Pineda</td><td>TBD</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
-                            <tr><td>Anthony Tarabocchia</td><td>TBD</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
-                            <tr><td>Matt Torres</td><td>TBD</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
-                            <tr><td>Brittany Wise</td><td>TBD</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
-                            <tr><td class="font-bold text-red-600">VACANT</td><td>TBD</td><td>TBD</td><td>TBD</td><td>Open Slot</td></tr>
+                            <!-- 10:00 AM Foursome -->
+                            <tr><td>Amey Avhad</td><td>10:00 AM</td><td>09:00 AM</td><td>07:30 AM</td><td>Pickup by John</td></tr>
+                            <tr><td>Justin Gonzalez</td><td>10:00 AM</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
+                            <tr><td>Lloyd Narciso</td><td>10:00 AM</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
+                            <tr class="foursome-border-bottom"><td>Matt Torres</td><td>10:00 AM</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
+                            <!-- 10:10 AM Foursome -->
+                            <tr><td>Brittany Wise</td><td>10:10 AM</td><td>09:00 AM</td><td>07:20 AM</td><td>Pickup by Slim</td></tr>
+                            <tr><td>Jane Pineda</td><td>10:10 AM</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
+                            <tr><td>Mark Gonzalez</td><td>10:10 AM</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
+                            <tr class="foursome-border-bottom"><td>Neilia Gonzalez</td><td>10:10 AM</td><td>09:00 AM</td><td>TBD</td><td>Coordinating travel with Jane</td></tr>
+                            <!-- 10:20 AM Foursome -->
+                            <tr><td>John Paccione</td><td>10:20 AM</td><td>09:00 AM</td><td>N/A (Driving)</td><td>Picking up Amey, Abla, and An</td></tr>
+                            <tr><td>Sarah Gbobo</td><td>10:20 AM</td><td>09:00 AM</td><td>N/A</td><td></td></tr>
+                            <tr><td>Anthony Tarabocchia</td><td>10:20 AM</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
+                            <tr class="foursome-border-bottom"><td>An Le</td><td>10:20 AM</td><td>09:00 AM</td><td>06:45 AM</td><td>Pickup by John</td></tr>
+                            <!-- 10:30 AM Foursome -->
+                            <tr><td>Abla Bedoui</td><td>10:30 AM</td><td>09:00 AM</td><td>07:05 AM</td><td>Pickup by John</td></tr>
+                            <tr><td>Anne Chen</td><td>10:30 AM</td><td>09:00 AM</td><td>07:20 AM</td><td>Pickup by Slim</td></tr>
+                            <tr><td>Nelson Lopez</td><td>10:30 AM</td><td>09:00 AM</td><td>N/A (Driving)</td><td></td></tr>
+                            <tr><td>Slim Geransar</td><td>10:30 AM</td><td>09:00 AM</td><td>N/A (Driving)</td><td>Picking up Anne and Brittany</td></tr>
                         </tbody>
                     </table>
                 </div>
