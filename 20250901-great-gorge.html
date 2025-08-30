@@ -159,8 +159,9 @@
         /* These classes are applied directly to .section-container */
         .bg-event-details { background-color: #f0fdf4; } /* Light green */
         .bg-weather-forecast { background-color: #eff6ff; } /* Light blue */
+        .bg-schedule { background-color: #fffbeb; } /* Light yellow */
         .bg-attendees { background-color: #f5f3ff; } /* Light purple */
-        .bg-notes { background-color: #fffbeb; } /* Light yellow for notes */
+        .bg-notes { background-color: #f0f9ff; } /* Another light blue */
 
         /* Footer - also full-width, with its content centered */
         footer {
@@ -245,6 +246,77 @@
                 </div>
             </div>
         </div>
+
+        <!-- Schedule Section -->
+        <div class="section-container bg-schedule">
+            <div class="section-content">
+                <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                    </svg>
+                    Schedule & Itinerary
+                </h2>
+                <div class="table-responsive">
+                    <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
+                        <thead>
+                            <tr>
+                                <th class="py-3 px-4 rounded-tl-lg">Time</th>
+                                <th class="py-3 px-4">Event</th>
+                                <th class="py-3 px-4 rounded-tr-lg">Participants</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">09:00 AM</td>
+                                <td>Course Arrival, Check-in, & Practice Time (range, green)</td>
+                                <td>All players</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">10:00 AM</td>
+                                <td>Tee Time 1</td>
+                                <td>Amey, Justin, Lloyd, Matt</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">10:10 AM</td>
+                                <td>Tee Time 2</td>
+                                <td>Mark, Neilia, Jane, Brittany</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">10:20 AM</td>
+                                <td>Tee Time 3</td>
+                                <td>Sarah, An, John, Anthony</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">10:30 AM</td>
+                                <td>Tee Time 4</td>
+                                <td>Abla, Anne, Slim, Nelson</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">2:30 PM - 3:00 PM (est.)</td>
+                                <td>Complete Golf Round (18 holes)</td>
+                                <td>All players</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">3:00 PM (est.)</td>
+                                <td>Dinner at Hef's Hut Bar & Grill</td>
+                                <td>All players</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">5:00 PM (est.)</td>
+                                <td>Event Ends & Travel Home</td>
+                                <td>All players</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">OPTIONAL</td>
+                                <td><a href="https://greatgorgegolfclub.com/1club-park-golf/" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold">1Club Park Golf</a> (Pending Availability)</td>
+                                <td>Players who wish to continue the fun!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Attendees Section -->
         <div class="section-container bg-attendees">
@@ -479,21 +551,21 @@
                 const uvIndex = data.uv_index !== undefined ? `${cleanText(data.uv_index)}` : 'N/A';
 
                 let forecast_updated_display = '';
-                if (data.forecast_updated) {
-                    forecast_updated_display = `Forecast last updated: ${data.forecast_updated}`;
-                } else if (data.current && data.current.last_updated_epoch) {
+                // Prefer the epoch timestamp which is timezone-agnostic and more reliable
+                if (data.current && data.current.last_updated_epoch) {
                     const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000);
-                    // The fix: let the browser handle the conversion to the user's local timezone
+                    // The browser's toLocaleString will automatically adjust to the user's local timezone.
                     forecast_updated_display = `Forecast last updated: ${forecast_updated_date.toLocaleString('en-US', { 
                         dateStyle: 'medium', 
                         timeStyle: 'short'
                     })}`;
                 } else if (data.api_forecast_date) {
-                    // For future dates where 'current' data is not about the live update,
-                    // indicate when the forecast itself was "compiled" or "issued".
                     const today = new Date();
                     const todayFormatted = today.toLocaleString('en-US', { dateStyle: 'medium' });
                     forecast_updated_display = `Forecast issued on ${todayFormatted} for ${data.api_forecast_date}`;
+                } else if (data.forecast_updated) {
+                    // Fallback to the string, but this is less reliable
+                    forecast_updated_display = `Forecast last updated: ${data.forecast_updated}`;
                 } else {
                     forecast_updated_display = 'Recently updated (check official source)'; // Final fallback
                 }
