@@ -80,7 +80,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            overflow: hidden; 
+            overflow: hidden;
             transition: background-image 1s ease-in-out, background-color 1s ease-in-out; /* Smooth transition for image change AND color change */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow for the header */
             display: flex; /* Use flexbox to center content */
@@ -154,7 +154,7 @@
             padding: 1.5rem; /* Equivalent to p-6 */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow for the card itself */
         }
-        
+
         /* Specific background colors for full-width section containers */
         /* These classes are applied directly to .section-container */
         .bg-event-details { background-color: #f0fdf4; } /* Light green */
@@ -187,6 +187,38 @@
                 margin-right: 1rem;
             }
         }
+        
+        /* New styles for collapsible sections */
+        .collapsible-header {
+            cursor: pointer;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .collapsible-header h2 {
+            margin-bottom: 0;
+        }
+        .collapse-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .collapse-icon.open {
+            transform: rotate(-180deg);
+        }
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            max-height: 1000px; /* Arbitrarily large value for smooth transition */
+            opacity: 1;
+        }
+        .collapsible-content.hidden {
+            max-height: 0;
+            opacity: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -201,61 +233,82 @@
         </div>
     </div>
 
-    <!-- Event Details Section (Now a distinct full-width section with its own background) -->
+    <!-- Event Details Section -->
     <div class="section-container bg-event-details">
         <div class="section-content">
-            <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            <div class="collapsible-header" data-target="event-details-content">
+                <h2 class="text-2xl font-bold text-green-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l3 3a1 1 0 001.414-1.414L11 9.586V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    Event Details
+                </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
-                Event Details
-            </h2>
-            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
-                <div class="mb-2 sm:mb-0">
-                    <p class="font-semibold text-gray-700">Location:</p>
-                    <p class="font-bold text-green-900">Great Gorge Golf Club</p>
-                    <p class="font-bold text-green-900">Hamburg, NJ</p>
-                    <a href="https://www.google.com/maps/search/Great+Gorge+Golf+Club,+Hamburg,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
-                        View on Google Maps
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                    </a>
-                </div>
-                <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
-                    <p class="text-lg font-semibold text-green-700">Tee Times:</p>
-                    <p class="text-3xl font-bold text-green-900">
-                        10:00 AM<br>10:10 AM<br>10:20 AM<br>10:30 AM
-                    </p>
-                    <p class="text-base font-semibold text-green-700 mt-1">(Tee times have been assigned)</p>
+            </div>
+            <div id="event-details-content" class="collapsible-content">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                    <div class="mb-2 sm:mb-0">
+                        <p class="font-semibold text-gray-700">Location:</p>
+                        <p class="font-bold text-green-900">Great Gorge Golf Club</p>
+                        <p class="font-bold text-green-900">Hamburg, NJ</p>
+                        <a href="https://www.google.com/maps/search/Great+Gorge+Golf+Club,+Hamburg,+NJ" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block">
+                            View on Google Maps
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div id="tee-time-content" class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0" style="min-width: 150px;">
+                        <p class="text-lg font-semibold text-green-700">Tee Times:</p>
+                        <p class="text-3xl font-bold text-green-900">
+                            10:00 AM<br>10:10 AM<br>10:20 AM<br>10:30 AM
+                        </p>
+                        <p class="text-base font-semibold text-green-700 mt-1">(Tee times have been assigned)</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Weather Forecast Section -->
-        <div id="weather-section-container" class="section-container bg-weather-forecast">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+    <!-- Weather Forecast Section -->
+    <div id="weather-section-container" class="section-container bg-weather-forecast">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="weather-content-wrapper">
+                <h2 class="text-2xl font-bold text-blue-800 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M17.778 8.222l-7-7a.75.75 0 00-1.06 0l-7 7a.75.75 0 001.06 1.06L9 3.06V16.5a.75.75 0 001.5 0V3.06l5.47 5.47a.75.75 0 001.06-1.06z" clip-rule="evenodd" />
                     </svg>
                     Live Weather Forecast <span id="weather-for-date" class="ml-2 text-base font-normal text-blue-700"></span>
                 </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div id="weather-content-wrapper" class="collapsible-content">
                 <div id="weather-content">
                     <p class="text-center text-gray-500">Loading weather data...</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Schedule Section -->
-        <div class="section-container bg-schedule">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
+    <!-- Schedule Section -->
+    <div class="section-container bg-schedule">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="schedule-content">
+                <h2 class="text-2xl font-bold text-yellow-800 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                     </svg>
                     Schedule & Itinerary
                 </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div id="schedule-content" class="collapsible-content">
                 <div class="table-responsive">
                     <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
                         <thead>
@@ -316,17 +369,24 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!-- Attendees Section -->
-        <div class="section-container bg-attendees">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-purple-800 mb-4 flex items-center">
+    <!-- Attendees Section -->
+    <div class="section-container bg-attendees">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="attendees-content">
+                <h2 class="text-2xl font-bold text-purple-800 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                     </svg>
                     Attendees
                 </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div id="attendees-content" class="collapsible-content">
                 <div class="table-responsive">
                     <table class="table-auto min-w-full bg-white rounded-lg shadow-sm">
                         <thead>
@@ -363,16 +423,24 @@
                     </table>
                 </div>
             </div>
+        </div>
+    </div>
 
-        <!-- Notes and Important Information Section -->
-        <div class="section-container bg-notes">
-            <div class="section-content">
-                <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
+    <!-- Notes and Important Information Section -->
+    <div class="section-container bg-notes">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="notes-content">
+                <h2 class="text-2xl font-bold text-yellow-800 flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                     </svg>
                     Important Notes
                 </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div id="notes-content" class="collapsible-content">
                 <ul class="list-disc list-inside space-y-2 text-gray-700">
                     <li><strong class="font-semibold">Driving Directions:</strong> Please set your GPS to <span class="font-bold">Great Gorge Golf Club</span> (414 County Route 517, Hamburg, NJ).</li>
                     <li><strong class="font-semibold">Arrival Time:</strong> Everyone should plan to arrive at Great Gorge Golf Club by <span class="font-bold">9:00 AM</span> to allow time for check-in, warm-up, and organization before the tee time.</li>
@@ -384,231 +452,252 @@
                 </ul>
             </div>
         </div>
+    </div>
 
-        <!-- Footer - also full-width, with its content centered -->
-        <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
-            <div class="footer-content-inner">
-                <!-- Footer content here, if any specific content is needed outside the general text -->
-            </div>
-        </footer>
+    <!-- Footer - also full-width, with its content centered -->
+    <footer class="py-8 border-t-2 border-gray-200 text-gray-500 text-sm bg-white">
+        <div class="footer-content-inner">
+            <!-- Footer content here, if any specific content is needed outside the general text -->
+        </div>
+    </footer>
 
-    </body>
-
-    <script>
-            const weatherContent = document.getElementById('weather-content');
-            const weatherSectionContainer = document.getElementById('weather-section-container');
-            const weatherForDateSpan = document.getElementById('weather-for-date');
-            const outingTeeTime = "10:00 AM"; // First tee time for Great Gorge
-
-            // Header background elements
-            const mainHeaderWrapper = document.getElementById('main-header-wrapper');
-            const outingLocation = "great-gorge"; // Lowercase, hyphenated name of the course for image filename
-            
-            let currentImageIndex = 0;
-            let courseImages = []; // Array to hold image paths
-            const maxImages = 5; // Max number of images to check for (e.g., great-gorge-01.jpg to great-gorge-05.jpg)
-            const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
-            let rotationTimer; // To store the interval timer
-
-            // Function to load all available course images and start rotation as background
-            async function loadCourseBackgroundImagesAndStartRotation() {
-                let foundImages = false;
-                const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
-                const genericPlaceholderColor = '#548235'; // Generic grass-green color
-
-                for (let i = 1; i <= maxImages; i++) {
-                    const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
-                    try {
-                        const img = new Image();
-                        img.src = imagePath;
-                        await new Promise((resolve, reject) => {
-                            img.onload = resolve;
-                            img.onerror = resolve; 
-                        });
-                        if (img.complete && img.naturalWidth > 0) { 
-                            courseImages.push(imagePath);
-                            foundImages = true;
-                        } else {
-                            console.log(`Image not found or error loading: ${imagePath}`);
-                        }
-                    } catch (error) {
-                        console.log(`Error checking image ${imagePath}:`, error);
-                    }
-                }
-
-                if (foundImages && courseImages.length > 0) {
-                    mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
-                    mainHeaderWrapper.style.backgroundColor = 'transparent'; // Ensure color is not visible behind image
-                    if (courseImages.length > 1) {
-                        rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
-                    }
-                } else {
-                    // Use generic placeholder color if no specific images are found
-                    mainHeaderWrapper.style.backgroundImage = 'none'; // Remove any potential image
-                    mainHeaderWrapper.style.backgroundColor = genericPlaceholderColor;
-                    console.warn(`No specific images found for ${outingLocation}. Using generic placeholder color.`);
-                }
-            }
-
-            // Function to rotate to the next image as background
-            function rotateCourseBackgroundImage() {
-                currentImageIndex = (currentImageIndex + 1) % courseImages.length;
-                mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
-            }
-
-            // Function to handle weather section display based on date
-            async function fetchWeather() {
-                const outingDateStr = "September 01, 2025"; // Date for Great Gorge
-                const outingDate = new Date(outingDateStr);
-                const currentDate = new Date();
-                currentDate.setHours(0, 0, 0, 0); // Normalize current date to start of day
-
-                // Check 1: Is the event date in the past?
-                if (currentDate > outingDate) {
-                    if (weatherSectionContainer) {
-                        weatherSectionContainer.style.display = 'none'; // Hide the entire weather section
-                    }
-                    return;
-                }
-
-                // Check 2: Is the event date too far in the future (beyond 14 days)?
-                const forecastThresholdDays = 14; // Updated threshold
-                const diffTime = outingDate.getTime() - currentDate.getTime();
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                if (diffDays > forecastThresholdDays) {
-                    weatherContent.innerHTML = `
-                        <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
-                        <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
-                    `;
-                    weatherForDateSpan.textContent = `(Forecast for: ${outingDateStr})`;
-                    return;
-                }
-
-                // Check 3: Otherwise, try to fetch weather.
-                weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
-                weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
-
-                const date = outingDateStr;
-                const location = "41.188676,-74.536689"; // Great Gorge Golf Club, Hamburg, NJ coordinates
-                const time = outingTeeTime; // Using the first tee time for general weather query
-
-                let fetchUrl;
-                if (window.location.protocol === 'blob:') {
-                    const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
-                    fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-                } else {
-                    fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-                }
-
-                console.log("Attempting to fetch weather from:", fetchUrl); // Added for debugging
-
-                try {
-                    const response = await fetch(fetchUrl, { mode: 'cors' });
-                    if (!response.ok) {
-                        const errorBody = await response.text();
-                        console.error("Netlify Function error response:", errorBody);
-                        throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
-                    }
-                    const weatherData = await response.json();
-                    console.log("Raw weather data received:", weatherData); // Log raw data for inspection
-
-                    const receivedForecastDate = weatherData.api_forecast_date;
-                    const requestedFormattedDate = outingDate.toISOString().split('T')[0];
-
-                    if (receivedForecastDate === requestedFormattedDate && weatherData.high_temp_day && weatherData.conditions_tee_time) {
-                        renderWeather(weatherData, time, outingDateStr);
-                    } else {
-                        weatherContent.innerHTML = `
-                            <p class="text-center text-gray-700">Forecast not available for ${outingDateStr}.</p>
-                            <p class="text-center text-gray-700 mt-2">Please check back closer to the date or refer to a direct weather source.</p>
-                        `;
-                        weatherForDateSpan.textContent = `(Forecast not available)`;
-                    }
-                } catch (error) {
-                    weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
-                    weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
-                    console.error("Error fetching live weather via Netlify Function:", error);
-                }
-            }
-
-            function renderWeather(data, teeTime, displayDate) {
-                function cleanText(text) {
-                    if (!text) return '';
-                    let cleanedText = text.replace(/\s*\(.*?\)/g, '').trim();
-                    return cleanedText.replace(/\*\*(.*?)\*\*/g, '$1'); 
-                }
-
-                const highTempDayF = cleanText(data.high_temp_day);
-                const conditionsTeeTimeF = cleanText(data.conditions_tee_time);
-                let feelsLikeValueF = cleanText(data.feels_like_temp);
-                if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
-                    feelsLikeValueF = 'Not available';
-                }
-                
-                const precipitationChance = cleanText(data.precipitation_chance);
-                const windSpeedDirection = cleanText(data.wind_speed_direction);
-                const uvIndex = data.uv_index !== undefined ? `${cleanText(data.uv_index)}` : 'N/A';
-
-                let forecast_updated_display = '';
-                // Prefer the epoch timestamp which is timezone-agnostic and more reliable
-                if (data.current && data.current.last_updated_epoch) {
-                    const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000);
-                    // The browser's toLocaleString will automatically adjust to the user's local timezone.
-                    forecast_updated_display = `Forecast last updated: ${forecast_updated_date.toLocaleString('en-US', { 
-                        dateStyle: 'medium', 
-                        timeStyle: 'short'
-                    })}`;
-                } else if (data.api_forecast_date) {
-                    const today = new Date();
-                    const todayFormatted = today.toLocaleString('en-US', { dateStyle: 'medium' });
-                    forecast_updated_display = `Forecast issued on ${todayFormatted} for ${data.api_forecast_date}`;
-                } else if (data.forecast_updated) {
-                    // Fallback to the string, but this is less reliable
-                    forecast_updated_display = `Forecast last updated: ${data.forecast_updated}`;
-                } else {
-                    forecast_updated_display = 'Recently updated (check official source)'; // Final fallback
-                }
-
-
-                weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`;
-
-                weatherContent.innerHTML = `
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
-                        <div class="p-4 bg-blue-100 rounded-lg">
-                            <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
-                            <p class="text-3xl font-bold text-blue-900">${highTempDayF}</p>
-                        </div>
-                        <div class="p-4 bg-blue-100 rounded-lg">
-                            <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
-                            <p class="text-3xl font-bold text-blue-900">${conditionsTeeTimeF}</p>
-                            <p class="text-sm text-blue-600">Feels like ${feelsLikeValueF}</p>
-                        </div>
-                    </div>
-                    <div class="text-sm text-gray-500 mt-2">
-                        <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
-                        <ul class="list-disc list-inside text-left">
-                            <li>Temperature: The daily high is expected to be ${highTempDayF}, with a "feels like" temperature of ${feelsLikeValueF}.</li>
-                            <li>Precipitation: ${precipitationChance} chance of rain.</li>
-                            <li>Wind: ${windSpeedDirection}.</li>
-                            <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
-                        </ul>
-                        <p class="mt-2">Forecast last updated: ${forecast_updated_display}. Conditions are subject to change. Please check closer to the date.</p>
-                        <a href="https://www.google.com/search?q=hourly+weather+Hamburg+NJ+September+1+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            Get the Latest Hourly Forecast
-                        </a>
-                    </div>
-                `;
-            }
-
-            // Initialize display logic and image loading on page load
-            window.onload = function() {
-                fetchWeather();
-                loadCourseBackgroundImagesAndStartRotation();
-            };
-        </script>
 </body>
+
+<script>
+    const weatherContent = document.getElementById('weather-content');
+    const weatherSectionContainer = document.getElementById('weather-section-container');
+    const weatherForDateSpan = document.getElementById('weather-for-date');
+    const outingTeeTime = "10:00 AM"; // First tee time for Great Gorge
+
+    // Header background elements
+    const mainHeaderWrapper = document.getElementById('main-header-wrapper');
+    const outingLocation = "great-gorge"; // Lowercase, hyphenated name of the course for image filename
+    
+    let currentImageIndex = 0;
+    let courseImages = []; // Array to hold image paths
+    const maxImages = 5; // Max number of images to check for (e.g., great-gorge-01.jpg to great-gorge-05.jpg)
+    const imageRotationInterval = 5000; // Rotate every 5 seconds (5000 milliseconds)
+    let rotationTimer; // To store the interval timer
+
+    // Function to load all available course images and start rotation as background
+    async function loadCourseBackgroundImagesAndStartRotation() {
+        let foundImages = false;
+        const baseImagePath = `images/courses/${outingLocation}/`; // Path to course images
+        const genericPlaceholderColor = '#548235'; // Generic grass-green color
+
+        for (let i = 1; i <= maxImages; i++) {
+            const imagePath = `${baseImagePath}${outingLocation}-${String(i).padStart(2, '0')}.jpg`;
+            try {
+                const img = new Image();
+                img.src = imagePath;
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = resolve; 
+                });
+                if (img.complete && img.naturalWidth > 0) { 
+                    courseImages.push(imagePath);
+                    foundImages = true;
+                } else {
+                    console.log(`Image not found or error loading: ${imagePath}`);
+                }
+            } catch (error) {
+                console.log(`Error checking image ${imagePath}:`, error);
+            }
+        }
+
+        if (foundImages && courseImages.length > 0) {
+            mainHeaderWrapper.style.backgroundImage = `url('${courseImages[0]}')`;
+            mainHeaderWrapper.style.backgroundColor = 'transparent'; // Ensure color is not visible behind image
+            if (courseImages.length > 1) {
+                rotationTimer = setInterval(rotateCourseBackgroundImage, imageRotationInterval);
+            }
+        } else {
+            // Use generic placeholder color if no specific images are found
+            mainHeaderWrapper.style.backgroundImage = 'none'; // Remove any potential image
+            mainHeaderWrapper.style.backgroundColor = genericPlaceholderColor;
+            console.warn(`No specific images found for ${outingLocation}. Using generic placeholder color.`);
+        }
+    }
+
+    // Function to rotate to the next image as background
+    function rotateCourseBackgroundImage() {
+        currentImageIndex = (currentImageIndex + 1) % courseImages.length;
+        mainHeaderWrapper.style.backgroundImage = `url('${courseImages[currentImageIndex]}')`;
+    }
+
+    // Function to handle weather section display based on date
+    async function fetchWeather() {
+        const outingDateStr = "September 01, 2025"; // Date for Great Gorge
+        const outingDate = new Date(outingDateStr);
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0); // Normalize current date to start of day
+
+        // Check 1: Is the event date in the past?
+        if (currentDate > outingDate) {
+            if (weatherSectionContainer) {
+                weatherSectionContainer.style.display = 'none'; // Hide the entire weather section
+            }
+            return;
+        }
+
+        // Check 2: Is the event date too far in the future (beyond 14 days)?
+        const forecastThresholdDays = 14; // Updated threshold
+        const diffTime = outingDate.getTime() - currentDate.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays > forecastThresholdDays) {
+            weatherContent.innerHTML = `
+                <p class="text-center text-gray-700">Detailed forecast will become available approximately <span class="font-bold">${forecastThresholdDays} days</span> before the outing.</p>
+                <p class="text-center text-gray-700">Please check back closer to <span class="font-bold">${outingDateStr}</span> for the live weather.</p>
+            `;
+            weatherForDateSpan.textContent = `(Forecast for: ${outingDateStr})`;
+            return;
+        }
+
+        // Check 3: Otherwise, try to fetch weather.
+        weatherContent.innerHTML = '<p class="text-center text-gray-500 animate-pulse">Loading weather data...</p>';
+        weatherForDateSpan.textContent = `(Fetching forecast for: ${outingDateStr})`;
+
+        const date = outingDateStr;
+        const location = "41.188676,-74.536689"; // Great Gorge Golf Club, Hamburg, NJ coordinates
+        const time = outingTeeTime; // Using the first tee time for general weather query
+
+        let fetchUrl;
+        if (window.location.protocol === 'blob:') {
+            const netlifySiteBase = 'https://parfect-strangers-golf-outings.netlify.app'; 
+            fetchUrl = `${netlifySiteBase}/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+        } else {
+            fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(location)}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
+        }
+
+        console.log("Attempting to fetch weather from:", fetchUrl); // Added for debugging
+
+        try {
+            const response = await fetch(fetchUrl, { mode: 'cors' });
+            if (!response.ok) {
+                const errorBody = await response.text();
+                console.error("Netlify Function error response:", errorBody);
+                throw new Error(`Failed to fetch weather from Netlify Function: ${response.status} - ${errorBody}`);
+            }
+            const weatherData = await response.json();
+            console.log("Raw weather data received:", weatherData); // Log raw data for inspection
+
+            const receivedForecastDate = weatherData.api_forecast_date;
+            const requestedFormattedDate = outingDate.toISOString().split('T')[0];
+
+            if (receivedForecastDate === requestedFormattedDate && weatherData.high_temp_day && weatherData.conditions_tee_time) {
+                renderWeather(weatherData, time, outingDateStr);
+            } else {
+                weatherContent.innerHTML = `
+                    <p class="text-center text-gray-700">Forecast not available for ${outingDateStr}.</p>
+                    <p class="text-center text-gray-700 mt-2">Please check back closer to the date or refer to a direct weather source.</p>
+                `;
+                weatherForDateSpan.textContent = `(Forecast not available)`;
+            }
+        } catch (error) {
+            weatherContent.innerHTML = '<p class="text-red-500 text-center">Failed to load live weather. Please ensure Netlify Function is set up correctly and API key is valid. Check browser console for details.</p>';
+            weatherForDateSpan.textContent = `(Error fetching forecast for: ${outingDateStr})`;
+            console.error("Error fetching live weather via Netlify Function:", error);
+        }
+    }
+
+    function renderWeather(data, teeTime, displayDate) {
+        function cleanText(text) {
+            if (!text) return '';
+            let cleanedText = text.replace(/\s*\(.*?\)/g, '').trim();
+            return cleanedText.replace(/\*\*(.*?)\*\*/g, '$1'); 
+        }
+
+        const highTempDayF = cleanText(data.high_temp_day);
+        const conditionsTeeTimeF = cleanText(data.conditions_tee_time);
+        let feelsLikeValueF = cleanText(data.feels_like_temp);
+        if (!feelsLikeValueF || feelsLikeValueF.toLowerCase().includes('not specified') || feelsLikeValueF.toLowerCase().includes('value')) {
+            feelsLikeValueF = 'Not available';
+        }
+        
+        const precipitationChance = cleanText(data.precipitation_chance);
+        const windSpeedDirection = cleanText(data.wind_speed_direction);
+        const uvIndex = data.uv_index !== undefined ? `${cleanText(data.uv_index)}` : 'N/A';
+
+        let forecast_updated_display = '';
+        // Prefer the epoch timestamp which is timezone-agnostic and more reliable
+        if (data.current && data.current.last_updated_epoch) {
+            const forecast_updated_date = new Date(data.current.last_updated_epoch * 1000);
+            // The browser's toLocaleString will automatically adjust to the user's local timezone.
+            forecast_updated_display = `Forecast last updated: ${forecast_updated_date.toLocaleString('en-US', { 
+                dateStyle: 'medium', 
+                timeStyle: 'short'
+            })}`;
+        } else if (data.api_forecast_date) {
+            const today = new Date();
+            const todayFormatted = today.toLocaleString('en-US', { dateStyle: 'medium' });
+            forecast_updated_display = `Forecast issued on ${todayFormatted} for ${data.api_forecast_date}`;
+        } else if (data.forecast_updated) {
+            // Fallback to the string, but this is less reliable
+            forecast_updated_display = `Forecast last updated: ${data.forecast_updated}`;
+        } else {
+            forecast_updated_display = 'Recently updated (check official source)'; // Final fallback
+        }
+
+
+        weatherForDateSpan.textContent = `(Forecast for: ${data.api_forecast_date || displayDate})`;
+
+        weatherContent.innerHTML = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
+                <div class="p-4 bg-blue-100 rounded-lg">
+                    <p class="text-lg font-semibold text-blue-700">High (for the day)</p>
+                    <p class="text-3xl font-bold text-blue-900">${highTempDayF}</p>
+                </div>
+                <div class="p-4 bg-blue-100 rounded-lg">
+                    <p class="text-lg font-semibold text-blue-700">Conditions (around ${teeTime})</p>
+                    <p class="text-3xl font-bold text-blue-900">${conditionsTeeTimeF}</p>
+                    <p class="text-sm text-blue-600">Feels like ${feelsLikeValueF}</p>
+                </div>
+            </div>
+            <div class="text-sm text-gray-500 mt-2">
+                <p class="font-semibold text-blue-800 mb-1">Expected Conditions During Play:</p>
+                <ul class="list-disc list-inside text-left">
+                    <li>Temperature: The daily high is expected to be ${highTempDayF}, with a "feels like" temperature of ${feelsLikeValueF}.</li>
+                    <li>Precipitation: ${precipitationChance} chance of rain.</li>
+                    <li>Wind: ${windSpeedDirection}.</li>
+                    <li>UV Index: ${uvIndex}. Sunscreen recommended.</li>
+                </ul>
+                <p class="mt-2">Forecast last updated: ${forecast_updated_display}. Conditions are subject to change. Please check closer to the date.</p>
+                <a href="https://www.google.com/search?q=hourly+weather+Hamburg+NJ+September+1+2025" target="_blank" class="text-blue-600 hover:text-blue-800 mt-2 inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Get the Latest Hourly Forecast
+                </a>
+            </div>
+        `;
+    }
+
+    // Function to handle collapsible sections
+    function setupCollapsibleSections() {
+        const headers = document.querySelectorAll('.collapsible-header');
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const targetId = header.getAttribute('data-target');
+                const content = document.getElementById(targetId);
+                const icon = header.querySelector('.collapse-icon');
+
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('open');
+                } else {
+                    content.classList.add('hidden');
+                    icon.classList.remove('open');
+                }
+            });
+        });
+    }
+
+    // Initialize display logic and image loading on page load
+    window.onload = function() {
+        fetchWeather();
+        loadCourseBackgroundImagesAndStartRotation();
+        setupCollapsibleSections();
+    };
+</script>
 </html>
