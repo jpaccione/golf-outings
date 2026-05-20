@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heron Glen Golf Outing - May 25, 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #374151;
+            margin: 0;
+            padding: 0;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e0e0e0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .table-auto { width: 100%; border-collapse: collapse; }
+        .table-auto th, .table-auto td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        .table-auto th { background-color: #eef2ff; color: #4338ca; font-weight: 600; text-transform: uppercase; font-size: 0.875rem; }
+        .table-auto tr:last-child td { border-bottom: none; }
+        .table-auto tbody tr:nth-child(even) { background-color: #f9fafb; }
+        .table-auto tbody tr:hover { background-color: #f3f4f6; }
+
+        .header-background-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            background-color: #1e3a8a; /* Fallback navy blue */
+            transition: background-image 1s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-background-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .header-content-inner { max-width: 64rem; width: 100%; text-align: center; }
+        .header-title { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); }
+        .header-date { font-size: 1.75rem; font-weight: 600; color: #d1fae5; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+
+        .section-container { width: 100%; }
+        .section-content {
+            max-width: 64rem;
+            margin: 2rem auto;
+            background-color: #fff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .bg-event-details { background-color: #f0fdf4; }
+        .bg-weather-forecast { background-color: #eff6ff; }
+        .bg-schedule { background-color: #fffbeb; }
+        .bg-attendees { background-color: #f5f3ff; }
+        .bg-notes { background-color: #f0f9ff; }
+
+        footer { padding: 2rem 0; border-top: 2px solid #e5e7eb; color: #6B7280; font-size: 0.875rem; background-color: #fff; text-align: center; }
+
+        .collapsible-header { cursor: pointer; padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
+        .collapse-icon { transition: transform 0.3s ease-in-out; }
+        .collapse-icon.open { transform: rotate(-180deg); }
+        .collapsible-content { overflow: hidden; transition: max-height 0.5s ease-out, opacity 0.5s ease-out; max-height: 2000px; opacity: 1; }
+        .collapsible-content.hidden { max-height: 0; opacity: 0; }
+
+        @media (max-width: 640px) {
+            .header-title { font-size: 2.25rem; }
+            .header-date { font-size: 1.25rem; }
+            .section-content { margin: 1rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <div id="main-header-wrapper" class="header-background-container">
+        <div class="header-background-overlay">
+            <div class="header-content-inner">
+                <h1 class="header-title">Heron Glen Golf Outing</h1>
+                <p class="header-date">May 25, 2026 (Monday - Memorial Day)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details -->
+    <div class="section-container bg-event-details">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="event-details-content">
+                <h2 class="text-2xl font-bold text-green-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Event Details
+                </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </div>
+            <div id="event-details-content" class="collapsible-content">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center text-lg">
+                    <div class="mb-2 sm:mb-0">
+                        <p class="font-semibold text-gray-700">Location:</p>
+                        <p class="font-bold text-green-900">Heron Glen Golf Course</p>
+                        <p class="text-gray-600">Ringoes, NJ</p>
+                        <a href="https://www.google.com/maps/search/Heron+Glen+Golf+Course" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm inline-block mt-2">
+                            View on Google Maps
+                        </a>
+                    </div>
+                    <div class="p-4 bg-green-100 rounded-lg text-center mt-4 sm:mt-0 border border-green-200">
+                        <p class="text-lg font-semibold text-green-700">Tee Times:</p>
+                        <p class="text-2xl font-black text-green-900">
+                            11:10 AM<br>11:20 AM<br>11:30 AM
+                        </p>
+                        <p class="text-sm font-medium text-green-600 mt-1">Three Foursomes Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weather -->
+    <div id="weather-section-container" class="section-container bg-weather-forecast">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="weather-content-wrapper">
+                <h2 class="text-2xl font-bold text-blue-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                    </svg>
+                    Live Weather Forecast <span id="weather-for-date" class="ml-2 text-base font-normal text-blue-700"></span>
+                </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </div>
+            <div id="weather-content-wrapper" class="collapsible-content">
+                <div id="weather-content" class="py-4">
+                    <p class="text-center text-gray-500">Loading weather data...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule -->
+    <div class="section-container bg-schedule">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="schedule-content">
+                <h2 class="text-2xl font-bold text-yellow-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Schedule & Itinerary
+                </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </div>
+            <div id="schedule-content" class="collapsible-content">
+                <div class="table-responsive">
+                    <table class="table-auto">
+                        <thead>
+                            <tr><th>Time</th><th>Event</th><th>Participants</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="font-semibold">10:10 AM</td><td>Arrival & Check-in</td><td>All Players</td></tr>
+                            <tr><td class="font-semibold">11:10 AM</td><td>Tee Time #1</td><td>TBD</td></tr>
+                            <tr><td class="font-semibold">11:20 AM</td><td>Tee Time #2</td><td>TBD</td></tr>
+                            <tr><td class="font-semibold">11:30 AM</td><td>Tee Time #3</td><td>TBD</td></tr>
+                            <tr><td class="font-semibold">04:15 PM (est)</td><td>Finish Round & Dinner (Onsite or Local Restaurant)</td><td>All Players</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attendees -->
+    <div class="section-container bg-attendees">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="attendees-content">
+                <h2 class="text-2xl font-bold text-purple-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Attendees & Travel
+                </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </div>
+            <div id="attendees-content" class="collapsible-content">
+                <div class="table-responsive">
+                    <table class="table-auto">
+                        <thead>
+                            <tr><th>Name</th><th>Tee Time</th><th>Pickup Time</th><th>Travel Plan</th></tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sorted Alphabetically by First Name, Vacant at bottom -->
+                            <tr><td>Abla Bedoui</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td>Pickup by John (TBD)</td></tr>
+                            <tr><td>An Le</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td>Pickup by John (TBD)</td></tr>
+                            <tr><td>Brenna Royal</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td>Pickup by John (TBD)</td></tr>
+                            <tr><td>Brittney Wise</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td class="italic text-gray-400">TBD</td></tr>
+                            <tr><td>Charlie Bashford-Chuchla</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td>Pickup by John (TBD)</td></tr>
+                            <tr><td>Danniel Jimenez</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td>Pickup by John (TBD)</td></tr>
+                            <tr><td>Jane Pineda</td><td>TBD</td><td class="italic text-gray-400">N/A</td><td>Driving (TBD)</td></tr>
+                            <tr><td>John Paccione</td><td>TBD</td><td class="italic text-gray-400">N/A</td><td>Driving (An, Charlie, Danny, Abla, Brenna, Soyun - TBD)</td></tr>
+                            <tr><td>Lloyd Narciso</td><td>TBD</td><td class="italic text-gray-400">N/A</td><td>Driving (TBD)</td></tr>
+                            <tr><td>Noelani Pao</td><td>TBD</td><td class="italic text-gray-400">N/A</td><td>Driving (TBD)</td></tr>
+                            <tr><td>Soyun Park</td><td>TBD</td><td class="italic text-gray-400">TBD</td><td>Pickup by John (TBD)</td></tr>
+                            <!-- Vacant spot to complete 12 player slots across 3 tee times -->
+                            <tr class="text-gray-400 italic"><td>VACANT</td><td>TBD</td><td>N/A</td><td>Open Spot</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="section-container bg-notes">
+        <div class="section-content">
+            <div class="collapsible-header" data-target="notes-content">
+                <h2 class="text-2xl font-bold text-yellow-800 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Important Notes
+                </h2>
+                <svg class="collapse-icon h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </div>
+            <div id="notes-content" class="collapsible-content">
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><strong>Green Fee:</strong> The cost is <strong>$94 per person</strong> (includes cart).</li>
+                    <li><strong>Holiday Booking:</strong> This event is on <strong>Memorial Day</strong>, so please check in early as the course will likely be busy.</li>
+                    <li><strong>Check-in:</strong> Please arrive by <strong>10:10 AM</strong> to settle up and have time to warm up before the 11:10 AM tee time.</li>
+                    <li><strong>Practice Area:</strong> Heron Glen offers a fully grass driving range, short-game practice greens, and a putting course.</li>
+                    <li><strong>Dining:</strong> We will look to gather post-round at <strong>The Grill at Heron Glen</strong> or find another nearby option in Flemington / Ringoes.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const outingDateStr = "May 25, 2026";
+        const coords = "40.4851,-74.8407"; // Heron Glen coordinates
+        const outingTeeTime = "11:10 AM";
+
+        async function fetchWeather() {
+            const weatherContent = document.getElementById('weather-content');
+            const weatherForDateSpan = document.getElementById('weather-for-date');
+            const targetDate = new Date(outingDateStr);
+            const now = new Date();
+            now.setHours(0,0,0,0);
+
+            const diffDays = Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24));
+
+            if (diffDays > 14) {
+                weatherContent.innerHTML = `<p class="text-center text-gray-700">Forecast will be available approx. 14 days before the outing.</p>`;
+                weatherForDateSpan.textContent = `(${outingDateStr})`;
+                return;
+            }
+
+            weatherContent.innerHTML = '<p class="text-center text-blue-500 animate-pulse">Fetching live data...</p>';
+
+            try {
+                let fetchUrl;
+                if (window.location.protocol === 'blob:') {
+                    fetchUrl = `https://parfect-strangers-golf-outings.netlify.app/.netlify/functions/get-weather?location=${encodeURIComponent(coords)}&date=${encodeURIComponent(outingDateStr)}&time=${encodeURIComponent(outingTeeTime)}`;
+                } else {
+                    fetchUrl = `/.netlify/functions/get-weather?location=${encodeURIComponent(coords)}&date=${encodeURIComponent(outingDateStr)}&time=${encodeURIComponent(outingTeeTime)}`;
+                }
+
+                const response = await fetch(fetchUrl);
+                const data = await response.json();
+                
+                if (data && data.high_temp_day) {
+                    renderWeather(data);
+                } else {
+                    throw new Error("Incomplete data");
+                }
+            } catch (e) {
+                weatherContent.innerHTML = '<p class="text-center text-gray-500">Live forecast temporarily unavailable. Please check your weather app!</p>';
+            }
+        }
+
+        function renderWeather(data) {
+            const weatherContent = document.getElementById('weather-content');
+            const weatherForDateSpan = document.getElementById('weather-for-date');
+            weatherForDateSpan.textContent = `(${outingDateStr})`;
+
+            weatherContent.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-center mb-4">
+                    <div class="p-4 bg-blue-100 rounded-lg">
+                        <p class="text-lg font-semibold text-blue-700">High Temp</p>
+                        <p class="text-3xl font-bold text-blue-900">${data.high_temp_day}</p>
+                    </div>
+                    <div class="p-4 bg-blue-100 rounded-lg">
+                        <p class="text-lg font-semibold text-blue-700">Conditions</p>
+                        <p class="text-3xl font-bold text-blue-900">${data.conditions_tee_time}</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 text-center">Forecast for Ringoes, NJ</p>
+            `;
+        }
+
+        function setupCollapsibleSections() {
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = document.getElementById(header.dataset.target);
+                    const icon = header.querySelector('.collapse-icon');
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('open');
+                });
+            });
+        }
+
+        window.onload = function() {
+            fetchWeather();
+            setupCollapsibleSections();
+        };
+    </script>
+</body>
+</html>
