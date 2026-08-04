@@ -7,7 +7,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -38,7 +38,6 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .section-container { width: 100%; }
         .section-content {
             max-width: 56rem;
             margin: 1.5rem auto;
@@ -62,7 +61,6 @@
 </head>
 <body class="bg-slate-50">
 
-    <!-- Header Hero Banner -->
     <header class="header-background-container text-white py-12 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <span class="inline-block bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">Summer Outing</span>
@@ -73,7 +71,6 @@
 
     <main class="max-w-4xl mx-auto px-4 py-6">
 
-        <!-- Key Event Details & All-Inclusive Perks -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-6 border-b border-slate-100">
                 <div>
@@ -121,7 +118,6 @@
             </div>
         </div>
 
-        <!-- Live Weather Forecast -->
         <div id="weather-section-container" class="section-content !m-0 mb-6">
             <div class="collapsible-header" data-target="weather-content-wrapper">
                 <h2 class="text-xl font-bold text-blue-900 flex items-center">
@@ -137,7 +133,6 @@
             </div>
         </div>
 
-        <!-- Confirmed Attendees Section -->
         <div class="section-content !m-0 mb-6">
             <div class="collapsible-header" data-target="attendees-content">
                 <h2 class="text-xl font-bold text-slate-900 flex items-center justify-between w-full pr-4">
@@ -145,7 +140,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         Confirmed Players
                     </span>
-                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">10 Confirmed</span>
+                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">11 Confirmed</span>
                 </h2>
                 <svg class="collapse-icon h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
             </div>
@@ -167,6 +162,7 @@
                             <tr><td class="font-semibold text-slate-900">Danniel J.</td><td>TBD</td><td class="text-slate-500 italic text-xs">TBD</td></tr>
                             <tr><td class="font-semibold text-slate-900">Elvin A.</td><td>TBD</td><td class="text-slate-500 italic text-xs">TBD</td></tr>
                             <tr><td class="font-semibold text-slate-900">Jane P.</td><td>TBD</td><td class="text-slate-500 italic text-xs">TBD</td></tr>
+                            <tr><td class="font-semibold text-slate-900">John L.</td><td>TBD</td><td class="text-slate-600 text-xs">An's Guest</td></tr>
                             <tr><td class="font-semibold text-emerald-800">John P.</td><td>TBD</td><td class="text-slate-700 text-xs font-medium">Outing Host (Can assist with driving)</td></tr>
                             <tr><td class="font-semibold text-slate-900">Lloyd N.</td><td>TBD</td><td class="text-slate-500 italic text-xs">TBD</td></tr>
                             <tr><td class="font-semibold text-slate-900">Noelani P.</td><td>TBD</td><td class="text-slate-500 italic text-xs">TBD</td></tr>
@@ -177,7 +173,6 @@
             </div>
         </div>
 
-        <!-- Tentative / Maybes Section -->
         <div class="section-content !m-0 mb-6">
             <div class="collapsible-header" data-target="maybe-content">
                 <h2 class="text-xl font-bold text-slate-900 flex items-center justify-between w-full pr-4">
@@ -185,22 +180,22 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         Tentative / Maybes
                     </span>
-                    <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">4 Maybes</span>
+                    <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">5 Maybes</span>
                 </h2>
                 <svg class="collapse-icon h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
             </div>
             <div id="maybe-content" class="collapsible-content">
                 <p class="text-xs text-slate-500 mb-3">Checking back with tentative players prior to the weekend headcount deadline:</p>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
                     <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-sm font-medium text-slate-700 shadow-sm">Abla B.</div>
                     <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-sm font-medium text-slate-700 shadow-sm">David L.</div>
                     <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-sm font-medium text-slate-700 shadow-sm">May F.</div>
                     <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-sm font-medium text-slate-700 shadow-sm">Nelson L.</div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-center text-sm font-medium text-slate-700 shadow-sm">Slim G.</div>
                 </div>
             </div>
         </div>
 
-        <!-- Weather Policy & Notes -->
         <div class="section-content !m-0 mb-12">
             <div class="collapsible-header" data-target="notes-content">
                 <h2 class="text-xl font-bold text-slate-900 flex items-center">
