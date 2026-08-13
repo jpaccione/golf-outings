@@ -144,7 +144,7 @@
                 <h2 class="text-xl font-bold text-slate-900 flex items-center justify-between w-full pr-4">
                     <span class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        Confirmed Roster (At Capacity)
+                        Confirmed Roster & Tee Groupings
                     </span>
                     <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">24 Total (23 Golfers, 1 Rider - FULL)</span>
                 </h2>
@@ -152,22 +152,102 @@
             </div>
             <div id="attendees-content" class="collapsible-content">
                 
-                <!-- Grouping Highlights -->
+                <!-- Proposed Groupings Summary Cards -->
+                <div class="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-1.5 border-b border-emerald-200/60">
+                            <span class="font-bold text-emerald-950 text-sm">⛳ Group 1</span>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">10:00 AM</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-700 font-medium">
+                            <li>• John P. <span class="text-slate-400 text-[11px]">(Driver)</span></li>
+                            <li>• Anthony T. <span class="text-slate-400 text-[11px]">(John P. Carpool)</span></li>
+                            <li>• An L.</li>
+                            <li>• John L. <span class="text-slate-400 text-[11px]">(Riding w/ An)</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-1.5 border-b border-emerald-200/60">
+                            <span class="font-bold text-emerald-950 text-sm">⛳ Group 2</span>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">10:10 AM</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-700 font-medium">
+                            <li>• Jane P.</li>
+                            <li>• Justin L.</li>
+                            <li>• Theresa C.</li>
+                            <li>• Elvin A.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-1.5 border-b border-emerald-200/60">
+                            <span class="font-bold text-emerald-950 text-sm">⛳ Group 3</span>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">10:20 AM</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-700 font-medium">
+                            <li>• Charlie B. <span class="text-slate-400 text-[11px]">(John P. Carpool)</span></li>
+                            <li>• Slim G.</li>
+                            <li>• Chelsea H.</li>
+                            <li>• James B.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-1.5 border-b border-emerald-200/60">
+                            <span class="font-bold text-emerald-950 text-sm">⛳ Group 4</span>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">10:30 AM</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-700 font-medium">
+                            <li>• Matt T.</li>
+                            <li>• Sam G.</li>
+                            <li>• Camryn <span class="text-emerald-700 font-bold text-[11px]">(Spectator / $45 Rider)</span></li>
+                            <li>• Lloyd N.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-1.5 border-b border-emerald-200/60">
+                            <span class="font-bold text-emerald-950 text-sm">⛳ Group 5 (Danny Crew 1)</span>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">10:40 AM</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-700 font-medium">
+                            <li>• Danniel J. <span class="text-slate-400 text-[11px]">(John P. Carpool)</span></li>
+                            <li>• Drew</li>
+                            <li>• Garreth</li>
+                            <li>• Kennedy</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 shadow-sm">
+                        <div class="flex justify-between items-center mb-2 pb-1.5 border-b border-emerald-200/60">
+                            <span class="font-bold text-emerald-950 text-sm">⛳ Group 6 (Danny Crew 2)</span>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded">10:50 AM</span>
+                        </div>
+                        <ul class="text-xs space-y-1 text-slate-700 font-medium">
+                            <li>• Matt B.</li>
+                            <li>• Nate</li>
+                            <li>• Prof</li>
+                            <li>• Justin <span class="text-slate-400 text-[11px]">(Danny Guest)</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Grouping Highlights & Logistics -->
                 <div class="mb-5 bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 text-xs text-slate-700">
                     <p class="font-bold text-slate-900 mb-1 flex items-center gap-1.5">
-                        <span>🤝 Pairings & Logistics Notes:</span>
+                        <span>🤝 Logistics & Carpool Summary:</span>
                     </p>
                     <ul class="list-disc list-inside space-y-1 text-slate-600">
-                        <li><strong>An L. & John L.</strong>: Riding together (John L. playing as An's guest).</li>
-                        <li><strong>Jane P.'s Crew (7)</strong>: Jane P., Chelsea H., James B., Matt T., Justin L., Sam G., and Camryn. Chelsea & James B. are playing together.</li>
-                        <li><strong>Danniel J. Group (8)</strong>: Danniel J., Drew, Garreth, Justin (Danny Guest), Kennedy, Matt B., Nate, Prof.</li>
-                        <li><strong>Elvin A. & Theresa C.</strong>: Traveling & playing together.</li>
-                        <li><strong>John P. Carpool</strong>: Picking up Charlie B. (6:55 AM), Danniel J. (7:25 AM), Anthony T. (7:55 AM).</li>
-                        <li><strong>Sam G. & Camryn</strong>: Camryn is Sam G.'s confirmed rider ($45 package); completes cart in threesome for 24/24 max capacity.</li>
+                        <li><strong>John P. Carpool Route:</strong> Picking up Charlie B. (6:55 AM), Danniel J. (7:25 AM), Anthony T. (7:55 AM).</li>
+                        <li><strong>An L. & John L.:</strong> Riding together directly to the course.</li>
+                        <li><strong>Jane P.'s Crew (7):</strong> Jane P., Chelsea H., James B., Matt T., Justin L., Sam G., and Camryn.</li>
+                        <li><strong>Danniel J. Crew (8):</strong> Danniel J., Drew, Garreth, Justin (Danny Guest), Kennedy, Matt B., Nate, Prof (split across 10:40 AM & 10:50 AM tee times).</li>
+                        <li><strong>Sam G. & Camryn:</strong> Camryn ($45 Spectator Rider) fills the 4th cart seat in Group 4 with Sam G., Matt T., and Lloyd N.</li>
                     </ul>
                 </div>
 
-                <!-- Alphabetical Table -->
+                <!-- Alphabetical Master Table -->
                 <div class="table-responsive">
                     <table class="table-auto">
                         <thead>
@@ -179,30 +259,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>An L.</td><td>TBD</td><td>N/A</td><td>Riding with John L. (Paired with John L.)</td></tr>
-                            <tr><td>Anthony T.</td><td>TBD</td><td>07:55 AM</td><td>Pickup by John P.</td></tr>
-                            <tr><td>Camryn</td><td>TBD</td><td>N/A</td><td>Non-playing spectator ($45 Rider, Sam G.'s guest)</td></tr>
-                            <tr><td>Charlie B.</td><td>TBD</td><td>06:55 AM</td><td>Pickup by John P.</td></tr>
-                            <tr><td>Chelsea H.</td><td>TBD</td><td>N/A</td><td>Paired with James B. (Jane P.'s crew)</td></tr>
-                            <tr><td>Danniel J.</td><td>TBD</td><td>07:25 AM</td><td>Pickup by John P. (Group Leader)</td></tr>
-                            <tr><td>Drew</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>Elvin A.</td><td>TBD</td><td>N/A</td><td>Paired with Theresa C.</td></tr>
-                            <tr><td>Garreth</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>James B.</td><td>TBD</td><td>N/A</td><td>Paired with Chelsea H. (Jane P.'s crew)</td></tr>
-                            <tr><td>Jane P.</td><td>TBD</td><td>N/A</td><td>Jane P.'s crew leader</td></tr>
-                            <tr><td>John L.</td><td>TBD</td><td>N/A</td><td>Driving with An L. (Guest of An L.)</td></tr>
-                            <tr><td>John P.</td><td>TBD</td><td>N/A (Driver)</td><td>Driving (Charlie 6:55a, Danny 7:25a, Anthony 7:55a)</td></tr>
-                            <tr><td>Justin (Danny Guest)</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>Justin L.</td><td>TBD</td><td>N/A</td><td>Jane P.'s crew</td></tr>
-                            <tr><td>Kennedy</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>Lloyd N.</td><td>TBD</td><td>N/A</td><td class="text-slate-400 italic">-</td></tr>
-                            <tr><td>Matt B.</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>Matt T.</td><td>TBD</td><td>N/A</td><td>Jane P.'s crew</td></tr>
-                            <tr><td>Nate</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>Prof</td><td>TBD</td><td>N/A</td><td>Guest of Danniel J.</td></tr>
-                            <tr><td>Sam G.</td><td>TBD</td><td>N/A</td><td>Paired with Camryn (Rider) (Jane P.'s crew)</td></tr>
-                            <tr><td>Slim G.</td><td>TBD</td><td>N/A</td><td class="text-slate-400 italic">-</td></tr>
-                            <tr><td>Theresa C.</td><td>TBD</td><td>N/A</td><td>Paired with Elvin A.</td></tr>
+                            <tr><td>An L.</td><td>10:00 AM</td><td>N/A</td><td>Riding with John L. (Group 1)</td></tr>
+                            <tr><td>Anthony T.</td><td>10:00 AM</td><td>07:55 AM</td><td>Pickup by John P. (Group 1)</td></tr>
+                            <tr><td>Camryn</td><td>10:30 AM</td><td>N/A</td><td>Non-playing spectator ($45 Rider w/ Sam G.) (Group 4)</td></tr>
+                            <tr><td>Charlie B.</td><td>10:20 AM</td><td>06:55 AM</td><td>Pickup by John P. (Group 3)</td></tr>
+                            <tr><td>Chelsea H.</td><td>10:20 AM</td><td>N/A</td><td>Paired with James B. (Group 3)</td></tr>
+                            <tr><td>Danniel J.</td><td>10:40 AM</td><td>07:25 AM</td><td>Pickup by John P. (Danny Crew Leader - Group 5)</td></tr>
+                            <tr><td>Drew</td><td>10:40 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 5)</td></tr>
+                            <tr><td>Elvin A.</td><td>10:10 AM</td><td>N/A</td><td>Paired with Theresa C. (Group 2)</td></tr>
+                            <tr><td>Garreth</td><td>10:40 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 5)</td></tr>
+                            <tr><td>James B.</td><td>10:20 AM</td><td>N/A</td><td>Paired with Chelsea H. (Group 3)</td></tr>
+                            <tr><td>Jane P.</td><td>10:10 AM</td><td>N/A</td><td>Jane P.'s crew leader (Group 2)</td></tr>
+                            <tr><td>John L.</td><td>10:00 AM</td><td>N/A</td><td>Driving with An L. (Group 1)</td></tr>
+                            <tr><td>John P.</td><td>10:00 AM</td><td>N/A (Driver)</td><td>Driving (Charlie 6:55a, Danny 7:25a, Anthony 7:55a) (Group 1)</td></tr>
+                            <tr><td>Justin (Danny Guest)</td><td>10:50 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 6)</td></tr>
+                            <tr><td>Justin L.</td><td>10:10 AM</td><td>N/A</td><td>Jane P.'s crew (Group 2)</td></tr>
+                            <tr><td>Kennedy</td><td>10:40 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 5)</td></tr>
+                            <tr><td>Lloyd N.</td><td>10:30 AM</td><td>N/A</td><td>Group 4</td></tr>
+                            <tr><td>Matt B.</td><td>10:50 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 6)</td></tr>
+                            <tr><td>Matt T.</td><td>10:30 AM</td><td>N/A</td><td>Jane P.'s crew (Group 4)</td></tr>
+                            <tr><td>Nate</td><td>10:50 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 6)</td></tr>
+                            <tr><td>Prof</td><td>10:50 AM</td><td>N/A</td><td>Guest of Danniel J. (Group 6)</td></tr>
+                            <tr><td>Sam G.</td><td>10:30 AM</td><td>N/A</td><td>Paired with Camryn (Rider) (Group 4)</td></tr>
+                            <tr><td>Slim G.</td><td>10:20 AM</td><td>N/A</td><td>Group 3</td></tr>
+                            <tr><td>Theresa C.</td><td>10:10 AM</td><td>N/A</td><td>Paired with Elvin A. (Group 2)</td></tr>
                         </tbody>
                     </table>
                 </div>
