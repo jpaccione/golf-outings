@@ -9,12 +9,12 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .collapsible-content.open { max-height: 2000px; transition: max-height 0.5s ease-in; }
         .collapse-icon { transition: transform 0.3s; }
         .collapse-icon.open { transform: rotate(180deg); }
         .foursome-divider { border-bottom: 4px solid #10b981 !important; }
+        .cart-divider { border-bottom: 2px dashed #a7f3d0 !important; }
     </style>
 </head>
 <body class="bg-slate-100 min-h-screen text-slate-800 pb-12">
@@ -69,7 +69,7 @@
                 </svg>
                 Tee Times & Cart Pairings
             </h2>
-            <p class="text-xs text-slate-500 mb-4">Cart pairs inside each tee time are split by <span class="font-bold text-slate-700">/</span>.</p>
+            <p class="text-xs text-slate-500 mb-4">Cart 1 and Cart 2 inside each tee time are split by <span class="font-bold text-slate-700">/</span>.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
@@ -85,7 +85,7 @@
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:10 AM • Tee 2</span>
                         <span class="text-xs font-semibold text-emerald-800">Danny Crew 2</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Andre Cappezio, Danny J <span class="text-slate-400 font-normal">/</span> G MO, Matt B</p>
+                    <p class="text-sm font-semibold text-slate-800">Andre Cappezio, Danny Jimenez <span class="text-slate-400 font-normal">/</span> G MO, Matt B</p>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
@@ -93,7 +93,7 @@
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:20 AM • Tee 3</span>
                         <span class="text-xs font-semibold text-emerald-800">Group 3</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Anthony T, John P <span class="text-slate-400 font-normal">/</span> An L, John L</p>
+                    <p class="text-sm font-semibold text-slate-800">Anthony Tarabocchia, John Paccione <span class="text-slate-400 font-normal">/</span> An Le, John Lim</p>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
@@ -101,7 +101,7 @@
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:30 AM • Tee 4</span>
                         <span class="text-xs font-semibold text-emerald-800">Group 4</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Jane P, Justin L <span class="text-slate-400 font-normal">/</span> Elvin A, Theresa C</p>
+                    <p class="text-sm font-semibold text-slate-800">Jane Pineda, Justin Ly <span class="text-slate-400 font-normal">/</span> Elvin Abordo, Theresa Cruz-Abordo</p>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
@@ -109,7 +109,7 @@
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:40 AM • Tee 5</span>
                         <span class="text-xs font-semibold text-emerald-800">Group 5</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Lloyd N, Matt T <span class="text-slate-400 font-normal">/</span> Camryn (Rider), Sam G</p>
+                    <p class="text-sm font-semibold text-slate-800">Lloyd Narciso, Matt Torres <span class="text-slate-400 font-normal">/</span> Camryn (Rider), Sam Gerlach</p>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
@@ -117,7 +117,7 @@
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:50 AM • Tee 6</span>
                         <span class="text-xs font-semibold text-emerald-800">Group 6</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Charlie B, Slim G <span class="text-slate-400 font-normal">/</span> Chelsea H, James B</p>
+                    <p class="text-sm font-semibold text-slate-800">Charlie Bashford-Chuchla, Slim Geransar <span class="text-slate-400 font-normal">/</span> Chelsea Hall, James Barner</p>
                 </div>
             </div>
         </div>
@@ -131,12 +131,12 @@
                 Travel & Logistics Summary
             </h3>
             <ul class="text-xs sm:text-sm text-blue-800 space-y-1.5">
-                <li>• <span class="font-bold">John P. Carpool:</span> Picks up Danny J, Drew, G MO, K Bombs, Matt B at <span class="font-bold underline">7:10 AM</span>. Picks up Anthony T at <span class="font-bold underline">7:40 AM</span>.</li>
-                <li>• <span class="font-bold">Charlie B. & Slim G.:</span> Riding together.</li>
-                <li>• <span class="font-bold">An L. & John L.:</span> Riding together.</li>
-                <li>• <span class="font-bold">Chelsea H. & James B.:</span> Riding together.</li>
-                <li>• <span class="font-bold">Elvin A. & Theresa C.:</span> Traveling together.</li>
-                <li>• <span class="font-bold">Camryn (Non-Playing Rider):</span> $45 fee includes cart seat riding with Sam G, drink ticket, and lunch.</li>
+                <li>• <span class="font-bold">John Paccione Carpool:</span> Picks up Danny Jimenez, Drew, G MO, K Bombs, Matt B at <span class="font-bold underline">7:10 AM</span>. Picks up Anthony Tarabocchia at <span class="font-bold underline">7:40 AM</span>.</li>
+                <li>• <span class="font-bold">Charlie Bashford-Chuchla & Slim Geransar:</span> Riding together.</li>
+                <li>• <span class="font-bold">An Le & John Lim:</span> Riding together.</li>
+                <li>• <span class="font-bold">Chelsea Hall & James Barner:</span> Riding together.</li>
+                <li>• <span class="font-bold">Elvin Abordo & Theresa Cruz-Abordo:</span> Traveling together.</li>
+                <li>• <span class="font-bold">Camryn (Non-Playing Rider):</span> $45 fee includes cart seat riding with Sam Gerlach, drink ticket, and lunch.</li>
             </ul>
         </div>
 
@@ -168,8 +168,8 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
             <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-900">Master Roster & Tee Times</h2>
-                    <p class="text-xs text-slate-500">Sorted by Tee Time, then Alphabetically within each group</p>
+                    <h2 class="text-xl font-bold text-slate-900">Official Pairing & Cart Sheet</h2>
+                    <p class="text-xs text-slate-500">Grouped by Tee Time & Cart Pairings (ready for course scorecards and cart signs)</p>
                 </div>
                 <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">24 Registered</span>
             </div>
@@ -179,167 +179,137 @@
                     <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 uppercase tracking-wider text-[11px]">
                         <tr>
                             <th class="py-3 px-4">Tee Time</th>
+                            <th class="py-3 px-4">Cart #</th>
                             <th class="py-3 px-4">Player Name</th>
                             <th class="py-3 px-4">Pickup Time</th>
-                            <th class="py-3 px-4">Cart Pair / Travel Notes</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
                         
                         <!-- 10:00 AM Tee Time -->
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:00 AM</td>
+                        <tr class="bg-emerald-50/60">
+                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:00 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
                             <td class="py-3 px-4 font-bold text-slate-900">Drew</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Justin Pappas (John P Carpool)</td>
+                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
                         </tr>
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:00 AM</td>
+                        <tr class="bg-emerald-50/60 cart-divider">
                             <td class="py-3 px-4 font-bold text-slate-900">Justin Pappas</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Drew (John P Carpool)</td>
+                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
                         </tr>
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:00 AM</td>
+                        <tr class="bg-emerald-50/20">
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
                             <td class="py-3 px-4 font-bold text-slate-900">K Bombs</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ Nate Dogg (John P Carpool)</td>
+                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
                         </tr>
-                        <tr class="bg-emerald-50/40 foursome-divider">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:00 AM</td>
+                        <tr class="bg-emerald-50/20 foursome-divider">
                             <td class="py-3 px-4 font-bold text-slate-900">Nate Dogg</td>
                             <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ K Bombs</td>
                         </tr>
 
                         <!-- 10:10 AM Tee Time -->
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:10 AM</td>
+                        <tr class="bg-slate-50/80">
+                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:10 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
                             <td class="py-3 px-4 font-bold text-slate-900">Andre Cappezio</td>
                             <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Danny J</td>
+                        </tr>
+                        <tr class="bg-slate-50/80 cart-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">Danny Jimenez</td>
+                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:10 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Danny J</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Andre Cappezio (John P Carpool)</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:10 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
                             <td class="py-3 px-4 font-bold text-slate-900">G MO</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ Matt B (John P Carpool)</td>
+                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
                         </tr>
                         <tr class="foursome-divider">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:10 AM</td>
                             <td class="py-3 px-4 font-bold text-slate-900">Matt B</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ G MO (John P Carpool)</td>
+                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
                         </tr>
 
                         <!-- 10:20 AM Tee Time -->
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:20 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">An L.</td>
-                            <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ John L (Riding together)</td>
+                        <tr class="bg-emerald-50/60">
+                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:20 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Anthony Tarabocchia</td>
+                            <td class="py-3 px-4 text-slate-600">7:40 AM (John P Carpool)</td>
                         </tr>
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:20 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Anthony T.</td>
-                            <td class="py-3 px-4 text-slate-600">7:40 AM</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ John P (John P Carpool)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:20 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">John L.</td>
-                            <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ An L (Riding together)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/40 foursome-divider">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:20 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">John P.</td>
+                        <tr class="bg-emerald-50/60 cart-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">John Paccione</td>
                             <td class="py-3 px-4 text-slate-600">Driver</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Anthony T (Outing Driver)</td>
+                        </tr>
+                        <tr class="bg-emerald-50/20">
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">An Le</td>
+                            <td class="py-3 px-4 text-slate-600">N/A (Riding w/ John Lim)</td>
+                        </tr>
+                        <tr class="bg-emerald-50/20 foursome-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">John Lim</td>
+                            <td class="py-3 px-4 text-slate-600">N/A (Riding w/ An Le)</td>
                         </tr>
 
                         <!-- 10:30 AM Tee Time -->
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:30 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Elvin A.</td>
+                        <tr class="bg-slate-50/80">
+                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:30 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Jane Pineda</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ Theresa C (Traveling together)</td>
+                        </tr>
+                        <tr class="bg-slate-50/80 cart-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">Justin Ly</td>
+                            <td class="py-3 px-4 text-slate-600">N/A</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:30 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Jane P.</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Elvin Abordo</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Justin L (Jane Crew)</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:30 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Justin L.</td>
-                            <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Jane P (Jane Crew)</td>
                         </tr>
                         <tr class="foursome-divider">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:30 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Theresa C.</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Theresa Cruz-Abordo</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ Elvin A (Traveling together)</td>
                         </tr>
 
                         <!-- 10:40 AM Tee Time -->
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:40 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Camryn</td>
-                            <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-emerald-800 font-semibold">Cart 2 w/ Sam G (Rider - $45)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:40 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Lloyd N.</td>
+                        <tr class="bg-emerald-50/60">
+                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:40 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Lloyd Narciso</td>
                             <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Matt T</td>
                         </tr>
-                        <tr class="bg-emerald-50/40">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:40 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Matt T.</td>
+                        <tr class="bg-emerald-50/60 cart-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">Matt Torres</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Lloyd N (Jane Crew)</td>
                         </tr>
-                        <tr class="bg-emerald-50/40 foursome-divider">
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:40 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Sam G.</td>
+                        <tr class="bg-emerald-50/20">
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
+                            <td class="py-3 px-4 font-bold text-emerald-800">Camryn (Rider - $45)</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ Camryn (Jane Crew)</td>
+                        </tr>
+                        <tr class="bg-emerald-50/20 foursome-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">Sam Gerlach</td>
+                            <td class="py-3 px-4 text-slate-600">N/A</td>
                         </tr>
 
                         <!-- 10:50 AM Tee Time -->
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:50 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Charlie B.</td>
-                            <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Slim G (Riding w/ Slim)</td>
+                        <tr class="bg-slate-50/80">
+                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:50 AM</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Charlie Bashford-Chuchla</td>
+                            <td class="py-3 px-4 text-slate-600">N/A (Riding w/ Slim)</td>
+                        </tr>
+                        <tr class="bg-slate-50/80 cart-divider">
+                            <td class="py-3 px-4 font-bold text-slate-900">Slim Geransar</td>
+                            <td class="py-3 px-4 text-slate-600">N/A (Riding w/ Charlie)</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:50 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Chelsea H.</td>
+                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">Chelsea Hall</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ James B (Riding together)</td>
                         </tr>
                         <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:50 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">James B.</td>
+                            <td class="py-3 px-4 font-bold text-slate-900">James Barner</td>
                             <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 2 w/ Chelsea H (Riding together)</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-900">10:50 AM</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Slim G.</td>
-                            <td class="py-3 px-4 text-slate-600">N/A</td>
-                            <td class="py-3 px-4 text-slate-600">Cart 1 w/ Charlie B (Riding w/ Charlie)</td>
                         </tr>
                     </tbody>
                 </table>
