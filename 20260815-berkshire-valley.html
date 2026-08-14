@@ -3,503 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berkshire Valley Golf Outing - Aug 15, 2026</title>
+    <title>Berkshire Valley Golf Outing - Payment Tracker (Private)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%); }
-        .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .collapsible-content.open { max-height: 2000px; transition: max-height 0.5s ease-in; }
-        .collapse-icon { transition: transform 0.3s; }
-        .collapse-icon.open { transform: rotate(180deg); }
-        .foursome-divider { border-bottom: 4px solid #10b981 !important; }
-        .cart-divider { border-bottom: 2px dashed #a7f3d0 !important; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen text-slate-800 pb-12">
+<body class="bg-slate-100 min-h-screen text-slate-800 p-4 sm:p-6">
 
-    <!-- Header / Hero Section -->
-    <header class="gradient-bg text-white py-10 px-4 shadow-lg mb-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">Berkshire Valley Golf Outing</h1>
-            <p class="text-emerald-100 text-sm sm:text-base mt-2 font-medium">Oak Ridge, NJ • Saturday, August 15, 2026</p>
+    <div class="max-w-4xl mx-auto space-y-6">
+        
+        <!-- Header & Private Warning Banner -->
+        <div class="bg-amber-500 text-slate-900 px-4 py-2 rounded-xl font-bold text-xs flex items-center justify-between shadow-sm">
+            <span>🔒 PRIVATE ORGANIZER TOOL — Do Not Share Link Publicly</span>
+            <span class="text-[11px] bg-amber-600/30 px-2 py-0.5 rounded">Internal Use Only</span>
+        </div>
+
+        <header class="bg-slate-900 text-white rounded-2xl p-6 shadow-md flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <span class="text-xs font-semibold text-emerald-400 uppercase tracking-widest">Organizer Payment Dashboard</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold mt-1">Berkshire Valley Payments</h1>
+                <p class="text-xs text-slate-400 mt-1">Saturday, August 15, 2026 • 24 Attendees (23 Golfers @ $130, 1 Rider @ $45)</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="copyForGoogleSheets()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    Copy for Google Sheets
+                </button>
+                <button onclick="exportCSV()" class="bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs px-3 py-2.5 rounded-xl transition flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Export CSV
+                </button>
+            </div>
+        </header>
+
+        <!-- Summary Metric Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs text-slate-500 font-medium block">Total Collected</span>
+                <span id="stat-collected" class="text-2xl font-black text-emerald-600">$130</span>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs text-slate-500 font-medium block">Outstanding</span>
+                <span id="stat-outstanding" class="text-2xl font-black text-amber-600">$2,905</span>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs text-slate-500 font-medium block">Paid Headcount</span>
+                <span id="stat-paid-count" class="text-2xl font-black text-slate-800">1 / 24</span>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <span class="text-xs text-slate-500 font-medium block">Completion Rate</span>
+                <span id="stat-percent" class="text-2xl font-black text-blue-600">4%</span>
+            </div>
+        </div>
+
+        <!-- Notification Bar -->
+        <div id="toast" class="hidden bg-emerald-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-md transition-all text-center">
+            Copied CSV data to clipboard! Open Google Sheets and press Ctrl+V / Cmd+V to paste.
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="relative w-full sm:w-72">
+                <input type="text" id="search-input" onkeyup="filterRoster()" placeholder="Search player name..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 pl-9">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400 absolute left-3 top-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
             
-            <div class="mt-6 flex flex-wrap justify-center gap-3 text-xs sm:text-sm">
-                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20">
-                    <span class="block text-emerald-200 text-xs">First Tee</span>
-                    <span class="font-bold">10:00 AM</span>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20">
-                    <span class="block text-emerald-200 text-xs">All-In Package</span>
-                    <span class="font-bold">$130 / Player</span>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-lg border border-white/20">
-                    <span class="block text-emerald-200 text-xs">Capacity</span>
-                    <span class="font-bold text-amber-300">24 / 24 Filled (6 Tees)</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="max-w-4xl mx-auto px-4 space-y-6">
-
-        <!-- Quick-Action Links Bar -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 text-center text-xs font-semibold">
-            <a href="https://www.google.com/maps/search/?api=1&query=Berkshire+Valley+Golf+Course+Oak+Ridge+NJ" target="_blank" class="bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 p-2.5 rounded-xl transition flex flex-col items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                Google Maps
-            </a>
-            <a href="tel:9732080018" class="bg-slate-50 hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-200 hover:border-blue-300 p-2.5 rounded-xl transition flex flex-col items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                Call Pro Shop
-            </a>
-            <a href="https://berkshirevalleygc.com/" target="_blank" class="bg-slate-50 hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 hover:border-purple-300 p-2.5 rounded-xl transition flex flex-col items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-                Course Website
-            </a>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Berkshire+Valley+Golf+Outing&dates=20260815T140000Z/20260815T210000Z&details=Berkshire+Valley+Golf+Outing+First+Tee+at+10:00+AM.&location=Berkshire+Valley+Golf+Course,+28+Cozy+Lake+Rd,+Oak+Ridge,+NJ+07438" target="_blank" class="bg-slate-50 hover:bg-amber-50 text-slate-700 hover:text-amber-700 border border-slate-200 hover:border-amber-300 p-2.5 rounded-xl transition flex flex-col items-center gap-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Add to Calendar
-            </a>
-        </div>
-
-        <!-- Live Scoring & Digital Leaderboards -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-                Live Scoring & Digital Leaderboards
-            </h2>
-            <p class="text-xs text-slate-500 mb-4">Join our live tournament leaderboard on your preferred golf app before teeing off!</p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <a href="https://18birdies.com/tournament-invite/?id=ABolT1jz1Lc" target="_blank" class="bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 rounded-xl p-4 flex items-center justify-between transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shadow-sm">18B</div>
-                        <div>
-                            <span class="block font-bold text-slate-900 text-sm">18Birdies Event</span>
-                            <span class="text-xs text-emerald-700 font-medium">Click to join tournament</span>
-                        </div>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </a>
-
-                <a href="https://thegrint.com/deeplink/group/NTA1NjM" target="_blank" class="bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 rounded-xl p-4 flex items-center justify-between transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-800 text-white font-black text-xs flex items-center justify-center shadow-sm">TG</div>
-                        <div>
-                            <span class="block font-bold text-slate-900 text-sm">TheGrint Event</span>
-                            <span class="text-xs text-emerald-700 font-medium">Password: <span class="bg-emerald-200/80 text-emerald-950 px-1.5 py-0.5 rounded font-bold">123</span></span>
-                        </div>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </a>
+            <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-full sm:w-auto text-xs font-semibold">
+                <button onclick="setTab('all')" id="tab-all" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg bg-white shadow-sm text-slate-800">All (24)</button>
+                <button onclick="setTab('paid')" id="tab-paid" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-800">Paid</button>
+                <button onclick="setTab('unpaid')" id="tab-unpaid" class="flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-800">Unpaid</button>
             </div>
         </div>
 
-        <!-- Weather Widget Panel -->
-        <div id="weather-panel" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 hidden">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
-                <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <h2 class="font-bold text-slate-900 text-sm sm:text-base">Live Course Forecast • Oak Ridge, NJ</h2>
-                </div>
-                <div class="flex items-center gap-2">
-                    <a href="https://forecast.weather.gov/MapClick.php?lat=41.0362&lon=-74.5052" target="_blank" class="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-semibold transition border border-blue-200 flex items-center gap-1">
-                        Full Hourly Forecast
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                    </a>
-                    <span id="weather-status" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Loading weather...</span>
-                </div>
-            </div>
-            <div id="weather-content" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                <!-- Weather populated dynamically via JS -->
-            </div>
-        </div>
-
-        <!-- Groupings & Tee Sheet Overview -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 022 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                Tee Times & Cart Pairings
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:00 AM</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 1</span>
-                    </div>
-                    <div class="text-xs space-y-1">
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 1:</span> Drew, Justin Pappas</p>
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 2:</span> K Bombs, Nate Dogg</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:10 AM</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 2</span>
-                    </div>
-                    <div class="text-xs space-y-1">
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 1:</span> Andre Cappezio, Danny Jimenez</p>
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 2:</span> G MO, Matt B</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:20 AM</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 3</span>
-                    </div>
-                    <div class="text-xs space-y-1">
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 1:</span> Anthony Tarabocchia, John Paccione</p>
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 2:</span> An Le, John Lim</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:30 AM</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 4</span>
-                    </div>
-                    <div class="text-xs space-y-1">
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 1:</span> Jane Pineda, Justin Ly</p>
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 2:</span> Elvin Abordo, Theresa Cruz-Abordo</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:40 AM</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 5</span>
-                    </div>
-                    <div class="text-xs space-y-1">
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 1:</span> Lloyd Narciso, Matt Torres</p>
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 2:</span> Sam Gerlach, Camryn (Rider)</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:50 AM</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 6</span>
-                    </div>
-                    <div class="text-xs space-y-1">
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 1:</span> Charlie Bashford-Chuchla, Slim Geransar</p>
-                        <p class="text-slate-700"><span class="font-bold text-emerald-800">Cart 2:</span> Chelsea Hall, James Barber</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Event Package Breakdown -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h2 class="text-xl font-bold text-slate-900 mb-3">Event Details & Inclusions</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-1">🏌️ Outing Package Details ($130 All-In)</h3>
-                    <ul class="text-xs text-slate-600 space-y-1">
-                        <li>• Full 18-hole green fee + golf cart</li>
-                        <li>• Practice range balls prior to tee time</li>
-                        <li>• Sleeve of golf balls</li>
-                        <li>• Course capacity locked at 6 tee times (24 spots)</li>
-                        <li>• <span class="font-medium text-amber-700">Optional Skins Game:</span> $10 cash buy-in. Birdie or better wins a skin; ties carry over.</li>
-                    </ul>
-                </div>
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-1">🍔 Included Lunch & Drink Tickets</h3>
-                    <ul class="text-xs text-slate-600 space-y-1">
-                        <li>• <span class="font-medium text-slate-700">Lunch Ticket:</span> Choice of Hamburger, Hot Dog, or Bratwurst + Bag of Chips + Water/Soft Drink <span class="text-emerald-700 font-semibold">(Valid anytime before, during, or after round)</span></li>
-                        <li>• <span class="font-medium text-slate-700">Drink Ticket:</span> Choice of Water, Soft Drink, or Beer</li>
-                        <li>• <span class="font-medium text-slate-700">Non-Playing Rider:</span> Cart seat + Drink & Lunch tickets</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Day-of Pro-Tips & Logistics Accordion -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h2 class="text-xl font-bold text-slate-900 mb-3">Day-of Logistics & Pro-Tips</h2>
-            <div class="space-y-3 text-xs sm:text-sm text-slate-700">
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-1">⏰ Arrival & Check-In</h3>
-                    <p class="text-slate-600">Please arrive at least <strong>30–45 minutes prior to your assigned tee time</strong>. Head directly to the Pro Shop inside the clubhouse to check in, collect your range ball token, sleeve of golf balls, and meal/drink vouchers.</p>
-                </div>
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-1">⛳ Practice Facilities & Range</h3>
-                    <p class="text-slate-600">Full-size driving range and putting green are located right outside the clubhouse. Range balls are included in your package—simply ask the Pro Shop attendant for your bucket.</p>
-                </div>
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-1">🏆 Optional Skins Game ($10 Cash)</h3>
-                    <p class="text-slate-600">We will have an optional <strong>$10 cash buy-in skins pot</strong> ($10 cash due at morning check-in). <strong>Format:</strong> Birdie or better wins a skin. Ties carry over, adding another skin to the next win!</p>
-                </div>
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100">
-                    <h3 class="font-bold text-slate-800 mb-1">👕 Course Dress Code</h3>
-                    <p class="text-slate-600">Standard golf attire is required (collared shirts, no denim or cargo shorts, and soft spikes/sneakers only).</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Roster & Tee Sheet Table -->
+        <!-- Roster Table -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900">Official Pairing & Cart Sheet</h2>
-                    <p class="text-xs text-slate-500">Grouped by Tee Time & Cart Pairings (ready for course scorecards and cart signs)</p>
-                </div>
-                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">24 Registered</span>
-            </div>
-
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs sm:text-sm">
                     <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 uppercase tracking-wider text-[11px]">
                         <tr>
-                            <th class="py-3 px-4">Tee Time</th>
-                            <th class="py-3 px-4">Cart #</th>
                             <th class="py-3 px-4">Player Name</th>
-                            <th class="py-3 px-4">Pickup Time / Travel Plan</th>
+                            <th class="py-3 px-4">Amount Due</th>
+                            <th class="py-3 px-4">Status</th>
+                            <th class="py-3 px-4">Payment Method / Note</th>
+                            <th class="py-3 px-4 text-right">Action</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
-                        
-                        <!-- 10:00 AM Tee Time -->
-                        <tr class="bg-emerald-50/60">
-                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:00 AM</td>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Drew</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/60 cart-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Justin Pappas</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/20">
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">K Bombs</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/20 foursome-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Nate Dogg</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-
-                        <!-- 10:10 AM Tee Time -->
-                        <tr class="bg-slate-50/80">
-                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:10 AM</td>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Andre Cappezio</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-                        <tr class="bg-slate-50/80 cart-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Danny Jimenez</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">G MO</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
-                        </tr>
-                        <tr class="foursome-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Matt B</td>
-                            <td class="py-3 px-4 text-slate-600">7:10 AM (John P Carpool)</td>
-                        </tr>
-
-                        <!-- 10:20 AM Tee Time -->
-                        <tr class="bg-emerald-50/60">
-                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:20 AM</td>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Anthony Tarabocchia</td>
-                            <td class="py-3 px-4 text-slate-600">7:40 AM (John P Carpool)</td>
-                        </tr>
-                        <tr class="bg-emerald-50/60 cart-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">John Paccione</td>
-                            <td class="py-3 px-4 text-slate-600">Driver</td>
-                        </tr>
-                        <tr class="bg-emerald-50/20">
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">An Le</td>
-                            <td class="py-3 px-4 text-slate-600">Riding w/ John Lim</td>
-                        </tr>
-                        <tr class="bg-emerald-50/20 foursome-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">John Lim</td>
-                            <td class="py-3 px-4 text-slate-600">Riding w/ An Le</td>
-                        </tr>
-
-                        <!-- 10:30 AM Tee Time -->
-                        <tr class="bg-slate-50/80">
-                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:30 AM</td>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Jane Pineda</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-                        <tr class="bg-slate-50/80 cart-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Justin Ly</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Elvin Abordo</td>
-                            <td class="py-3 px-4 text-slate-600">Traveling w/ Theresa</td>
-                        </tr>
-                        <tr class="foursome-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Theresa Cruz-Abordo</td>
-                            <td class="py-3 px-4 text-slate-600">Traveling w/ Elvin</td>
-                        </tr>
-
-                        <!-- 10:40 AM Tee Time -->
-                        <tr class="bg-emerald-50/60">
-                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:40 AM</td>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Lloyd Narciso</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-                        <tr class="bg-emerald-50/60 cart-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Matt Torres</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-                        <tr class="bg-emerald-50/20">
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Sam Gerlach</td>
-                            <td class="py-3 px-4 text-slate-600">Self / Direct</td>
-                        </tr>
-                        <tr class="bg-emerald-50/20 foursome-divider">
-                            <td class="py-3 px-4 font-bold text-emerald-800">Camryn (Rider)</td>
-                            <td class="py-3 px-4 text-slate-600">Non-Playing Rider</td>
-                        </tr>
-
-                        <!-- 10:50 AM Tee Time -->
-                        <tr class="bg-slate-50/80">
-                            <td class="py-3 px-4 font-bold text-emerald-900" rowspan="4">10:50 AM</td>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 1</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Charlie Bashford-Chuchla</td>
-                            <td class="py-3 px-4 text-slate-600">Riding w/ Slim</td>
-                        </tr>
-                        <tr class="bg-slate-50/80 cart-divider">
-                            <td class="py-3 px-4 font-bold text-slate-900">Slim Geransar</td>
-                            <td class="py-3 px-4 text-slate-600">Riding w/ Charlie</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-emerald-700" rowspan="2">Cart 2</td>
-                            <td class="py-3 px-4 font-bold text-slate-900">Chelsea Hall</td>
-                            <td class="py-3 px-4 text-slate-600">Riding w/ James</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 px-4 font-bold text-slate-900">James Barber</td>
-                            <td class="py-3 px-4 text-slate-600">Riding w/ Chelsea</td>
-                        </tr>
+                    <tbody id="roster-tbody" class="divide-y divide-slate-100 font-medium">
+                        <!-- Populated via JavaScript -->
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Official Waitlist -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Official Waitlist
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex justify-between items-center text-xs sm:text-sm">
-                    <span class="font-bold text-amber-900">1. Peter</span>
-                    <span class="text-amber-700 bg-amber-100 px-2 py-0.5 rounded font-semibold">Waitlist #1</span>
-                </div>
-                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex justify-between items-center text-xs sm:text-sm">
-                    <span class="font-bold text-amber-900">2. Abla B.</span>
-                    <span class="text-amber-700 bg-amber-100 px-2 py-0.5 rounded font-semibold">Waitlist #2</span>
-                </div>
-            </div>
-        </div>
+    </div>
 
-        <!-- Weather Policy Footer -->
-        <div class="bg-slate-800 text-slate-300 rounded-2xl p-5 text-xs sm:text-sm leading-relaxed">
-            <h3 class="font-bold text-white text-base mb-1">🌧️ Weather Cancellation & Course Reschedule Policy</h3>
-            <p>If we need to cancel due to severe weather, we will aim to make the final call <strong>36 to 48 hours prior</strong> (by Thursday evening/Friday morning) and attempt to reschedule with Berkshire Valley.</p>
-        </div>
-
-    </main>
-
-    <!-- Weather Script Integration -->
     <script>
-        async function fetchWeather() {
-            const lat = 41.0362; // Oak Ridge, NJ
-            const lon = -74.5052;
-            const weatherPanel = document.getElementById('weather-panel');
-            const weatherContent = document.getElementById('weather-content');
-            const weatherStatus = document.getElementById('weather-status');
+        const initialPlayers = [
+            { id: 1, name: "An Le", amount: 130, paid: true, note: "Paid $130 via Venmo" },
+            { id: 2, name: "Andre Cappezio", amount: 130, paid: false, note: "" },
+            { id: 3, name: "Anthony Tarabocchia", amount: 130, paid: false, note: "" },
+            { id: 4, name: "Camryn (Rider)", amount: 45, paid: false, note: "Rider Fee $45" },
+            { id: 5, name: "Charlie Bashford-Chuchla", amount: 130, paid: false, note: "" },
+            { id: 6, name: "Chelsea Hall", amount: 130, paid: false, note: "" },
+            { id: 7, name: "Danny Jimenez", amount: 130, paid: false, note: "" },
+            { id: 8, name: "Drew", amount: 130, paid: false, note: "" },
+            { id: 9, name: "Elvin Abordo", amount: 130, paid: false, note: "" },
+            { id: 10, name: "G MO", amount: 130, paid: false, note: "" },
+            { id: 11, name: "James Barber", amount: 130, paid: false, note: "" },
+            { id: 12, name: "Jane Pineda", amount: 130, paid: false, note: "" },
+            { id: 13, name: "John Lim", amount: 130, paid: false, note: "" },
+            { id: 14, name: "John Paccione", amount: 130, paid: false, note: "Organizer" },
+            { id: 15, name: "Justin Ly", amount: 130, paid: false, note: "" },
+            { id: 16, name: "Justin Pappas", amount: 130, paid: false, note: "" },
+            { id: 17, name: "K Bombs", amount: 130, paid: false, note: "" },
+            { id: 18, name: "Lloyd Narciso", amount: 130, paid: false, note: "" },
+            { id: 19, name: "Matt B", amount: 130, paid: false, note: "" },
+            { id: 20, name: "Matt Torres", amount: 130, paid: false, note: "" },
+            { id: 21, name: "Nate Dogg", amount: 130, paid: false, note: "" },
+            { id: 22, name: "Sam Gerlach", amount: 130, paid: false, note: "" },
+            { id: 23, name: "Slim Geransar", amount: 130, paid: false, note: "" },
+            { id: 24, name: "Theresa Cruz-Abordo", amount: 130, paid: false, note: "" }
+        ];
 
-            try {
-                const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&timezone=America%2FNew_York`);
-                const data = await response.json();
+        let players = JSON.parse(localStorage.getItem('bv_payments_2026_v2')) || initialPlayers;
+        let activeTab = 'all';
 
-                if (!data.daily) return;
+        function saveState() {
+            localStorage.setItem('bv_payments_2026_v2', JSON.stringify(players));
+            render();
+        }
 
-                const eventDateStr = "2026-08-15";
-                const dateIndex = data.daily.time.findIndex(date => date === eventDateStr);
-
-                weatherPanel.classList.remove('hidden');
-
-                if (dateIndex !== -1) {
-                    const maxTemp = Math.round(data.daily.temperature_2m_max[dateIndex]);
-                    const minTemp = Math.round(data.daily.temperature_2m_min[dateIndex]);
-                    const precipProb = data.daily.precipitation_probability_max[dateIndex];
-
-                    weatherStatus.textContent = "Forecast Available";
-                    weatherStatus.className = "text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-medium";
-
-                    weatherContent.innerHTML = `
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                            <span class="block text-xs text-slate-500">High Temp</span>
-                            <span class="text-base font-bold text-slate-800">${maxTemp}°F</span>
-                        </div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                            <span class="block text-xs text-slate-500">Low Temp</span>
-                            <span class="text-base font-bold text-slate-800">${minTemp}°F</span>
-                        </div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                            <span class="block text-xs text-slate-500">Rain Chance</span>
-                            <span class="text-base font-bold text-blue-600">${precipProb}%</span>
-                        </div>
-                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                            <span class="block text-xs text-slate-500">Conditions</span>
-                            <span class="text-base font-bold text-slate-800">Forecast Live</span>
-                        </div>
-                    `;
-                } else {
-                    weatherStatus.textContent = "Event Outside 16-Day Forecast Window";
-                    weatherContent.innerHTML = `
-                        <div class="col-span-full text-xs text-slate-500 py-2">
-                            Live weather updates for Oak Ridge, NJ will activate automatically 16 days prior to August 15, 2026.
-                        </div>
-                    `;
-                }
-            } catch (err) {
-                console.error("Weather fetch failed:", err);
+        function toggleStatus(id) {
+            const player = players.find(p => p.id === id);
+            if (player) {
+                player.paid = !player.paid;
+                saveState();
             }
         }
 
-        window.onload = fetchWeather;
+        function updateNote(id, noteText) {
+            const player = players.find(p => p.id === id);
+            if (player) {
+                player.note = noteText;
+                localStorage.setItem('bv_payments_2026_v2', JSON.stringify(players));
+            }
+        }
+
+        function setTab(tab) {
+            activeTab = tab;
+            ['all', 'paid', 'unpaid'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    btn.className = "flex-1 sm:flex-none px-3 py-1.5 rounded-lg bg-white shadow-sm text-slate-800";
+                } else {
+                    btn.className = "flex-1 sm:flex-none px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-800";
+                }
+            });
+            render();
+        }
+
+        function filterRoster() {
+            render();
+        }
+
+        function render() {
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+            const tbody = document.getElementById('roster-tbody');
+            
+            let totalCollected = 0;
+            let totalOutstanding = 0;
+            let paidCount = 0;
+
+            players.forEach(p => {
+                if (p.paid) {
+                    totalCollected += p.amount;
+                    paidCount++;
+                } else {
+                    totalOutstanding += p.amount;
+                }
+            });
+
+            const totalAmount = totalCollected + totalOutstanding;
+            const percent = Math.round((totalCollected / totalAmount) * 100) || 0;
+
+            document.getElementById('stat-collected').textContent = `$${totalCollected}`;
+            document.getElementById('stat-outstanding').textContent = `$${totalOutstanding}`;
+            document.getElementById('stat-paid-count').textContent = `${paidCount} / ${players.length}`;
+            document.getElementById('stat-percent').textContent = `${percent}%`;
+
+            const filtered = players.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery);
+                const matchesTab = (activeTab === 'all') || (activeTab === 'paid' && p.paid) || (activeTab === 'unpaid' && !p.paid);
+                return matchesSearch && matchesTab;
+            });
+
+            tbody.innerHTML = filtered.map(p => `
+                <tr class="${p.paid ? 'bg-emerald-50/40' : 'hover:bg-slate-50'}">
+                    <td class="py-3 px-4 font-bold text-slate-900">${p.name}</td>
+                    <td class="py-3 px-4 font-semibold text-slate-700">$${p.amount}</td>
+                    <td class="py-3 px-4">
+                        ${p.paid 
+                            ? `<span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-full">Paid</span>` 
+                            : `<span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full">Pending</span>`}
+                    </td>
+                    <td class="py-3 px-4">
+                        <input type="text" value="${p.note}" onchange="updateNote(${p.id}, this.value)" placeholder="Add note or method..." class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-emerald-500 focus:bg-white text-xs px-1 py-0.5 w-full focus:outline-none transition">
+                    </td>
+                    <td class="py-3 px-4 text-right">
+                        <button onclick="toggleStatus(${p.id})" class="${p.paid ? 'bg-slate-200 hover:bg-slate-300 text-slate-700' : 'bg-emerald-600 hover:bg-emerald-500 text-white'} text-xs font-bold px-3 py-1.5 rounded-lg transition">
+                            ${p.paid ? 'Mark Unpaid' : 'Mark Paid'}
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function generateCSVText() {
+            let csv = "Player Name,Amount Due,Status,Payment Note\n";
+            players.forEach(p => {
+                csv += `"${p.name}",${p.amount},${p.paid ? 'PAID' : 'PENDING'},"${p.note}"\n`;
+            });
+            return csv;
+        }
+
+        function copyForGoogleSheets() {
+            const text = generateCSVText();
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 4000);
+        }
+
+        function exportCSV() {
+            const csv = generateCSVText();
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'berkshire_valley_payments.csv');
+            a.click();
+        }
+
+        window.onload = render;
     </script>
 </body>
 </html>
