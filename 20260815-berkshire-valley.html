@@ -12,7 +12,7 @@
         .collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .collapsible-content.open { max-height: 2000px; transition: max-height 0.5s ease-in; }
         .collapse-icon { transition: transform 0.3s; }
-        .collapse-icon.open { transform: rotate(180deg); }
+        .collapse-icon.open { transform: rotate(-180deg); }
         .foursome-divider { border-bottom: 4px solid #10b981 !important; }
         .cart-divider { border-bottom: 2px dashed #a7f3d0 !important; }
     </style>
@@ -43,6 +43,28 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 space-y-6">
+
+        <!-- Quick Action Links Bar -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center text-xs font-semibold">
+                <a href="https://maps.google.com/?cid=12109960836466109492" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 p-2.5 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 rounded-xl transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    Google Maps
+                </a>
+                <a href="tel:9732080018" class="flex items-center justify-center gap-1.5 p-2.5 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 rounded-xl transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h32a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h2a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" /></svg>
+                    Call Pro Shop
+                </a>
+                <a href="http://www.berkshirevalleygc.com/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 p-2.5 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 rounded-xl transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" /></svg>
+                    Course Website
+                </a>
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Berkshire+Valley+Golf+Outing&dates=20260815T140000Z/20260815T220000Z&details=Berkshire+Valley+Golf+Outing+in+Oak+Ridge,+NJ.+First+tee+at+10:00+AM.&location=Berkshire+Valley+Golf+Course,+28+Cozy+Lake+Rd,+Oak+Ridge,+NJ+07438" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 p-2.5 bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-800 border border-slate-200 rounded-xl transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    Add to Calendar
+                </a>
+            </div>
+        </div>
 
         <!-- Weather Widget Panel -->
         <div id="weather-panel" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 hidden">
@@ -202,6 +224,30 @@
                     </ul>
                 </div>
             </div>
+        </div>
+
+        <!-- Day-of Pro-Tips & Logistics Accordion -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
+            <h2 class="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Day-Of Reminders & Pro-Tips
+            </h2>
+            <ul class="text-xs sm:text-sm text-slate-600 space-y-2">
+                <li class="flex items-start gap-2">
+                    <span class="text-emerald-600 font-bold">•</span>
+                    <span><strong>Arrival Time:</strong> Please arrive at the course <strong>30 to 45 minutes prior to your group's specific tee time</strong> to check in at the Pro Shop, grab your range balls, and warm up on the putting green.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-emerald-600 font-bold">•</span>
+                    <span><strong>Pro Shop Check-In:</strong> Inform the pro shop staff you are with the <strong>Golf Outing</strong> to collect your cart key, range bucket token, golf ball sleeve, and lunch/drink vouchers.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-emerald-600 font-bold">•</span>
+                    <span><strong>Attire & Spikes:</strong> Standard golf course dress code applies (collared shirts required, soft spikes only, no denim).</span>
+                </li>
+            </ul>
         </div>
 
         <!-- Roster & Tee Sheet Table -->
