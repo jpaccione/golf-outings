@@ -63,81 +63,117 @@
 
         <!-- Groupings & Tee Sheet Overview -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5">
-            <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <h2 class="text-xl font-bold text-slate-900 mb-1 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 022 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
                 Tee Times & Cart Pairings
             </h2>
-            <p class="text-xs text-slate-500 mb-4">Cart 1 and Cart 2 inside each tee time are split by <span class="font-bold text-slate-700">/</span>.</p>
+            <p class="text-xs text-slate-500 mb-4">Cart 1 is listed on top, Cart 2 on bottom for each tee time.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-2.5">
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:00 AM • Tee 1</span>
-                        <span class="text-xs font-semibold text-emerald-800">Danny Crew 1</span>
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Group 1</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Drew, Justin Pappas <span class="text-slate-400 font-normal">/</span> K Bombs, Nate Dogg</p>
+                    <div class="text-sm space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded">Cart 1</span>
+                            <span class="font-semibold text-slate-800">Drew, Justin Pappas</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Cart 2</span>
+                            <span class="font-semibold text-slate-700">K Bombs, Nate Dogg</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-2.5">
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:10 AM • Tee 2</span>
-                        <span class="text-xs font-semibold text-emerald-800">Danny Crew 2</span>
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Group 2</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Andre Cappezio, Danny Jimenez <span class="text-slate-400 font-normal">/</span> G MO, Matt B</p>
+                    <div class="text-sm space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded">Cart 1</span>
+                            <span class="font-semibold text-slate-800">Andre Cappezio, Danny Jimenez</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Cart 2</span>
+                            <span class="font-semibold text-slate-700">G MO, Matt B</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-2.5">
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:20 AM • Tee 3</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 3</span>
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Group 3</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Anthony Tarabocchia, John Paccione <span class="text-slate-400 font-normal">/</span> An Le, John Lim</p>
+                    <div class="text-sm space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded">Cart 1</span>
+                            <span class="font-semibold text-slate-800">Anthony Tarabocchia, John Paccione</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Cart 2</span>
+                            <span class="font-semibold text-slate-700">An Le, John Lim</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-2.5">
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:30 AM • Tee 4</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 4</span>
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Group 4</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Jane Pineda, Justin Ly <span class="text-slate-400 font-normal">/</span> Elvin Abordo, Theresa Cruz-Abordo</p>
+                    <div class="text-sm space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded">Cart 1</span>
+                            <span class="font-semibold text-slate-800">Jane Pineda, Justin Ly</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Cart 2</span>
+                            <span class="font-semibold text-slate-700">Elvin Abordo, Theresa Cruz-Abordo</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-2.5">
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:40 AM • Tee 5</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 5</span>
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Group 5</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Lloyd Narciso, Matt Torres <span class="text-slate-400 font-normal">/</span> Sam Gerlach, Camryn (Rider)</p>
+                    <div class="text-sm space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded">Cart 1</span>
+                            <span class="font-semibold text-slate-800">Lloyd Narciso, Matt Torres</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Cart 2</span>
+                            <span class="font-semibold text-slate-700">Sam Gerlach, Camryn (Rider)</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
-                    <div class="flex justify-between items-center mb-2">
+                    <div class="flex justify-between items-center mb-2.5">
                         <span class="text-xs font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-md">10:50 AM • Tee 6</span>
-                        <span class="text-xs font-semibold text-emerald-800">Group 6</span>
+                        <span class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Group 6</span>
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Charlie Bashford-Chuchla, Slim Geransar <span class="text-slate-400 font-normal">/</span> Chelsea Hall, James Barber</p>
+                    <div class="text-sm space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded">Cart 1</span>
+                            <span class="font-semibold text-slate-800">Charlie Bashford-Chuchla, Slim Geransar</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">Cart 2</span>
+                            <span class="font-semibold text-slate-700">Chelsea Hall, James Barber</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Travel & Driver Schedule Notes -->
-        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-5">
-            <h3 class="text-base font-bold text-blue-900 mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                </svg>
-                Travel & Logistics Summary
-            </h3>
-            <ul class="text-xs sm:text-sm text-blue-800 space-y-1.5">
-                <li>• <span class="font-bold">John Paccione Carpool:</span> Picks up Danny Jimenez, Drew, G MO, K Bombs, Matt B at <span class="font-bold underline">7:10 AM</span>. Picks up Anthony Tarabocchia at <span class="font-bold underline">7:40 AM</span>.</li>
-                <li>• <span class="font-bold">Charlie Bashford-Chuchla & Slim Geransar:</span> Riding together.</li>
-                <li>• <span class="font-bold">An Le & John Lim:</span> Riding together.</li>
-                <li>• <span class="font-bold">Chelsea Hall & James Barber:</span> Riding together.</li>
-                <li>• <span class="font-bold">Elvin Abordo & Theresa Cruz-Abordo:</span> Traveling together.</li>
-                <li>• <span class="font-bold">Camryn (Non-Playing Rider):</span> Includes cart seat riding with Sam Gerlach, drink ticket, and lunch.</li>
-            </ul>
         </div>
 
         <!-- Event Package Breakdown -->
